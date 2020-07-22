@@ -10,12 +10,12 @@ import { StoreService } from '../store.service'
 export class ShelfdivisionComponent implements OnInit {
 
   @Input() category = '';
-  items = [];
+  products = [];
 
   constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.items = this.storeService.products.filter( p => p.category == this.category)
+    this.products = this.storeService.products.filter( p => p.category == this.category)
   }
 
 }

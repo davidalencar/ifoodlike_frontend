@@ -1,14 +1,20 @@
 <div class="list-group-item">
     <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ item.name }}</h5>
-        <img [src]="item.img" class="card-img-left" alt="...">
+        <div>
+
+            <h5 class="mb-1">{{ product.name }}</h5>
+            <p class="text-muted">{{ product.unit }}</p>
+            <small>{{ priceFormated }}</small>
+        </div>
+        <div class="d-flex flex-column justify-content-between">
+            <img [src]="product.img" class="card-img-left" alt="...">
+            <div class="col-12">
+                <div class="d-flex flex-row justify-content-between">
+                    <button type="button" class="btn btn-outline-danger" (click)="onSubtract()">-</button>
+                    <span>{{ product.qty }}</span>
+                    <button type="button" class="btn btn-outline-success" (click)="onAdd()">+</button>
+                </div>
+            </div>
+        </div>
     </div>
-    <small class="text-muted">{{ item.unit }}</small>
-    <br>
-    <small class="text-muted">{{ 'R$ ' + item.price}}</small>
-    <div class="btn-group" role="group" aria-label="Basic example">
-        <button type="button" class="btn btn-danger" (click)="onSubtract()">-</button>
-        <button type="button" class="btn" disabled="true">{{ qty }}</button>
-        <button type="button" class="btn btn-success" (click)="onAdd()" >+</button>
-      </div>
 </div>
