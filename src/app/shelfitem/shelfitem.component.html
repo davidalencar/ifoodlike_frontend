@@ -1,1 +1,14 @@
-<p>shelf item</p>
+<div class="list-group-item">
+    <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">{{ item.name }}</h5>
+        <img [src]="item.img" class="card-img-left" alt="...">
+    </div>
+    <small class="text-muted">{{ item.unit }}</small>
+    <br>
+    <small class="text-muted">{{ 'R$ ' + item.price}}</small>
+    <div class="btn-group" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-danger" (click)="onSubtract()">-</button>
+        <button type="button" class="btn" disabled="true">{{ qty }}</button>
+        <button type="button" class="btn btn-success" (click)="onAdd()" >+</button>
+      </div>
+</div>

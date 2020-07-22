@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import {StoryService} from './story.service'
+import { StoreService } from './store.service'
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ShelfComponent } from './shelf/shelf.component';
@@ -18,7 +18,7 @@ import { ShelfitemComponent } from './shelfitem/shelfitem.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [StoryService],
+  providers: [StoreService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

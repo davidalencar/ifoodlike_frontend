@@ -1,19 +1,21 @@
 import { Component, OnInit } from '@angular/core';
-import {StoryService} from '../story.service'
+import { StoreService } from '../store.service'
 
 @Component({
   selector: 'app-shelf',
   templateUrl: './shelf.component.html',
-  styleUrls: ['./shelf.component.css']
+  styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css']
 })
 export class ShelfComponent implements OnInit {
 
+  shelfTitle:string;
   categories = [];
 
-  constructor(private storyService: StoryService) { }
+  constructor(private storeService: StoreService) { }
 
   ngOnInit(): void {
-    this.categories = this.storyService.categories;
+    this.shelfTitle = this.storeService.store.shelfTitle;
+    this.categories = this.storeService.categories;
   }
 
 }

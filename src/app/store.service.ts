@@ -1,4 +1,10 @@
-export class StoryService {
+export class StoreService {
+
+    store = {
+        name: 'Erva Rasteira',
+        complement: 'Agroecologia - Produtos orgânicos toda a semana',
+        shelfTitle: 'Lista da semana'
+    }
 
     products = [
         {
@@ -7,7 +13,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Acafrao",
@@ -15,7 +21,7 @@ export class StoryService {
             "price": "6.50",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Alface Americano",
@@ -23,7 +29,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Alface Crespa",
@@ -31,7 +37,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Alface Lisa",
@@ -39,7 +45,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Almeirão",
@@ -47,7 +53,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Babosa",
@@ -55,7 +61,7 @@ export class StoryService {
             "price": "2.00",
             "category": "Especiais",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Banana",
@@ -63,7 +69,7 @@ export class StoryService {
             "price": "5.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Beterraba",
@@ -71,7 +77,7 @@ export class StoryService {
             "price": "4.50",
             "category": "Legumes",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Bucha Vegetal",
@@ -79,7 +85,7 @@ export class StoryService {
             "price": "5.00",
             "category": "Especiais",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Cebolinha",
@@ -87,7 +93,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Cenoura",
@@ -95,7 +101,7 @@ export class StoryService {
             "price": "4.50",
             "category": "Legumes",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Coentro Comum",
@@ -103,7 +109,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Colorau ",
@@ -111,7 +117,7 @@ export class StoryService {
             "price": "5.00",
             "category": "Temperos",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Couve",
@@ -119,7 +125,7 @@ export class StoryService {
             "price": "3.50",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Escarola",
@@ -127,7 +133,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Espinafre",
@@ -135,7 +141,7 @@ export class StoryService {
             "price": "3.50",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Jaca",
@@ -143,7 +149,7 @@ export class StoryService {
             "price": "12.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Jaca",
@@ -151,7 +157,7 @@ export class StoryService {
             "price": "17.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Jaca",
@@ -159,7 +165,7 @@ export class StoryService {
             "price": "25.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Limão",
@@ -167,7 +173,7 @@ export class StoryService {
             "price": "5.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Louro",
@@ -175,7 +181,7 @@ export class StoryService {
             "price": "5.00",
             "category": "Temperos",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Mamão Verde",
@@ -183,7 +189,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Maracujá Doce",
@@ -191,7 +197,7 @@ export class StoryService {
             "price": "6.00",
             "category": "Frutas",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Repolho",
@@ -199,7 +205,7 @@ export class StoryService {
             "price": "4.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Rúcula",
@@ -207,7 +213,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         },
         {
             "name": "Salca",
@@ -215,7 +221,7 @@ export class StoryService {
             "price": "3.00",
             "category": "Verduras",
             "enable": "true",
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=85&strip=info&w=680"
+            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
         }
     ];
 
