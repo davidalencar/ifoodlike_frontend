@@ -4,7 +4,7 @@
 
             <h5 class="mb-1">{{ product.name }}</h5>
             <p class="text-muted">{{ product.unit }}</p>
-            <small>{{ priceFormated }}</small>
+            <small>{{ storeService.formatPrice(product.price) }}</small>
         </div>
         <div class="d-flex flex-column justify-content-between">
             <img [src]="product.img" class="card-img-left" alt="...">

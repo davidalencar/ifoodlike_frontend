@@ -1,16 +1,22 @@
 import { product } from './model/product.entity'
 import { store } from './model/store.entity'
+import { Injectable } from '@angular/core';
+
 export class StoreService {
 
-    store: store ={
+    store: store = {
         name: 'Erva Rasteira',
         complement: 'Agroecologia - Produtos orgânicos toda a semana',
         shelfTitle: 'Lista da semana',
         basketTitle: 'Cesta',
-        productTitle: 'Produtos'
+        productTitle: 'Produtos',
+        taxes: [
+            {name:'Frete', value: 10},
+            {name:'Cooperativa', value: 1}
+        ]
     }
 
-    products:product[] = [
+    products: product[] = [
         {
             "id": "1",
             "name": "Abacate ",
@@ -266,6 +272,32 @@ export class StoreService {
             if (!this.categories.includes(product.category))
                 this.categories.push(product.category);
         });
+    }
+
+    basketProducts() {
+        return this.products.filter(p => p.qty > 0)
+    }
+
+    bakestTotalAmount(){
+        var basket = this.basketProducts();
+        
+        if (basket.length == 0) return 0;
+
+        return basket.map(p => p.price * p.qty).reduce((sum, value)=> sum + value);
+    }
+
+    storeTaxesTotalAmount(){
+        if (this.store.taxes.length == 0) return 0;
+
+        return this.store.taxes.map(t => t.value).reduce((sum, value) => sum + value);
+    }
+
+    basketTotalAmountWithTaxes() {
+        return this.bakestTotalAmount () + this.storeTaxesTotalAmount();
+    }
+
+    formatPrice(value: number) {
+        return Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
     }
 
 

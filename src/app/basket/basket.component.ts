@@ -14,12 +14,10 @@ export class BasketComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  basketProducts(){
-    return this.storeService.products.filter(p=>p.qty >0)
-  }
+  
 
   countProducts(){
-    return this.basketProducts().length;
+    return this.storeService.basketProducts().length;
   }
 
 }

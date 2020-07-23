@@ -1,1 +1,30 @@
-<p>bill works!</p>
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">{{ storeService.store.productTitle }}</th>
+        <th scope="col">Und.</th>
+        <th scope="col">Qtde.</th>
+        <th scope="col">Valor</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of storeService.basketProducts()">
+        <th>{{ p.name }}</th>
+        <th>{{ p.unit }}</th>
+        <th>{{ p.qty }}</th>
+        <th>{{ storeService.formatPrice(p.price) }}</th>
+      </tr> 
+      <tr *ngFor="let t of storeService.store.taxes">
+        <th></th>
+        <th></th>
+        <th>{{ t.name }}</th>
+        <th>{{ storeService.formatPrice(t.value) }}</th>
+      </tr>
+      <tr>
+          <th></th>
+          <th></th>
+          <th>Total</th>
+          <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
+      </tr>     
+    </tbody>
+  </table>

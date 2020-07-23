@@ -13,15 +13,11 @@ export class ShelfitemComponent implements OnInit {
   
   product: product; 
 
-  priceFormated: string;
-
-  constructor(private storeService: StoreService) { }
+  constructor(public storeService: StoreService) { }
 
   ngOnInit(): void {
     this.product = this.storeService.products
       .find(p => p.id == this.productId);
-
-    this.priceFormated = Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(this.product.price)
   }
 
   
@@ -29,16 +25,10 @@ export class ShelfitemComponent implements OnInit {
   {
     if (this.product.qty > 0)
       this.product.qty-=1;
-
-    
   }
 
   onAdd()
   {
     this.product.qty+=1;
-  }
-
-  onItemQtyChanged(){
-    
   }
 }
