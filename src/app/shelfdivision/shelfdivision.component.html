@@ -1,6 +1,8 @@
 <div class="list-group list-group-flush">
     <div class="list-group-item">
-        <h4>{{ category }} </h4>
+        <a [id]="category">
+            <h4>{{ category }} </h4>            
+        </a>
     </div>
     <app-shelfitem *ngFor="let p of products" [productId]="p.id"></app-shelfitem>
 </div>
