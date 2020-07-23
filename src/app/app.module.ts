@@ -7,6 +7,7 @@ import { ShelfComponent } from './shelf/shelf.component';
 import { ShelfdivisionComponent } from './shelfdivision/shelfdivision.component';
 import { ShelfitemComponent } from './shelfitem/shelfitem.component';
 import { BasketComponent } from './basket/basket.component';
+import { BillComponent } from './bill/bill.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { BasketComponent } from './basket/basket.component';
     ShelfComponent,
     ShelfdivisionComponent,
     ShelfitemComponent,
-    BasketComponent
+    BasketComponent,
+    BillComponent
   ],
   imports: [
     BrowserModule,
