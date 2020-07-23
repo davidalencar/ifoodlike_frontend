@@ -5,7 +5,9 @@ export class StoreService {
     store: store ={
         name: 'Erva Rasteira',
         complement: 'Agroecologia - Produtos orgânicos toda a semana',
-        shelfTitle: 'Lista da semana'
+        shelfTitle: 'Lista da semana',
+        basketTitle: 'Cesta',
+        productTitle: 'Produtos'
     }
 
     products:product[] = [

@@ -1,14 +1,8 @@
 <nav class="navbar sticky-top navbar-light bg-light">
-    <span class="navbar-brand mb-0 h1">{{ shelfTitle }}</span>
-    <a class="nav-link" [href]="'#'+category" *ngFor="let category of categories">{{ category }}</a>
+    <span class="navbar-brand mb-0 h1">{{ storeService.store.shelfTitle }}</span>
+    <a class="nav-link" [href]="'#'+category" *ngFor="let category of storeService.categories">{{ category }}</a>
 </nav>
-
-
-<app-shelfdivision *ngFor="let category of categories" [category]="category"></app-shelfdivision>
-
-<nav class="navbar fixed-bottom navbar-light bg-light">
-    <a class="navbar-brand" href="#">Status</a>
-    <button type="button" class="btn btn-primary">
-        Notifications <span class="badge badge-light">4</span>
-    </button>
-</nav>
+<app-shelfdivision *ngFor="let category of storeService.categories" [category]="category"></app-shelfdivision>
+<br>
+<br>
+<br>

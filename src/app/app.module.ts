@@ -6,13 +6,15 @@ import { AppComponent } from './app.component';
 import { ShelfComponent } from './shelf/shelf.component';
 import { ShelfdivisionComponent } from './shelfdivision/shelfdivision.component';
 import { ShelfitemComponent } from './shelfitem/shelfitem.component';
+import { BasketComponent } from './basket/basket.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ShelfComponent,
     ShelfdivisionComponent,
-    ShelfitemComponent
+    ShelfitemComponent,
+    BasketComponent
   ],
   imports: [
     BrowserModule,

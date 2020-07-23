@@ -1,0 +1,20 @@
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+    <div class="container">
+        <div class="btn-group dropup">
+            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                aria-expanded="false">
+                {{ storeService.store.basketTitle }} 
+                <span class="badge badge-light">{{ countProducts() + ' ' + storeService.store.productTitle}}</span>
+            </button>
+            <div class="dropdown-menu">
+                <div class="dropdown-item" *ngFor="let p of basketProducts()">
+                    <span class="text-muted">{{ p.qty + ' ' + p.unit + ' - '}}</span>
+                    <span>{{ p.name }}</span>
+                </div>
+            </div>
+        </div>
+        <button type="button" class="btn btn-lg btn-success">
+            Confirmar
+        </button>
+    </div>
+</nav>
