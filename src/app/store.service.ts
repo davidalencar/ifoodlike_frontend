@@ -1,7 +1,8 @@
 import { product } from './model/product.entity'
+import { store } from './model/store.entity'
 export class StoreService {
 
-    store = {
+    store: store ={
         name: 'Erva Rasteira',
         complement: 'Agroecologia - Produtos orgânicos toda a semana',
         shelfTitle: 'Lista da semana'
