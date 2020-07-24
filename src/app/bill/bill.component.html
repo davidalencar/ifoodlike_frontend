@@ -1,5 +1,40 @@
-<table class="table">
-    <thead>
+<div class="container">
+  <form>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputCustName">Nome</label>
+        <input type="text" class="form-control" id="inputCustName">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputPassword4">Celular</label>
+        <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-2">
+        <label for="inputZip">CEP</label>
+        <input type="text" class="form-control" id="inputZip">
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-md-10">
+        <label for="inputAddress">Endereço</label>
+        <input type="text" class="form-control" id="inputAddress" placeholder="">
+      </div>
+      <div class="form-group col-md-2">
+        <label for="inputAddressNumber">Número</label>
+        <input type="text" class="form-control" id="inputAddressNumber" placeholder="">
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="inputAddress2">Complemento</label>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartamento, bloco ou andar.">
+    </div>
+  </form>
+  <!-- <table class="table">
+    <thead class="thead-light">
       <tr>
         <th scope="col">{{ storeService.store.productTitle }}</th>
         <th scope="col">Und.</th>
@@ -13,7 +48,7 @@
         <th>{{ p.unit }}</th>
         <th>{{ p.qty }}</th>
         <th>{{ storeService.formatPrice(p.price) }}</th>
-      </tr> 
+      </tr>
       <tr *ngFor="let t of storeService.store.taxes">
         <th></th>
         <th></th>
@@ -21,10 +56,24 @@
         <th>{{ storeService.formatPrice(t.value) }}</th>
       </tr>
       <tr>
-          <th></th>
-          <th></th>
-          <th>Total</th>
-          <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
-      </tr>     
+        <th></th>
+        <th></th>
+        <th>Total</th>
+        <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
+      </tr>
     </tbody>
-  </table>
+  </table> -->
+  <br>
+  <br>
+  <br>
+  <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+    <div class="container">
+      <a routerLink="/" class="btn btn-success">
+        Comprar mais
+      </a>
+      <a routerLink="/bill" class="btn btn-success">
+        Confirmar pedido
+      </a>
+    </div>
+  </nav>
+</div>

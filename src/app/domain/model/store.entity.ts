@@ -4,5 +4,5 @@ export class store {
     shelfTitle: string;
     basketTitle: string;
     productTitle: string;
-    taxes?:{name: string, value: number}[]
+    taxes:{name: string, value:number}[]
 }

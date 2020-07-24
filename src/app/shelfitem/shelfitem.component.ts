@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StoreService } from '../store.service'
-import { product } from '../model/product.entity'
+import { StoreService } from '../domain/service/store.service'
+import { product } from '../domain/model/product.entity'
 
 @Component({
   selector: 'app-shelfitem',

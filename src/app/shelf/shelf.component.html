@@ -2,8 +2,23 @@
     <span class="navbar-brand mb-0 h1">{{ storeService.store.shelfTitle }}</span>
     <a class="nav-link" [href]="'#'+category" *ngFor="let category of storeService.categories">{{ category }}</a>
 </nav>
-<app-shelfdivision *ngFor="let category of storeService.categories" [category]="category"></app-shelfdivision>
+<div class="list-group list-group-flush" *ngFor="let category of storeService.categories">
+    <div class="list-group-item">
+        <a [id]="category">
+            <h4>{{ category }} </h4>            
+        </a>
+    </div>
+    <div *ngFor="let p of storeService.productsByCategory(category)">
+        <app-shelfitem  [productId]="p.id"></app-shelfitem>
+    </div>
+</div>
 <br>
 <br>
 <br>
-<app-basket></app-basket>
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+    <div class="container justify-content-end">      
+        <a routerLink="/bill" class="btn btn-lg btn-success">
+            Fechar pedido
+        </a>
+    </div>
+</nav>

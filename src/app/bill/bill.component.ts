@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from '../store.service';
+import { StoreService } from '../domain/service/store.service';
 
 @Component({
   selector: 'app-bill',

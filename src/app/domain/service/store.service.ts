@@ -1,6 +1,5 @@
-import { product } from './model/product.entity'
-import { store } from './model/store.entity'
-import { Injectable } from '@angular/core';
+import { product } from '../model/product.entity'
+import { store } from '../model/store.entity'
 
 export class StoreService {
 
@@ -300,6 +299,9 @@ export class StoreService {
         return Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(value)
     }
 
+    productsByCategory(category: string){
+        return this.products.filter(p=>p.category == category);
+    }
 
     constructor() {
         this.getCategories();
