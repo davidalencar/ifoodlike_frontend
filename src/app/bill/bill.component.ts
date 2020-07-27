@@ -1,7 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { StoreService } from '../domain/service/store.service';
 import { AddressService } from '../domain/service/address.service'
+import { AddressType } from '../domain/model/address.type'
 import { NgForm } from '@angular/forms';
+import { formatCurrency } from '@angular/common';
 
 @Component({
   selector: 'app-bill',
@@ -11,8 +13,9 @@ import { NgForm } from '@angular/forms';
   providers: [AddressService]
 })
 export class BillComponent implements OnInit {
+  @ViewChild('form') custData: NgForm;
 
-  zipCode = '';
+  zipCodeQueryError = ''
 
   constructor(public storeService: StoreService,
     public addressService: AddressService) { }
@@ -20,12 +23,27 @@ export class BillComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  onQueryZipCode () {
-    console.log('cep: ' + this.zipCode)
-    this.addressService.getAddressByZipCode(this.zipCode).subscribe(data => console.log(data));
+  onZipCodeChange (value: string, form: NgForm) {
+    this.zipCodeQueryError = '';
+    
+    if(value.length == 8){
+      this.addressService.getAddressByZipCode(value).subscribe(
+        (data:AddressType) =>{
+          console.log(data)
+          if (data.erro == true){
+            this.zipCodeQueryError = 'CEP não cadastrado!'
+          }
+          form.controls['userAddress'].setValue(data.logradouro)
+          form.controls['userAddressLine'].setValue(`${data.localidade}/${data.uf}`)
+        }
+      );
+    }
   }
 
-  onConfirmPurch(form: NgForm){
-    console.log(form)
+  
+  
+
+  onConfirmPurch(){
+    console.log(this.custData)
   }
 }

@@ -7,5 +7,6 @@ export class AddressType{
     uf: string;
     unidade: string;
     ibge: string;
-    gia: string
+    gia: string;
+    erro?: boolean
   }

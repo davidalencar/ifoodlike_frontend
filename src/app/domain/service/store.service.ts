@@ -10,8 +10,7 @@ export class StoreService {
         basketTitle: 'Cesta',
         productTitle: 'Produtos',
         taxes: [
-            {name:'Frete', value: 10},
-            {name:'Cooperativa', value: 1}
+            {name:'Frete', value: 10}
         ]
     }
 

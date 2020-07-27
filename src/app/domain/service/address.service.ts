@@ -14,7 +14,7 @@ export class AddressService{
         const url = `${apiUrl}/${zipcode}/json`;
         return this.http.get<AddressType>(url).pipe(
           tap(_ => console.log(`consulta cep =${zipcode}`)),
-          catchError(this.handleError<AddressType>(`getProduto id=${zipcode}`))
+          catchError(this.handleError<AddressType>(`query Zipcode "${zipcode}"`))
         );
       }
 
