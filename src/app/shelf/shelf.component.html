@@ -17,8 +17,10 @@
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
     <div class="container justify-content-end">      
-        <a routerLink="/bill" class="btn btn-lg btn-success">
+        <button class="btn btn-lg btn-success"
+        routerLink="/bill" 
+        [disabled]="countProducts() == 0" >
             Fechar pedido
-        </a>
+        </button>
     </div>
 </nav>

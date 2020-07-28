@@ -2,8 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { StoreService } from '../domain/service/store.service';
 import { AddressService } from '../domain/service/address.service'
 import { AddressType } from '../domain/model/address.type'
-import { NgForm } from '@angular/forms';
-import { formatCurrency } from '@angular/common';
+import { NgForm } from '@angular/forms'
 
 @Component({
   selector: 'app-bill',
@@ -40,10 +39,7 @@ export class BillComponent implements OnInit {
     }
   }
 
-  
-  
-
   onConfirmPurch(){
-    console.log(this.custData)
+    
   }
 }
