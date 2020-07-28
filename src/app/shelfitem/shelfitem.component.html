@@ -7,7 +7,8 @@
             <small>{{ storeService.formatPrice(product.price) }}</small>
         </div>
         <div class="d-flex flex-column justify-content-between">
-            <img [src]="product.img" class="card-img-left" alt="...">
+            <img *ngIf="product.img != ''" [src]="product.img" class="card-img-left" alt="...">
+            <img *ngIf="product.img == ''" src="../../assets/empimg.png"  class="card-img-left">
             <div class="col-12">
                 <div class="d-flex flex-row justify-content-between">
                     <button type="button" class="btn btn-outline-danger" (click)="onSubtract()">-</button>

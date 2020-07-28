@@ -31,7 +31,7 @@ export class StoreService {
             "price": 6.50,
             "category": "Verduras",
             "enable": true,
-            "img": "https://saude.abril.com.br/wp-content/uploads/2017/07/abacate3.jpg?quality=158&strip=info&w=146"
+            "img": ""
         },
         {
             "id": "3",
