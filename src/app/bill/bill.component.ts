@@ -31,6 +31,7 @@ export class BillComponent implements OnInit {
           console.log(data)
           if (data.erro == true){
             this.zipCodeQueryError = 'CEP não cadastrado!'
+            return;
           }
           form.controls['userAddress'].setValue(data.logradouro)
           form.controls['userAddressLine'].setValue(`${data.localidade}/${data.uf}`)
