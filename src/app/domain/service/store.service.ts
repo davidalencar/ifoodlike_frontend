@@ -285,6 +285,10 @@ export class StoreService {
         return basket.map(p => p.price * p.qty).reduce((sum, value)=> sum + value);
     }
 
+    hasProductsOnBasket(){
+        return this.basketProducts().length > 0;
+    }
+
     storeTaxesTotalAmount(){
         if (this.store.taxes.length == 0) return 0;
 
@@ -296,7 +300,7 @@ export class StoreService {
     }
 
     canSubmitOrder(){
-        return this.basketProducts().length > 0 && 
+        return  this.hasProductsOnBasket() &&             
                 this.bakestTotalAmount() >= this.store.minimumOrderAmount;
     }
 

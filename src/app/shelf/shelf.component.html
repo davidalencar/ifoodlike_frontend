@@ -16,11 +16,11 @@
 <br>
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-    <div class="container justify-content-end">      
+    <div class="container justify-content-end">
         <button class="btn btn-lg btn-success"
-        routerLink="/bill" 
-        [disabled]="countProducts() == 0" >
-            Fechar pedido
-        </button>
+        routerLink="/bill"
+        [disabled]="!storeService.hasProductsOnBasket()">
+        Fechar pedido        
+    </button>
     </div>
 </nav>
