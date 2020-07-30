@@ -4,5 +4,6 @@ export class store {
     shelfTitle: string;
     basketTitle: string;
     productTitle: string;
+    minimumOrderAmount?: number;
     taxes:{name: string, value:number}[]
 }

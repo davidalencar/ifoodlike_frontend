@@ -8,7 +8,8 @@ export class StoreService {
         complement: 'Agroecologia - Produtos orgânicos toda a semana',
         shelfTitle: 'Lista da semana',
         basketTitle: 'Cesta',
-        productTitle: 'Produtos',
+        productTitle: 'Alimentos',
+        minimumOrderAmount: 20,
         taxes: [
             {name:'Frete', value: 10}
         ]
@@ -292,6 +293,15 @@ export class StoreService {
 
     basketTotalAmountWithTaxes() {
         return this.bakestTotalAmount () + this.storeTaxesTotalAmount();
+    }
+
+    canSubmitOrder(){
+        return this.basketProducts().length > 0 && 
+                this.bakestTotalAmount() >= this.store.minimumOrderAmount;
+    }
+
+    remainToMinimumOrderAmount() {
+        return this.store.minimumOrderAmount - this.bakestTotalAmount();
     }
 
     formatPrice(value: number) {

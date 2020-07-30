@@ -3,65 +3,47 @@
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputCustName">Nome</label>
-        <input type="text" 
-        class="form-control" 
-        id="inputCustName" 
-        name="userName" 
-        required 
-        ngModel 
-        minLength="3"
-        maxLength="60"  
-        pattern="[a-zA-Z ]*">
+        <input type="text" class="form-control" id="inputCustName" name="userName" required ngModel minLength="3"
+          maxLength="60" pattern="[a-zA-Z ]*">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputPassword4">Celular com DDD</label>
-        <input type="phone" 
-        class="form-control" 
-        id="inputPhone" 
-        placeholder="(00) 9 0000 0000" 
-        name="userPhone" 
-        required 
-        ngModel 
-        mask="(00) 0 0000-0000">
+        <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
+          required ngModel mask="(00) 0 0000-0000">
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-2">
         <label for="inputZip">CEP</label>
-        <input type="text"  
-        class="form-control" 
-        id="inputZip" 
-        placeholder="00000-000" 
-        name="zipcode" 
-        required 
-        ngModel 
-        #zipCode="ngModel" 
-        mask="00000-000" 
-        (keyup)="onZipCodeChange(zipCode.value, form)">
-        <div class="invalid-msg" >
+        <input type="text" class="form-control" id="inputZip" placeholder="00000-000" name="zipcode" required ngModel
+          #zipCode="ngModel" mask="00000-000" (keyup)="onZipCodeChange(zipCode.value, form)">
+        <div class="invalid-msg">
           {{ zipCodeQueryError }}
         </div>
       </div>
       <div class="form-group col-md-2">
         <label for="inputZip">Cidade / Estado</label>
-        <input type="text" readonly="true" class="form-control" id="inputAddressLine" name="userAddressLine"  required ngModel >        
+        <input type="text" readonly="true" class="form-control" id="inputAddressLine" name="userAddressLine" required
+          ngModel>
       </div>
     </div>
     <div class="form-row">
       <div class="form-group col-md-10">
         <label for="inputAddress">Endereço</label>
-        <input type="text" class="form-control" id="inputAddress"  name="userAddress" required ngModel>        
+        <input type="text" class="form-control" id="inputAddress" name="userAddress" required ngModel>
       </div>
       <div class="form-group col-md-2">
         <label for="inputAddressNumber">Número</label>
-        <input type="text" class="form-control" id="inputAddressNumber" placeholder="" name="userAddressNumber"  required ngModel>
+        <input type="text" class="form-control" id="inputAddressNumber" placeholder="" name="userAddressNumber" required
+          ngModel>
       </div>
     </div>
     <div class="form-group">
       <label for="inputAddress2">Complemento</label>
-      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartamento, bloco ou andar." name="userAddressComplement" ngModel>
+      <input type="text" class="form-control" id="inputAddress2" placeholder="Apartamento, bloco ou andar."
+        name="userAddressComplement" ngModel>
     </div>
     <table class="table">
       <thead class="thead-light">
@@ -74,25 +56,39 @@
       </thead>
       <tbody>
         <tr *ngFor="let p of storeService.basketProducts()">
-          <th>{{ p.name }}</th>
-          <th>{{ p.unit }}</th>
-          <th>{{ p.qty }}</th>
-          <th>{{ storeService.formatPrice(p.price * p.qty) }}</th>
-        </tr>
-        <tr *ngFor="let t of storeService.store.taxes">
-          <th></th>
-          <th></th>
-          <th>{{ t.name }}</th>
-          <th>{{ storeService.formatPrice(t.value) }}</th>
+          <td>{{ p.name }}</td>
+          <td>{{ p.unit }}</td>
+          <td>{{ p.qty }}</td>
+          <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
         </tr>
         <tr>
           <th></th>
           <th></th>
-          <th>Total</th>
+          <td>Pedido</td>
+          <td>{{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</td>
+        </tr>
+        <tr *ngIf="!storeService.canSubmitOrder()">
+          <td colspan="2"></td>
+          <td colspan="2">
+            <div class="invalid-msg" >
+              *Adicione mais {{ storeService.formatPrice(storeService.remainToMinimumOrderAmount()) }} para fechar seu
+              pedido.
+            </div>
+          </td>
+        </tr>
+        <tr *ngFor="let t of storeService.store.taxes">
+          <td colspan="2"></td>
+          <td>{{ t.name }}</td>
+          <td>{{ storeService.formatPrice(t.value) }}</td>
+        </tr>
+        <tr>
+          <td colspan="2"></td>          
+          <td>Total</td>
           <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
         </tr>
       </tbody>
     </table>
+
     <br>
     <br>
     <br>
@@ -101,8 +97,7 @@
         <a routerLink="/" class="btn btn-success">
           Comprar mais
         </a>
-        <button type="submit"  class="btn btn-success"
-          [disabled]="!form.valid || storeService.basketProducts().length == 0">
+        <button type="submit" class="btn btn-success" [disabled]="!form.valid || !storeService.canSubmitOrder()">
           Confirmar pedido
         </button>
       </div>
