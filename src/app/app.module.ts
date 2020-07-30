@@ -9,13 +9,15 @@ import { AppComponent } from './app.component';
 import { ShelfComponent } from './shelf/shelf.component';
 import { ShelfitemComponent } from './shelfitem/shelfitem.component';
 import { BillComponent } from './bill/bill.component';
+import { CustomerComponent } from './customer/customer.component';
  
 @NgModule({
   declarations: [
     AppComponent,
     ShelfComponent,
     ShelfitemComponent,
-    BillComponent
+    BillComponent,
+    CustomerComponent
   ],
   imports: [
     BrowserModule,
