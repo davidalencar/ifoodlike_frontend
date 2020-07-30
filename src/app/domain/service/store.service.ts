@@ -7,7 +7,7 @@ export class StoreService {
         name: 'Erva Rasteira',
         complement: 'Agroecologia - Produtos orgânicos toda a semana',
         shelfTitle: 'Lista da semana',
-        basketTitle: 'Cesta',
+        unitTitle: 'Porção',
         productTitle: 'Alimentos',
         minimumOrderAmount: 20,
         taxes: [

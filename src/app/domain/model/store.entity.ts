@@ -2,7 +2,7 @@ export class store {
     name: string;
     complement: string;
     shelfTitle: string;
-    basketTitle: string;
+    unitTitle: string;
     productTitle: string;
     minimumOrderAmount?: number;
     taxes:{name: string, value:number}[]
