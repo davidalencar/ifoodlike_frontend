@@ -10,6 +10,7 @@ export class StoreService {
         unitTitle: 'Porção',
         productTitle: 'Alimentos',
         minimumOrderAmount: 20,
+        phone: '5511992533637',
         taxes: [
             {name:'Frete', value: 10}
         ]

@@ -3,6 +3,7 @@ import { StoreService } from '../domain/service/store.service';
 import { AddressService } from '../domain/service/address.service'
 import { AddressType } from '../domain/model/address.type'
 import { NgForm } from '@angular/forms'
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-customer',
@@ -41,8 +42,27 @@ export class CustomerComponent implements OnInit {
     }
   }
 
-  onConfirmPurch(){
-    
+  onConfirmPurch(){    
+    window.location.href = `https://api.whatsapp.com/send?phone=${this.storeService.store.phone}&text=${window.encodeURIComponent(this.formatData())}`
+  }
+
+  formatData(){
+    return `*${this.custData.value.userName.trim()}*\n${this.formatAddress()}\n\n${this.formatOrder()}`
+  }
+
+  formatAddress(){
+    return `Endereço: ${this.custData.value.userAddress},${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}`
+  }
+
+  formatOrder(){
+    var order: string = 'Pedido:';
+
+    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty} ${p.unit} ${p.name} (${this.storeService.formatPrice(p.price)})`)
+
+    this.storeService.store.taxes.forEach( t=> order+= `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
+    order+= `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
+
+    return order;
   }
 
 }

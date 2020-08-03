@@ -5,5 +5,6 @@ export class store {
     unitTitle: string;
     productTitle: string;
     minimumOrderAmount?: number;
+    phone: string;
     taxes:{name: string, value:number}[]
 }

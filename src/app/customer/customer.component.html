@@ -7,13 +7,13 @@
             maxLength="60" pattern="[a-zA-Z ]*">
         </div>
       </div>
-      <div class="form-row">
+      <!-- <div class="form-row">
         <div class="form-group col-md-4">
           <label for="inputPassword4">Celular com DDD</label>
           <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
             required ngModel mask="(00) 0 0000-0000">
         </div>
-      </div>
+      </div> -->
       <div class="form-row">
         <div class="form-group col-md-2">
           <label for="inputZip">CEP</label>
@@ -49,7 +49,7 @@
       <br>
       <br>
       <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-        <div class="container">
+        <div class="container justify-content-end">
           <button type="submit" 
           class="btn btn-success" 
           [disabled]="!form.valid || !storeService.canSubmitOrder()">
