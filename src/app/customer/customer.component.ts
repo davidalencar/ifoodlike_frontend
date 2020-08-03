@@ -51,14 +51,14 @@ export class CustomerComponent implements OnInit {
   }
 
   formatAddress(){
-    return `Endereço: ${this.custData.value.userAddress},${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}`
+    return `Endereço: ${this.custData.value.userAddress}, ${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}`
   }
 
   formatOrder(){
     var order: string = 'Pedido:';
 
-    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty} ${p.unit} ${p.name} (${this.storeService.formatPrice(p.price)})`)
-
+    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty} _${p.unit.trim()}_ ${p.name} (${this.storeService.formatPrice(p.price * p.qty)})`)
+    order+='\n'
     this.storeService.store.taxes.forEach( t=> order+= `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
     order+= `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
 
