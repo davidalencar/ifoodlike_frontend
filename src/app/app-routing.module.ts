@@ -5,9 +5,9 @@ import { BillComponent } from './bill/bill.component'
 import { CustomerComponent } from './customer/customer.component'
 
 const routes: Routes = [
-  { path: '', component: ShelfComponent },
-  { path: 'bill', component: BillComponent},
-  { path: 'customer', component: CustomerComponent}
+  { path: ':id', component: ShelfComponent },
+  { path: ':id/bill', component: BillComponent},
+  { path: ':id/customer', component: CustomerComponent}
 
 ];
 

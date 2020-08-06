@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from '../domain/service/store.service'
+import { StoreService } from '../services/store.service'
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
+import {map} from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-shelf',
@@ -8,7 +12,14 @@ import { StoreService } from '../domain/service/store.service'
 })
 export class ShelfComponent implements OnInit {
   
-  constructor(public storeService: StoreService) { }
+  constructor(private route: ActivatedRoute, public storeService: StoreService) {
+    const id: Observable<string> = route.params.pipe(map(p => p.id));    
+    id.subscribe((id:string)=> {
+      if (!this.storeService.store.name)
+        this.storeService.getStoreData(id);
+    })
+  }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+  }
 }

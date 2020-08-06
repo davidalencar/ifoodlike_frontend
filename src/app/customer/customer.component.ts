@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { StoreService } from '../domain/service/store.service';
-import { AddressService } from '../domain/service/address.service'
-import { AddressType } from '../domain/model/address.type'
-import { NgForm } from '@angular/forms'
-import { stringify } from '@angular/compiler/src/util';
+import { StoreService } from '../services/store.service';
+import { AddressService } from '../services/address.service';
+import { AddressType } from '../services/types/address.type';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-customer',

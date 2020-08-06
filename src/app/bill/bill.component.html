@@ -48,13 +48,13 @@
     <br>
     <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
       <div class="container">
-        <a routerLink="/" class="btn btn-success">
+        <a [routerLink]="['/', storeService.store.name]" class="btn btn-success">
           Comprar mais
         </a>
         <button 
         type="submit" 
         class="btn btn-success"
-        routerLink="/customer" 
+        [routerLink]="['/', storeService.store.name, 'customer']"
         [disabled]="!storeService.canSubmitOrder()">
           Confirmar pedido
         </button>

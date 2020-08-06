@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { StoreService } from '../domain/service/store.service'
-import { ProductModel } from '../domain/model/product.entity'
+import { StoreService } from '../services/store.service'
+import { ProductType } from '../services/types/product.type'
 
 @Component({
   selector: 'app-shelfitem',
@@ -11,13 +11,13 @@ export class ShelfitemComponent implements OnInit {
 
   @Input() productId :string; 
   
-  product: product; 
+  product: ProductType; 
 
   constructor(public storeService: StoreService) { }
 
   ngOnInit(): void {
     this.product = this.storeService.products
-      .find(p => p.id == this.productId);
+      .find(p => p._id == this.productId);
   }
 
   

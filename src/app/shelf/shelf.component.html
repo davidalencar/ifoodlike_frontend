@@ -9,7 +9,7 @@
         </a>
     </div>
     <div *ngFor="let p of storeService.productsByCategory(category)">
-        <app-shelfitem  [productId]="p.id"></app-shelfitem>
+        <app-shelfitem  [productId]="p._id"></app-shelfitem>
     </div>
 </div>
 <br>
@@ -18,7 +18,7 @@
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
     <div class="container justify-content-end">
         <button class="btn btn-lg btn-success"
-        routerLink="/bill"
+        [routerLink]="['bill']"
         [disabled]="!storeService.hasProductsOnBasket()">
         Fechar pedido        
     </button>

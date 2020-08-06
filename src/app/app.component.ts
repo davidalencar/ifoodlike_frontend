@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { StoreService } from './domain/service/store.service';
-import { Title }     from '@angular/platform-browser';
+import { StoreService } from './services/store.service';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +9,7 @@ import { Title }     from '@angular/platform-browser';
 })
 export class AppComponent implements OnInit {
   
-  constructor(private storeService: StoreService, private titleService: Title) {}
-
-  storeName: string;
-  storeComplement: string;
-  
-  ngOnInit(): void {
-    this.storeName = this.storeService.store.name;
-    this.storeComplement = this.storeService.store.complement;
-    this.titleService.setTitle(this.storeService.store.name);
-  }
+  constructor(public storeService: StoreService) {}
+  ngOnInit() {}
 
 }
