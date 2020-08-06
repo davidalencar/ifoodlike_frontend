@@ -29,7 +29,6 @@ export class CustomerComponent implements OnInit {
     if(value.length == 8){
       this.addressService.getAddressByZipCode(value).subscribe(
         (data:AddressType) =>{
-          console.log(data)
           if (data.erro == true){
             this.zipCodeQueryError = 'CEP não cadastrado!'
             return;

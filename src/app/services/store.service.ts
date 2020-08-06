@@ -75,23 +75,12 @@ export class StoreService {
 
     storeDataRequest(storename: string): Observable<StoreServiceResponseType> {
         const url = `${store_api_uri}${storename}`;
-        return this.http.get<StoreServiceResponseType>(url).pipe(
-            tap(_ => console.log(`consulta loja =${storename}`)),
-            catchError(this.handleError<StoreServiceResponseType>(`query Store "${storename}"`))
-        );
-    }
-
-    handleError<T>(operation = 'operation', result?: T) {
-        return (error: any): Observable<T> => {
-            console.error(error);
-            return of(result as T);
-        };
+        return this.http.get<StoreServiceResponseType>(url);
     }
 
     getStoreData(storeName: string) {
         this.storeDataRequest(storeName)
             .subscribe((data:StoreServiceResponseType) => {
-                console.log(data)
                 this.store = data.store;
                 this.products = data.products;
                 this.titleService.setTitle(this.store.name)
