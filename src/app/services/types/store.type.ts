@@ -1,5 +1,6 @@
 export class StoreType {
     name: string;
+    title: string;
     complement: string;
     shelfTitle: string;
     unitTitle: string;

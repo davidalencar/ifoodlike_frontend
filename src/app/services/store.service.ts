@@ -83,7 +83,7 @@ export class StoreService {
             .subscribe((data:StoreServiceResponseType) => {
                 this.store = data.store;
                 this.products = data.products;
-                this.titleService.setTitle(this.store.name)
+                this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })
     }
