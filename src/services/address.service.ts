@@ -1,8 +1,9 @@
-import { Observable, of, throwError } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { Observable, of } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
 import { catchError, tap } from 'rxjs/operators';
-import { AddressType } from '../model/address.type'
 import { Injectable } from '@angular/core';
+
+import { AddressType } from './types/address.type'
 
 const apiUrl = 'http://viacep.com.br/ws'
 

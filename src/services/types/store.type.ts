@@ -1,4 +1,4 @@
-export class store {
+export class StoreType {
     name: string;
     complement: string;
     shelfTitle: string;
