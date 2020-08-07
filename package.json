@@ -7,7 +7,8 @@
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -24,11 +25,11 @@
     "ngx-mask": "^9.1.2",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.3",
-    "@angular/cli": "~10.0.3",
-    "@angular/compiler-cli": "~10.0.4",
+    "zone.js": "~0.10.3"
   },
   "devDependencies": {
+    "@angular/cli": "~10.0.3",
+    "@angular/compiler-cli": "~10.0.4",
     "@angular-devkit/build-angular": "~0.1000.3",
     "@types/node": "^12.11.1",
     "@types/jasmine": "~3.5.0",
