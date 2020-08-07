@@ -49,7 +49,7 @@ export class CustomerComponent implements OnInit {
   }
 
   formatAddress(){
-    return `Endereço: ${this.custData.value.userAddress}, ${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}`
+    return `Endereço: ${this.custData.value.userAddress}, ${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}\n${this.custData.value.userAddressComplement}`
   }
 
   formatOrder(){
