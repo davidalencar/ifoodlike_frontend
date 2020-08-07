@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
 
 import { AddressType } from './types/address.type'
 
-const apiUrl = 'http://viacep.com.br/ws'
+const apiUrl = 'https://viacep.com.br/ws'
 
 @Injectable()
 export class AddressService{
