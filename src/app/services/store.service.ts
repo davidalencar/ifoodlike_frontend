@@ -10,7 +10,7 @@ import { StoreServiceResponseType } from './types/store.service.response.type'
 
 
 
-const store_api_uri = 'http://localhost:3000/api/stores/'
+const store_api_uri = 'https://fathomless-chamber-28156.herokuapp.com/api/stores/'
 
 @Injectable()
 export class StoreService {
