@@ -1,6 +1,6 @@
 <nav class="navbar sticky-top navbar-light bg-light">
     <span class="navbar-brand mb-0 h1">{{ storeService.store.shelfTitle }}</span>
-    <a class="nav-link" [href]="'#'+category" *ngFor="let category of storeService.categories">{{ category }}</a>
+    <a class="nav-link" [href]="storeService.store.name + '#'+category" *ngFor="let category of storeService.categories">{{ category }}</a>
 </nav>
 <div class="list-group list-group-flush" *ngFor="let category of storeService.categories">
     <div class="list-group-item">
