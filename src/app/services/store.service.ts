@@ -19,14 +19,10 @@ export class StoreService {
     products: ProductType[];
     categories = [];
 
-    basket: { id: number, name: string, unit: string, price: number, qty: number }[];
-
     getCategories() {
-        this.products.forEach(product => {
-            product.qty = 0;
-            if (!this.categories.includes(product.category))
-                this.categories.push(product.category);
-        });
+         this.categories = [...this.store.categories].sort((c1, c2) => {
+            return c1.order - c2.order
+        }).filter(c => c.enable == true)
     }
 
     basketProducts() {
@@ -69,7 +65,9 @@ export class StoreService {
     }
 
     productsByCategory(category: string) {
-        return this.products.filter(p => p.category == category);
+        return this.products
+            .filter(p => p.category == category)
+            .sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
     }
 
 
@@ -82,7 +80,10 @@ export class StoreService {
         this.storeDataRequest(storeName)
             .subscribe((data:StoreServiceResponseType) => {
                 this.store = data.store;
-                this.products = data.products;
+                this.products = data.products.map((p =>{
+                    p.qty = 0;
+                    return p;
+                }));
                 this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })

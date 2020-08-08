@@ -8,4 +8,8 @@ export class ProductType {
     enable: boolean;
     img?: string;
     qty?: number;
+    
+    constructor(){
+        this.qty = 0;
+    }
 }
