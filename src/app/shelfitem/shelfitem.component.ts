@@ -5,7 +5,8 @@ import { ProductType } from '../services/types/product.type'
 @Component({
   selector: 'app-shelfitem',
   templateUrl: './shelfitem.component.html',
-  styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css']
+  styleUrls: ['./shelfitem.component.css',
+    '../../../node_modules/bootstrap/dist/css/bootstrap.min.css']
 })
 export class ShelfitemComponent implements OnInit {
 
