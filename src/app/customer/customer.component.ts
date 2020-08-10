@@ -40,8 +40,11 @@ export class CustomerComponent implements OnInit {
     }
   }
 
-  onConfirmPurch(){    
-    window.location.href = `https://api.whatsapp.com/send?phone=${this.storeService.store.phone}&text=${window.encodeURIComponent(this.formatData())}`
+  onConfirmPurch(){
+    const apiURI = 'https://api.whatsapp.com/send?'
+    const argPhone = (this.storeService.store.phone) ? `phone=${this.storeService.store.phone}` : ''     
+    const argsOrder = `&text=${window.encodeURIComponent(this.formatData())}` 
+    window.location.href = `${apiURI}${argPhone}${argsOrder}`
   }
 
   formatData(){
@@ -60,6 +63,7 @@ export class CustomerComponent implements OnInit {
     this.storeService.store.taxes.forEach( t=> order+= `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
     order+= `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
 
+    order+= `\n\n _Enviado por:https://secret-scrubland-76975.herokuapp.com/${this.storeService.store.name}_`
     return order;
   }
 
