@@ -55,7 +55,7 @@ export class CustomerComponent implements OnInit {
     data+= '\n\n';
     data+= '---';
     data+= '\n\n';
-    data+= `Pedido: \n${this.formatOrder()}`;
+    data+= `*Pedido:* \n${this.formatOrder()}`;
     data+= '---';
     data+= '\n\n';
     data+= `*Endereço:* \n${this.formatAddress()}`
