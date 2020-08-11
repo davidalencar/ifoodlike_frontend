@@ -11,7 +11,7 @@
         <div class="form-group col-md-4">
           <label for="inputPassword4">Celular com DDD</label>
           <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
-            required ngModel mask="(00) 0 0000-0000">
+            required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
         </div>
       </div>
       <div class="form-row">

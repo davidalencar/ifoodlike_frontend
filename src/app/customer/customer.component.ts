@@ -49,30 +49,31 @@ export class CustomerComponent implements OnInit {
   }
 
   formatData(){
-    var data:string = 'Cliente: \n';
+    var data:string = '';
    
     data+= this.formatUserInfo();
     data+= '\n\n';
-    data+= `Endereço: \n${this.formatAddress()}`
-    data+= '\n\n';
-    data+= '----------';
+    data+= '---';
     data+= '\n\n';
     data+= `Pedido: \n${this.formatOrder()}`;
+    data+= '---';
+    data+= '\n\n';
+    data+= `*Endereço:* \n${this.formatAddress()}`
 
     return data;
   }
 
   formatUserInfo() {
-    var userInfo: string = `*${this.custData.value.userName.trim()}*`
-    if (this.storeService.store.questions.phone == true){
-      userInfo+= '\n\n';
-      userInfo+= `Cel.: ${this.custData.value.userPhone}`
+    var userInfo: string = `*${this.custData.value.userName.trim()}*\n`
+    if (this.storeService.store.questions.phone == true){ 
+      userInfo+= '\n';
+      userInfo+= `${this.custData.value.userPhone}`
     }
     return userInfo;
   }
 
   formatAddress(){
-    return `${this.custData.value.userAddress}, ${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}\n_${this.custData.value.userAddressComplement}_`
+    return `${this.custData.value.userAddress}, ${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}\n${this.custData.value.userAddressComplement}`
   }
 
   formatOrder(){
