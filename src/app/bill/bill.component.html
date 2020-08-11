@@ -1,63 +1,57 @@
-<div class="container">
-    <table class="table">
-      <thead class="thead-light">
-        <tr>
-          <th scope="col">{{ storeService.store.productTitle }}</th>
-          <th scope="col">{{ storeService.store.unitTitle }}</th>
-          <th scope="col">Qtde.</th>
-          <th scope="col">Valor</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let p of storeService.basketProducts()">
-          <td>{{ p.name }}</td>
-          <td>{{ p.unit }}</td>
-          <td>{{ p.qty }}</td>
-          <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
-        </tr>
-        <tr>
-          <th></th>
-          <th></th>
-          <td>Pedido</td>
-          <td>{{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</td>
-        </tr>
-        <tr *ngIf="!storeService.canSubmitOrder()">
-          <td colspan="2"></td>
-          <td colspan="2">
-            <div class="invalid-msg" >
-              *Adicione mais {{ storeService.formatPrice(storeService.remainToMinimumOrderAmount()) }} para fechar seu
-              pedido.
-            </div>
-          </td>
-        </tr>
-        <tr *ngFor="let t of storeService.store.taxes">
-          <td colspan="2"></td>
-          <td>{{ t.name }}</td>
-          <td>{{ storeService.formatPrice(t.value) }}</td>
-        </tr>
-        <tr>
-          <td colspan="2"></td>          
-          <td>Total</td>
-          <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
-        </tr>
-      </tbody>
-    </table>
+<table class="table">
+  <thead class="thead-light">
+    <tr>
+      <th scope="col">{{ storeService.store.productTitle }}</th>
+      <th scope="col">{{ storeService.store.unitTitle }}</th>
+      <th scope="col">Qtde.</th>
+      <th scope="col">Valor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of storeService.basketProducts()">
+      <td>{{ p.name }}</td>
+      <td>{{ p.unit }}</td>
+      <td>{{ p.qty }}</td>
+      <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+      <td>Pedido</td>
+      <td>{{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</td>
+    </tr>
+    <tr *ngIf="!storeService.canSubmitOrder()">
+      <td colspan="2"></td>
+      <td colspan="2">
+        <div class="invalid-msg">
+          *Adicione mais {{ storeService.formatPrice(storeService.remainToMinimumOrderAmount()) }} para fechar seu
+          pedido.
+        </div>
+      </td>
+    </tr>
+    <tr *ngFor="let t of storeService.store.taxes">
+      <td colspan="2"></td>
+      <td>{{ t.name }}</td>
+      <td>{{ storeService.formatPrice(t.value) }}</td>
+    </tr>
+    <tr>
+      <td colspan="2"></td>
+      <td>Total</td>
+      <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
+    </tr>
+  </tbody>
+</table>
 
-    <br>
-    <br>
-    <br>
-    <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-      <div class="container">
-        <a [routerLink]="['/', storeService.store.name]" class="btn btn-success">
-          Comprar mais
-        </a>
-        <button 
-        type="submit" 
-        class="btn btn-success"
-        [routerLink]="['/', storeService.store.name, 'customer']"
-        [disabled]="!storeService.canSubmitOrder()">
-          Confirmar pedido
-        </button>
-      </div>
-    </nav>
-</div>
+<br>
+<br>
+<br>
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+  <div class="container">
+    <a [routerLink]="['/', storeService.store.name]" class="btn btn-success">
+      Comprar mais
+    </a>
+    <button type="submit" class="btn btn-success" [routerLink]="['/', storeService.store.name, 'customer']"
+      [disabled]="!storeService.canSubmitOrder()">
+      Confirmar pedido
+    </button>
+  </div>
+</nav>
