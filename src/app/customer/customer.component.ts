@@ -56,15 +56,20 @@ export class CustomerComponent implements OnInit {
     data+= '---';
     data+= '\n\n';
     data+= `*Pedido:* \n${this.formatOrder()}`;
+    data+= '\n\n';
     data+= '---';
     data+= '\n\n';
     data+= `*Endereço:* \n${this.formatAddress()}`
+    data+= '\n\n';
+    data+= '---';
+    data+= '\n\n';
+    data+= this.formatTime()
 
     return data;
   }
 
   formatUserInfo() {
-    var userInfo: string = `*${this.custData.value.userName.trim()}*\n`
+    var userInfo: string = `*${this.custData.value.userName.trim()}*`
     if (this.storeService.store.questions.phone == true){ 
       userInfo+= '\n';
       userInfo+= `${this.custData.value.userPhone}`
@@ -77,14 +82,18 @@ export class CustomerComponent implements OnInit {
   }
 
   formatOrder(){
-    var order: string;
+    var order: string = '';
 
-    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty} _${p.unit.trim()}_ ${p.name} (${this.storeService.formatPrice(p.price * p.qty)})`)
+    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty}  _${p.unit.trim()}_  ${p.name} (${this.storeService.formatPrice(p.price * p.qty)})`)
     order+='\n'
     this.storeService.store.taxes.forEach( t=> order+= `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
     order+= `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
 
     return order;
+  }
+
+  formatTime() {
+    return `Pedido em ${(new Date()).toLocaleDateString('pt-BR')}`
   }
 
 }
