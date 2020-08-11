@@ -3,6 +3,7 @@ import { StoreService } from '../services/store.service';
 import { AddressService } from '../services/address.service';
 import { AddressType } from '../services/types/address.type';
 import { NgForm } from '@angular/forms';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-customer',
@@ -48,22 +49,40 @@ export class CustomerComponent implements OnInit {
   }
 
   formatData(){
-    return `*${this.custData.value.userName.trim()}*\n${this.formatAddress()}\n\n${this.formatOrder()}`
+    var data:string = 'Cliente: \n';
+   
+    data+= this.formatUserInfo();
+    data+= '\n\n';
+    data+= `Endereço: \n${this.formatAddress()}`
+    data+= '\n\n';
+    data+= '----------';
+    data+= '\n\n';
+    data+= `Pedido: \n${this.formatOrder()}`;
+
+    return data;
+  }
+
+  formatUserInfo() {
+    var userInfo: string = `*${this.custData.value.userName.trim()}*`
+    if (this.storeService.store.questions.phone == true){
+      userInfo+= '\n\n';
+      userInfo+= `Cel.: ${this.custData.value.userPhone}`
+    }
+    return userInfo;
   }
 
   formatAddress(){
-    return `Endereço: ${this.custData.value.userAddress}, ${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}\n${this.custData.value.userAddressComplement}`
+    return `${this.custData.value.userAddress}, ${this.custData.value.userAddressNumber} - ${this.custData.value.userAddressLine} - CEP: ${this.custData.value.zipcode}\n_${this.custData.value.userAddressComplement}_`
   }
 
   formatOrder(){
-    var order: string = 'Pedido:';
+    var order: string;
 
     this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty} _${p.unit.trim()}_ ${p.name} (${this.storeService.formatPrice(p.price * p.qty)})`)
     order+='\n'
     this.storeService.store.taxes.forEach( t=> order+= `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
     order+= `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
 
-    order+= `\n\n _Enviado por:https://secret-scrubland-76975.herokuapp.com/${this.storeService.store.name}_`
     return order;
   }
 

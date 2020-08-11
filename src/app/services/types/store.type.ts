@@ -8,5 +8,9 @@ export class StoreType {
     minimumOrderAmount?: number;
     phone: string;
     taxes:{name: string, value:number}[];
-    categories:{name: string, enable: boolean, order: number}[]
+    categories:{name: string, enable: boolean, order: number}[];
+    questions: {
+        address: boolean;
+        phone: boolean;
+    }
 }

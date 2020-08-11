@@ -1,6 +1,5 @@
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { catchError, tap } from 'rxjs/operators';
 import { Injectable } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
 
@@ -26,7 +25,7 @@ export class StoreService {
     }
 
     basketProducts() {
-        return this.products.filter(p => p.qty > 0)
+        return this.orderProductsByName(this.products.filter(p => p.qty > 0))    
     }
 
     bakestTotalAmount() {
@@ -65,9 +64,12 @@ export class StoreService {
     }
 
     productsByCategory(category: string) {
-        return this.products
-            .filter(p => p.category == category)
-            .sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        return this.orderProductsByName(this.products.filter(p => p.category == category))
+            
+    }
+
+    orderProductsByName(list: ProductType[]) {
+        return list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
     }
 
 
