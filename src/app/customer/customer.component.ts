@@ -56,10 +56,12 @@ export class CustomerComponent implements OnInit {
     data+= '---';
     data+= '\n\n';
     data+= `*Pedido:* \n${this.formatOrder()}`;
-    data+= '\n\n';
-    data+= '---';
-    data+= '\n\n';
-    data+= `*Endereço:* \n${this.formatAddress()}`
+    if (this.storeService.store.questions.address == true) {
+      data+= '\n\n';
+      data+= '---';
+      data+= '\n\n';
+      data+= `*Endereço:* \n${this.formatAddress()}`
+    }
     data+= '\n\n';
     data+= '---';
     data+= '\n\n';

@@ -1,19 +1,20 @@
 <div class="container">
-    <form (ngSubmit)="onConfirmPurch()" #form="ngForm">
-      <div class="form-row">
-        <div class="form-group col-md-4">
-          <label for="inputCustName">Nome</label>
-          <input type="text" class="form-control" id="inputCustName" name="userName" required ngModel minLength="3"
-            maxLength="60" pattern="[a-zA-Z ]*">
-        </div>
+  <form (ngSubmit)="onConfirmPurch()" #form="ngForm">
+    <div class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputCustName">Nome</label>
+        <input type="text" class="form-control" id="inputCustName" name="userName" required ngModel minLength="3"
+          maxLength="60" pattern="[a-zA-Z ]*">
       </div>
-      <div *ngIf="storeService.store.questions.phone == true" class="form-row">
-        <div class="form-group col-md-4">
-          <label for="inputPassword4">Celular com DDD</label>
-          <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
-            required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
-        </div>
+    </div>
+    <div *ngIf="storeService.store.questions.phone == true" class="form-row">
+      <div class="form-group col-md-4">
+        <label for="inputPassword4">Celular com DDD</label>
+        <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
+          required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
       </div>
+    </div>
+    <div *ngIf="storeService.store.questions.address == true">
       <div class="form-row">
         <div class="form-group col-md-2">
           <label for="inputZip">CEP</label>
@@ -36,27 +37,26 @@
         </div>
         <div class="form-group col-md-2">
           <label for="inputAddressNumber">Número</label>
-          <input type="text" class="form-control" id="inputAddressNumber" placeholder="" name="userAddressNumber" required
-            ngModel>
+          <input type="text" class="form-control" id="inputAddressNumber" placeholder="" name="userAddressNumber"
+            required ngModel>
         </div>
       </div>
       <div class="form-group">
         <label for="inputAddress2">Complemento</label>
         <input type="text" class="form-control" id="inputAddress2" placeholder="Apartamento, bloco ou andar."
           name="userAddressComplement" ngModel>
-      </div>      
-      <br>
-      <br>
-      <br>
-      <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-        <div class="container justify-content-end">
-          <button type="submit" 
-          class="btn btn-success" 
-          [disabled]="!form.valid || !storeService.canSubmitOrder()">
-            Enviar
-          </button>
-        </div>
-      </nav>
-    </form>
-  
-  </div>
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+      <div class="container justify-content-end">
+        <button type="submit" class="btn btn-success" [disabled]="!form.valid || !storeService.canSubmitOrder()">
+          Enviar
+        </button>
+      </div>
+    </nav>
+  </form>
+
+</div>
