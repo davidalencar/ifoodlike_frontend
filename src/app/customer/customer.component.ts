@@ -3,7 +3,7 @@ import { StoreService } from '../services/store.service';
 import { AddressService } from '../services/address.service';
 import { AddressType } from '../services/types/address.type';
 import { NgForm } from '@angular/forms';
-import { stringify } from '@angular/compiler/src/util';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-customer',
@@ -65,7 +65,7 @@ export class CustomerComponent implements OnInit {
     data+= '\n\n';
     data+= '---';
     data+= '\n\n';
-    data+= this.formatTime()
+    data+= this.formatFooter()
 
     return data;
   }
@@ -86,7 +86,7 @@ export class CustomerComponent implements OnInit {
   formatOrder(){
     var order: string = '';
 
-    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty}  _${p.unit.trim()}_  ${p.name} (${this.storeService.formatPrice(p.price * p.qty)})`)
+    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty}  _${p.unit.trim()}_  ${p.name}  (${this.storeService.formatPrice(p.price * p.qty)})`)
     order+='\n'
     this.storeService.store.taxes.forEach( t=> order+= `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
     order+= `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
@@ -94,8 +94,14 @@ export class CustomerComponent implements OnInit {
     return order;
   }
 
-  formatTime() {
-    return `Pedido em ${(new Date()).toLocaleDateString('pt-BR')}`
+  formatFooter() {
+    var footer:string = '';
+    footer+= `Pedido em ${moment().format('DD/MM/YYYY HH:mm')}`;
+    
+    if (!this.storeService.store.phone) {
+      footer+= ` via http://minha.bslista.com/${this.storeService.store.name}`;
+    }
+    return  footer;
   }
 
 }
