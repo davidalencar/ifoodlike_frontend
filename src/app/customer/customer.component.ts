@@ -97,10 +97,8 @@ export class CustomerComponent implements OnInit {
   formatFooter() {
     var footer:string = '';
     footer+= `Pedido em ${moment().format('DD/MM/YYYY HH:mm')}`;
+    footer+= ` via minha.bslista.com/${this.storeService.store.name}`;
     
-    if (!this.storeService.store.phone) {
-      footer+= ` via bslista.com`;
-    }
     return  footer;
   }
 
