@@ -10,14 +10,17 @@ import { ShelfComponent } from './shelf/shelf.component';
 import { ShelfitemComponent } from './shelfitem/shelfitem.component';
 import { BillComponent } from './bill/bill.component';
 import { CustomerComponent } from './customer/customer.component';
- 
+import { AccountComponent } from './account/account.component';
+import { UserService } from './services/user.service' 
+
 @NgModule({
   declarations: [
     AppComponent,
     ShelfComponent,
     ShelfitemComponent,
     BillComponent,
-    CustomerComponent
+    CustomerComponent,
+    AccountComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +29,10 @@ import { CustomerComponent } from './customer/customer.component';
     AppRoutingModule,
     NgxMaskModule.forRoot()
   ],
-  providers: [StoreService],
+  providers: [
+    StoreService,
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

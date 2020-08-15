@@ -1,0 +1,52 @@
+<div class="text-center" *ngIf="showMsg == false else elseMsgBlock">
+
+    <form class="form-signin" (ngSubmit)="onSend(form)" #form="ngForm">
+        <img class="mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="" width="72"
+            height="72">
+        <div *ngIf="userPlan != '' else elseBlock">
+            <h1 class="h3 mb-3 font-weight-normal">Crie sua conta</h1>
+
+            <div class="form-group">
+                <input type="text" class="form-control" id="inputCustName" name="userName" required ngModel
+                    minLength="3" maxLength="60" pattern="[a-zA-Z ]*" placeholder="Seu nome">
+            </div>
+
+            <div class="form-group">
+                <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
+                    required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
+            </div>
+
+            <div class="form-group">
+                <input type="email" class="form-control" id="inputPhone" placeholder="E-mail" name="userEmail" required
+                    ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            </div>
+            <div class="form-group">
+                <span class="text-muted">Não compartilhamos seus dados.</span>
+            </div>
+
+        </div>
+        <ng-template #elseBlock>
+            <p>
+                <a href="/?plan=basic">
+                    <h4>Crie sua conta</h4>
+                </a> ou acesse:
+            </p>
+            <label for="inputEmail" class="sr-only">E-mail</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" required autofocus>
+            <label for="inputPassword" class="sr-only">Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" required>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Lembrar
+                </label>
+            </div>
+        </ng-template>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!form.valid">Enviar</button>
+    </form>    
+</div>
+<ng-template #elseMsgBlock>
+    <h1>
+        Guardados seu contato e informaremos assim que estiver tudo pronto =)
+    </h1>
+    <a href="bslista.com"><h2>bslista.com</h2></a>
+</ng-template>
