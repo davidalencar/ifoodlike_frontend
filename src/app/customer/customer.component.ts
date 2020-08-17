@@ -76,7 +76,7 @@ export class CustomerComponent implements OnInit {
 
     switch (this.custData.value.paym) {
       case 'transfer':
-        paym+='*Transferência*\n'
+        paym+='Transferência\n'
         paym+=`*Banco:* ${this.storeService.store.paym.transfer.bank}\n`
         paym+=`*Conta:* ${this.storeService.store.paym.transfer.account}\n`
         paym+=`*Documento:* ${this.storeService.store.paym.transfer.document}`
