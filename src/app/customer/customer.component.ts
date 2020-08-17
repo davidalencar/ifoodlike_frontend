@@ -72,7 +72,7 @@ export class CustomerComponent implements OnInit {
   }
 
   formatPaym(){
-    var paym: string = '' 
+    var paym: string = '\n' 
 
     switch (this.custData.value.paym) {
       case 'transfer':
