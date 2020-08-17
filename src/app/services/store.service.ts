@@ -6,6 +6,7 @@ import { Title }     from '@angular/platform-browser';
 import { ProductType } from './types/product.type'
 import { StoreType } from './types/store.type'
 import { StoreServiceResponseType } from './types/store.service.response.type'
+import { ItemType } from './types/item.type';
 
 
 
@@ -28,17 +29,31 @@ export class StoreService {
         return this.orderProductsByName(this.products.filter(p => p.qty > 0))    
     }
 
+    basketProductsWithItems() {
+        return this.basketProducts().filter(p => p.items.length > 0)
+    }
+
+    getItemsInProduct(product: ProductType) {
+        return this.orderProductItemsByName(product.items.filter(i => i.qty > 0))
+    }
+
+    hasBasketProductsWithItems(){
+        return this.basketProductsWithItems().length > 0;
+    }
+
     bakestTotalAmount() {
         var basket = this.basketProducts();
 
         if (basket.length == 0) return 0;
 
-        return basket.map(p => p.price * p.qty).reduce((sum, value) => sum + value);
+        return basket.map( p => p.price * p.qty + p.items.map(i => i.price * i.qty).reduce((sum, value) => sum + value, 0) * p.qty).reduce((sum, value) => sum + value)
     }
 
     hasProductsOnBasket() {
         return this.basketProducts().length > 0;
     }
+
+    
 
     storeTaxesTotalAmount() {
         if (this.store.taxes.length == 0) return 0;
@@ -72,6 +87,10 @@ export class StoreService {
         return list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
     }
 
+    orderProductItemsByName(list: ItemType[]) {
+        return list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+    }
+
 
     storeDataRequest(storename: string): Observable<StoreServiceResponseType> {
         const url = `${store_api_uri}${storename}`;
@@ -84,6 +103,7 @@ export class StoreService {
                 this.store = data.store;                
                 this.products = data.products.map((p =>{
                     p.qty = 0;
+                    p.items.forEach( i => i.qty  = 0)
                     return p;
                 }));
                 this.titleService.setTitle(this.store.title)

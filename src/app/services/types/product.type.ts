@@ -1,3 +1,5 @@
+import { ItemType } from './item.type'
+
 export class ProductType {
     _id: string;
     name: string;
@@ -8,7 +10,7 @@ export class ProductType {
     enable: boolean;
     img?: string;
     qty?: number;
-    
+    items: ItemType [];
     constructor(){
         this.qty = 0;
     }

@@ -85,7 +85,7 @@ export class CustomerComponent implements OnInit {
         paym+='Dinheiro'
         break;
       case 'credit':
-        paym+='Cartâo de crédito'
+        paym+='Cartão de crédito'
         break;
     }
 
@@ -108,7 +108,12 @@ export class CustomerComponent implements OnInit {
   formatOrder(){
     var order: string = '';
 
-    this.storeService.basketProducts().forEach(p => order+= `    \n ${p.qty}  _${p.unit.trim()}_  ${p.name}  (${this.storeService.formatPrice(p.price * p.qty)})`)
+    this.storeService.basketProducts().forEach(p => {
+       order+= `    \n ${p.qty}  _${p.unit.trim()}_  ${p.name}  (${this.storeService.formatPrice(p.price * p.qty)})`
+       this.storeService.getItemsInProduct(p).forEach( item => {
+          order+= `    \n     + ${item.qty * p.qty}  _${item.unit.trim()}_  ${item.name}  (${this.storeService.formatPrice(item.price * item.qty * p.qty)})`
+       })
+      })
     order+='\n'
     this.storeService.store.taxes.forEach( t=> order+= `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
     order+= `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`

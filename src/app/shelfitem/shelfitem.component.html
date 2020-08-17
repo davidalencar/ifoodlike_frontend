@@ -1,12 +1,8 @@
 <div class="list-group-item">
     <div class="d-flex w-100 justify-content-between">
         <div>
-
-            <h5 class="mb-1">{{ product.name }}</h5>
-            <!-- <p class="text-muted">{{ product.unit }}</p>
-             -->
+            <h5 class="mb-1">{{ product.name }}</h5>           
             <p class="text-muted">{{ product.description }}</p>
-
             <p> <b> {{ product.unit }}</b></p>
             <small>{{ storeService.formatPrice(product.price) }}</small>
         </div>

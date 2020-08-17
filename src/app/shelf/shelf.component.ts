@@ -22,4 +22,11 @@ export class ShelfComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  nextRouterLink() {
+    if (this.storeService.hasBasketProductsWithItems())
+      return 'items'
+    
+    return 'bill'
+  }
 }

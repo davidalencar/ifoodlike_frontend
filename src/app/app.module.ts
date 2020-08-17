@@ -11,7 +11,8 @@ import { ShelfitemComponent } from './shelfitem/shelfitem.component';
 import { BillComponent } from './bill/bill.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AccountComponent } from './account/account.component';
-import { UserService } from './services/user.service' 
+import { UserService } from './services/user.service';
+import { ItemsComponent } from './items/items.component' 
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { UserService } from './services/user.service'
     ShelfitemComponent,
     BillComponent,
     CustomerComponent,
-    AccountComponent
+    AccountComponent,
+    ItemsComponent
   ],
   imports: [
     BrowserModule,

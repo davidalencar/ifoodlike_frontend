@@ -8,12 +8,20 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let p of storeService.basketProducts()">
-      <td>{{ p.name }}</td>
-      <td>{{ p.unit }}</td>
-      <td>{{ p.qty }}</td>
-      <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
-    </tr>
+    <ng-container *ngFor="let p of storeService.basketProducts()">      
+      <tr >
+        <td>{{ p.name }}</td>
+        <td>{{ p.unit }}</td>
+        <td>{{ p.qty }}</td>
+        <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
+      </tr>   
+      <tr *ngFor="let item of storeService.getItemsInProduct(p)">
+        <td>{{ '+    ' + item.name }}</td>
+        <td>{{ item.unit }}</td>
+        <td>{{ item.qty * p.qty }}</td>
+        <td>{{ storeService.formatPrice(item.price * item.qty * p.qty) }}</td>
+      </tr>
+    </ng-container>
     <tr>
       <td colspan="2"></td>
       <td>Pedido</td>

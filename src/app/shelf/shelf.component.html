@@ -18,7 +18,7 @@
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
     <div class="container justify-content-end">
         <button class="btn btn-lg btn-success"
-        [routerLink]="['bill']"
+        [routerLink]="[nextRouterLink()]"
         [disabled]="!storeService.hasProductsOnBasket()">
         Fechar pedido        
     </button>
