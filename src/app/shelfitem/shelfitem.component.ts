@@ -6,7 +6,8 @@ import { ProductType } from '../services/types/product.type'
   selector: 'app-shelfitem',
   templateUrl: './shelfitem.component.html',
   styleUrls: ['./shelfitem.component.css',
-    '../../../node_modules/bootstrap/dist/css/bootstrap.min.css']
+    '../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
+    '../../../node_modules/remixicon/fonts/remixicon.css']
 })
 export class ShelfitemComponent implements OnInit {
 

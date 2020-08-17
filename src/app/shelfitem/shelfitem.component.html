@@ -11,16 +11,16 @@
             <small>{{ storeService.formatPrice(product.price) }}</small>
         </div>
         <div class="d-flex flex-column justify-content-between">
-            <img *ngIf="!product.img else elseBlockImg" src="../../assets/empimg.png"  class="card-img-left">
+            <img *ngIf="!product.img else elseBlockImg" src="../../assets/empimg.png" class="card-img-left">
             <ng-template #elseBlockImg>
-                <img  [src]="product.img" class="card-img-left" alt="...">
+                <img [src]="product.img" class="card-img-left" alt="...">
             </ng-template>
-            <div class="col-12">
-                <div class="d-flex flex-row justify-content-between">
-                    <button type="button" class="btn btn-outline-danger" (click)="onSubtract()">-</button>
-                    <span>{{ product.qty }}</span>
-                    <button type="button" class="btn btn-outline-success" (click)="onAdd()">+</button>
-                </div>
+            <div class="col-12">                
+                <div class="btn-group itemcontrol" role="group" aria-label="Basic example">
+                    <button type="button" class="btn" (click)="onSubtract()"><i class="ri-indeterminate-circle-fill ri-lg"></i></button>
+                    <button type="button" class="btn"><span>{{ product.qty }} </span></button>
+                    <button type="button" class="btn" (click)="onAdd()"><i class="ri-add-circle-fill ri-lg"></i></button>
+                </div>               
             </div>
         </div>
     </div>

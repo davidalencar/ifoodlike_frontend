@@ -1,7 +1,16 @@
 img{
-    max-height:148px;
-    max-width:146px;
+    max-height:120px;
+    max-width:129px;
     height:auto;
     width:auto;
     margin-bottom: 10px;
+}
+div.list-group-item {
+    border-top-style: none;
+}
+
+.itemcontrol {
+    position: fixed;
+    bottom: 0;
+    right: 0;
 }
