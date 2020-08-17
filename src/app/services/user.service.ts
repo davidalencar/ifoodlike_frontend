@@ -11,12 +11,13 @@ const apiUrl = 'https://fathomless-chamber-28156.herokuapp.com/api/users'
 export class UserService{
     constructor(private http: HttpClient) { }
 
-    createUser(uname:string, uphone:string, uemail:string): Observable<UserType> {
+    createUser(uname:string, uphone:string, uemail:string, plan: string): Observable<UserType> {
         const user = new UserType();
         user.name = uname;
         user.phone = uphone;
         user.email = uemail;
-        user.password = 'firstpwd'
+        user.password = 'firstpwd';
+        user.plan = plan;
         return this.http.post<UserType>(apiUrl, user)
       }
 }

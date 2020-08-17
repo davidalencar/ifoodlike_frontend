@@ -37,7 +37,8 @@ export class AccountComponent implements OnInit {
     if (this.userPlan != ''){
       this.userService.createUser(form.value.userName,
         form.value.userPhone,
-        form.value.userEmail)
+        form.value.userEmail,
+        this.userPlan)
         .subscribe((data: UserType) => {          
         });
         this.showMsg = true;
