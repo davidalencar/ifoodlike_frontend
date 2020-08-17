@@ -16,7 +16,7 @@
                     <img src="../../assets/empimg.png" class="card-img-left">
                     <div class="col-12">
                         <div class="btn-group itemcontrol" role="group" aria-label="Basic example">
-                            <button type="button" class="btn"><i
+                            <button type="button" class="btn" (click)="onSubtract(item)"><i
                                     class="ri-indeterminate-circle-fill ri-lg"></i></button>
                             <button type="button" class="btn"><span>{{ item.qty }} </span></button>
                             <button type="button" class="btn" (click)="onAdd(item)"><i

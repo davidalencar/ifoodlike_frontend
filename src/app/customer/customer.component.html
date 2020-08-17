@@ -10,7 +10,7 @@
     <div *ngIf="storeService.store.questions.phone == true" class="form-row">
       <div class="form-group col-md-4">
         <label for="inputPassword4">Celular com DDD</label>
-        <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
+        <input type="phone" inputmode="numeric" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
           required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
       </div>
     </div>
@@ -18,7 +18,7 @@
       <div class="form-row">
         <div class="form-group col-md-2">
           <label for="inputZip">CEP</label>
-          <input type="text" class="form-control" id="inputZip" placeholder="00000-000" name="zipcode" required ngModel
+          <input type="text" inputmode="numeric" class="form-control" id="inputZip" placeholder="00000-000" name="zipcode" required ngModel
             #zipCode="ngModel" mask="00000-000" (keyup)="onZipCodeChange(zipCode.value, form)">
           <div class="invalid-msg">
             {{ zipCodeQueryError }}
@@ -37,7 +37,7 @@
         </div>
         <div class="form-group col-md-2">
           <label for="inputAddressNumber">Número</label>
-          <input type="text" class="form-control" id="inputAddressNumber" placeholder="" name="userAddressNumber"
+          <input type="text" inputmode="numeric" class="form-control" id="inputAddressNumber" placeholder="" name="userAddressNumber"
             required ngModel>
         </div>
       </div>
@@ -59,7 +59,7 @@
         <div class="form-check" *ngIf="storeService.store.paym.credit == true">
           <input class="form-check-input" type="radio" name="paym" ngModel id="exampleRadios2" value="credit" required>
           <label class="form-check-label" for="exampleRadios2">
-            Cartâo de crédito            
+            Cartão de crédito            
           </label>
         </div>
         <div class="form-check" *ngIf="storeService.store.paym.transfer.enable == true">

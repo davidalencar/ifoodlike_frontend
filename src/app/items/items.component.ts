@@ -19,4 +19,10 @@ export class ItemsComponent implements OnInit {
   onAdd(item: ProductType) {
     item.qty++;
   }
+
+  onSubtract(item: ProductType)
+  {
+    if (item.qty > 0)
+      item.qty-=1;
+  }
 }
