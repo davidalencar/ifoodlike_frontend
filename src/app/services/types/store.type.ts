@@ -13,4 +13,15 @@ export class StoreType {
         address: boolean;
         phone: boolean;
     }
+    paym: {
+        money: boolean;
+        credit: boolean;
+        transfer: {
+            enable: boolean;
+            bank: string;
+            account: string;
+            document: string;
+        }
+    }
+
 }

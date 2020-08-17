@@ -47,6 +47,31 @@
           name="userAddressComplement" ngModel>
       </div>
     </div>
+    <div class="form-row">
+      <div class="form-group">
+        <label >Forma de pagamento</label>
+        <div class="form-check" *ngIf="storeService.store.paym.money == true">
+          <input class="form-check-input" type="radio" name="paym" ngModel id="exampleRadios1" value="money" required>
+          <label class="form-check-label" for="exampleRadios1">
+            Dinheiro
+          </label>
+        </div>
+        <div class="form-check" *ngIf="storeService.store.paym.credit == true">
+          <input class="form-check-input" type="radio" name="paym" ngModel id="exampleRadios2" value="credit" required>
+          <label class="form-check-label" for="exampleRadios2">
+            Cartâo de crédito            
+          </label>
+        </div>
+        <div class="form-check" *ngIf="storeService.store.paym.transfer.enable == true">
+          <input class="form-check-input" type="radio"  name="paym" ngModel id="exampleRadios2" value="transfer" required>
+          <label class="form-check-label" for="exampleRadios2">
+            Transferência            
+          </label>
+        </div>
+      </div>
+    </div>
+
+
     <br>
     <br>
     <br>

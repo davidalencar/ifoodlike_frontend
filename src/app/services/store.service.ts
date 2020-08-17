@@ -81,7 +81,7 @@ export class StoreService {
     getStoreData(storeName: string) {
         this.storeDataRequest(storeName)
             .subscribe((data:StoreServiceResponseType) => {
-                this.store = data.store;
+                this.store = data.store;                
                 this.products = data.products.map((p =>{
                     p.qty = 0;
                     return p;

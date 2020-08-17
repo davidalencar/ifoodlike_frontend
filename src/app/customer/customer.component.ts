@@ -48,26 +48,48 @@ export class CustomerComponent implements OnInit {
     window.location.href = `${apiURI}${argPhone}${argsOrder}`
   }
 
+  
+  breakLine() {
+    return '\n\n---\n\n'
+  }
+
   formatData(){
     var data:string = '';
    
     data+= this.formatUserInfo();
-    data+= '\n\n';
-    data+= '---';
-    data+= '\n\n';
+    data+= this.breakLine();
     data+= `*Pedido:* \n${this.formatOrder()}`;
     if (this.storeService.store.questions.address == true) {
-      data+= '\n\n';
-      data+= '---';
-      data+= '\n\n';
+      data+= this.breakLine();
       data+= `*Endereço:* \n${this.formatAddress()}`
     }
-    data+= '\n\n';
-    data+= '---';
-    data+= '\n\n';
+    data+= this.breakLine();
+    data+= `*Forma de pagamento:* \n${this.formatPaym()}`;
+    data+= this.breakLine();
     data+= this.formatFooter()
 
     return data;
+  }
+
+  formatPaym(){
+    var paym: string = '' 
+
+    switch (this.custData.value.paym) {
+      case 'transfer':
+        paym+='*Transferência*\n'
+        paym+=`*Banco:* ${this.storeService.store.paym.transfer.bank}\n`
+        paym+=`*Conta:* ${this.storeService.store.paym.transfer.account}\n`
+        paym+=`*Documento:* ${this.storeService.store.paym.transfer.document}`
+        break;
+      case 'money':
+        paym+='Dinheiro'
+        break;
+      case 'credit':
+        paym+='Cartâo de crédito'
+        break;
+    }
+
+    return paym;
   }
 
   formatUserInfo() {
