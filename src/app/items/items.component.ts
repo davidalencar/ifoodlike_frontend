@@ -28,6 +28,7 @@ export class ItemsComponent implements OnInit {
   }
 
   checkValue(e, item: ProductType) {
+    console.log(e, item.name)
     if (e.target.checked) {
       this.onAdd(item)
     } else {
