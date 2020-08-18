@@ -111,7 +111,7 @@ export class CustomerComponent implements OnInit {
     this.storeService.basketProducts().forEach(p => {
        order+= `    \n ${p.qty}  _${p.unit.trim()}_  ${p.name}  (${this.storeService.formatPrice(p.price * p.qty)})`
        this.storeService.getItemsInProduct(p).forEach( item => {
-          order+= `    \n     + ${item.qty * p.qty}  _${item.unit.trim()}_  ${item.name}  (${this.storeService.formatPrice(item.price * item.qty * p.qty)})`
+          order+= `    \n     + _${item.qty * p.qty}  ${item.unit.trim()}  ${item.name}  (${this.storeService.formatPrice(item.price * item.qty * p.qty)})_`
        })
       })
     order+='\n'

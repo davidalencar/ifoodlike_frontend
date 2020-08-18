@@ -1,9 +1,10 @@
-<nav class="navbar sticky-top navbar-light bg-light">
+<nav class="navbar sticky-top navbar-light" style="background-color: #E9ECEF;">
+
     <span class="navbar-brand mb-0 h1">{{ storeService.store.shelfTitle }}</span>
     <a class="nav-link" [href]="storeService.store.name + '#'+category.name" *ngFor="let category of storeService.categories">{{ category.name }}</a>
 </nav>
 <div class="list-group list-group-flush" *ngFor="let category of storeService.categories">
-    <div class="list-group-item">
+    <div class="list-group-item bg-light">
         <a [id]="category.name">
             <h4>{{ category.name }} </h4>            
         </a>
@@ -19,8 +20,9 @@
     <div class="container justify-content-end">
         <button class="btn btn-lg btn-success"
         [routerLink]="[nextRouterLink()]"
-        [disabled]="!storeService.hasProductsOnBasket()">
-        Fechar pedido        
+        [disabled]="!storeService.hasProductsOnBasket()"
+        >
+        {{ nextRouterName() }}
     </button>
     </div>
 </nav>

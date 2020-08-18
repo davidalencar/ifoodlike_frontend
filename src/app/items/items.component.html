@@ -1,6 +1,6 @@
-<h2>Adicionais</h2>
+<h2>Deseja extras?</h2>
 <div class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
-    <div class="list-group-item">
+    <div class="list-group-item  bg-light">
         <h4>{{ p.name }} </h4>
     </div>
     <div *ngFor="let item of p.items">
@@ -12,8 +12,7 @@
                     <p> <b> {{ item.unit }}</b></p>
                     <small>{{ storeService.formatPrice(item.price) }}</small>
                 </div>
-                <div class="d-flex flex-column justify-content-between">
-                    <img src="../../assets/empimg.png" class="card-img-left">
+                <div class="d-flex flex-column justify-content-between">                   
                     <div class="col-12">
                         <div class="btn-group itemcontrol" role="group" aria-label="Basic example">
                             <button type="button" class="btn" (click)="onSubtract(item)"><i

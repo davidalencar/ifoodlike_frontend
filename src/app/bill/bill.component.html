@@ -8,19 +8,28 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngFor="let p of storeService.basketProducts()">      
-      <tr >
-        <td>{{ p.name }}</td>
+    <ng-container *ngFor="let p of storeService.basketProducts()">
+      <tr>
+        <td>
+          {{ p.name }}
+        </td>
         <td>{{ p.unit }}</td>
         <td>{{ p.qty }}</td>
         <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
-      </tr>   
-      <tr *ngFor="let item of storeService.getItemsInProduct(p)">
-        <td>{{ '+    ' + item.name }}</td>
-        <td>{{ item.unit }}</td>
-        <td>{{ item.qty * p.qty }}</td>
-        <td>{{ storeService.formatPrice(item.price * item.qty * p.qty) }}</td>
       </tr>
+      <tr *ngIf="storeService.getItemsInProduct(p).length > 0">
+        <td colspan="2">
+          <ul>
+            <li *ngFor="let item of storeService.getItemsInProduct(p)">
+              {{ item.name }}
+              <span class="text-muted">({{ storeService.formatPrice(item.price * item.qty) }})</span>
+              
+            </li>
+          </ul>
+        </td>
+        <td colspan="2">
+      </tr>
+
     </ng-container>
     <tr>
       <td colspan="2"></td>
