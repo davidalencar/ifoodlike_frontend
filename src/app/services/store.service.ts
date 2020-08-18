@@ -101,11 +101,7 @@ export class StoreService {
         this.storeDataRequest(storeName)
             .subscribe((data:StoreServiceResponseType) => {
                 this.store = data.store;                
-                this.products = data.products.map((p =>{
-                    p.qty = 0;
-                    p.items.forEach( i => i.qty  = 0)
-                    return p;
-                }));
+                this.products = data.products;
                 this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })

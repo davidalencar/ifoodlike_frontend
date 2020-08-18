@@ -10,6 +10,7 @@ export class ProductType {
     enable: boolean;
     img?: string;
     qty?: number;
+    maxQty?: number;
     items: ItemType [];
     constructor(){
         this.qty = 0;

@@ -3,7 +3,7 @@
     <div class="list-group-item  bg-light">
         <h4>{{ p.name }} </h4>
     </div>
-    <div *ngFor="let item of p.items">
+    <div *ngFor="let item of storeService.orderProductItemsByName(p.items)">
         <div class="list-group-item">
             <div class="d-flex w-100 justify-content-between">
                 <div>
@@ -12,15 +12,19 @@
                     <p> <b> {{ item.unit }}</b></p>
                     <small>{{ storeService.formatPrice(item.price) }}</small>
                 </div>
-                <div class="d-flex flex-column justify-content-between">                   
+                <div class="d-flex flex-column justify-content-between">
                     <div class="col-12">
-                        <div class="btn-group itemcontrol" role="group" aria-label="Basic example">
+                        <div *ngIf="item.maxQty > 1 else elseBlock" class="btn-group itemcontrol" role="group"
+                            aria-label="Basic example">
                             <button type="button" class="btn" (click)="onSubtract(item)"><i
                                     class="ri-indeterminate-circle-fill ri-lg"></i></button>
                             <button type="button" class="btn"><span>{{ item.qty }} </span></button>
                             <button type="button" class="btn" (click)="onAdd(item)"><i
                                     class="ri-add-circle-fill ri-lg"></i></button>
                         </div>
+                        <ng-template #elseBlock>
+                            <input  class="form-check-input checkbox-lg" type="checkbox" (change)="checkValue($event, item)" [checked]="item.qty > 0" />
+                        </ng-template>
                     </div>
                 </div>
             </div>

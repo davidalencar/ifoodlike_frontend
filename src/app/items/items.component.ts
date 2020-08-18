@@ -17,12 +17,21 @@ export class ItemsComponent implements OnInit {
   }
 
   onAdd(item: ProductType) {
-    item.qty++;
+    if (item.qty < item.maxQty)
+      item.qty++;
   }
 
   onSubtract(item: ProductType)
   {
     if (item.qty > 0)
       item.qty-=1;
+  }
+
+  checkValue(e, item: ProductType) {
+    if (e.target.checked) {
+      this.onAdd(item)
+    } else {
+      this.onSubtract(item)
+    }
   }
 }
