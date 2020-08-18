@@ -7,7 +7,7 @@ import { ProductType } from './types/product.type'
 import { StoreType } from './types/store.type'
 import { StoreServiceResponseType } from './types/store.service.response.type'
 import { ItemType } from './types/item.type';
-
+import { ItemCategoryType } from './types/item.category.type'
 
 
 const store_api_uri = 'https://fathomless-chamber-28156.herokuapp.com/api/stores/'
@@ -33,8 +33,8 @@ export class StoreService {
         return this.basketProducts().filter(p => p.items.length > 0)
     }
 
-    getItemsInProduct(product: ProductType) {
-        return this.orderProductItemsByName(product.items.filter(i => i.qty > 0))
+    getItemsInProductItemCategory(category: ItemCategoryType) {
+        return this.orderProductItemsByName(category.products.filter(i => i.qty > 0))
     }
 
     hasBasketProductsWithItems(){
@@ -46,7 +46,15 @@ export class StoreService {
 
         if (basket.length == 0) return 0;
 
-        return basket.map( p => p.price * p.qty + p.items.map(i => i.price * i.qty).reduce((sum, value) => sum + value, 0) * p.qty).reduce((sum, value) => sum + value)
+        let amountCur = 0;
+
+        amountCur+= basket.map(p => {            
+            var lineAmount = p.items.map( i => i.products.map(p => p.price * p.qty).reduce((sum, value) => sum + value, 0)).reduce((sum, value) => sum + value, 0);
+            
+            return p.price * p.qty + lineAmount * p.qty;
+        }).reduce((sum, value) => sum + value);            
+
+        return amountCur;
     }
 
     hasProductsOnBasket() {
@@ -89,6 +97,13 @@ export class StoreService {
 
     orderProductItemsByName(list: ItemType[]) {
         return list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+    }
+
+    orderProductItemsCategory(list: ItemCategoryType[]) {
+        return list.sort((c1, c2) => {
+            return c1.order - c2.order
+        })
+
     }
 
 

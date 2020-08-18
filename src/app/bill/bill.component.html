@@ -17,15 +17,17 @@
         <td>{{ p.qty }}</td>
         <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
       </tr>
-      <tr *ngIf="storeService.getItemsInProduct(p).length > 0">
+      <tr *ngIf="p.items.length > 0">
         <td colspan="2">
-          <ul>
-            <li *ngFor="let item of storeService.getItemsInProduct(p)">
-              {{ item.name }}
-              <span class="text-muted">({{ storeService.formatPrice(item.price * item.qty) }})</span>
-              
-            </li>
-          </ul>
+          <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)"  >
+            <p>{{ category.name }}</p>
+            <ul>
+              <li *ngFor="let item of storeService.getItemsInProductItemCategory(category)">
+                {{ item.name }}
+                <span *ngIf="item.price > 0" class="text-muted">({{ storeService.formatPrice(item.price * item.qty) }})</span>                
+              </li>
+            </ul>
+          </div>
         </td>
         <td colspan="2">
       </tr>

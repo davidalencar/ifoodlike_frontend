@@ -1,4 +1,5 @@
 import { ItemType } from './item.type'
+import { ItemCategoryType } from './item.category.type'
 
 export class ProductType {
     _id: string;
@@ -11,7 +12,7 @@ export class ProductType {
     img?: string;
     qty?: number;
     maxQty?: number;
-    items: ItemType [];
+    items: ItemCategoryType [];
     constructor(){
         this.qty = 0;
     }
