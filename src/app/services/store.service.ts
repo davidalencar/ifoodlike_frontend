@@ -33,8 +33,22 @@ export class StoreService {
         return this.basketProducts().filter(p => p.items.length > 0)
     }
 
+    basketProductsWithChoicesToMake() {
+        return this.basketProducts().filter(p => p.items.filter(c=> c.type == 'choice').length > 0)
+    }
+
     getItemsInProductItemCategory(category: ItemCategoryType) {
         return this.orderProductItemsByName(category.products.filter(i => i.qty > 0))
+    }
+
+    validateProductItemCategory(category: ItemCategoryType){
+       
+        if (category.type == 'choice' && this.getItemsInProductItemCategory(category).length == 0) {
+            console.log(category.name, category.type)
+            return false;
+        }
+
+        return true;
     }
 
     hasBasketProductsWithItems(){
@@ -73,8 +87,15 @@ export class StoreService {
         return this.bakestTotalAmount() + this.storeTaxesTotalAmount();
     }
 
+    wereAllChoicesMade() {
+        
+        return this.basketProductsWithChoicesToMake().map(p => p.items.map( c=> this.validateProductItemCategory(c)).reduce((vl1, vl2) => vl1 == vl2)).reduce((vl1, vl2) => vl1 == vl2)
+
+    }
+
     canSubmitOrder() {
-        return this.hasProductsOnBasket() &&
+        return this.wereAllChoicesMade() && 
+            this.hasProductsOnBasket() &&
             this.bakestTotalAmount() >= this.store.minimumOrderAmount;
     }
 
