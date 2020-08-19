@@ -44,7 +44,6 @@ export class StoreService {
     validateProductItemCategory(category: ItemCategoryType){
        
         if (category.type == 'choice' && this.getItemsInProductItemCategory(category).length == 0) {
-            console.log(category.name, category.type)
             return false;
         }
 

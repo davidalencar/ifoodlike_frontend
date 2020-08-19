@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../services/store.service'
 import { ProductType } from '../services/types/product.type'
+import { ItemCategoryType } from '../services/types/item.category.type';
 
 @Component({
   selector: 'app-items',
@@ -28,11 +29,18 @@ export class ItemsComponent implements OnInit {
   }
 
   checkValue(e, item: ProductType) {
-    console.log(e, item.name)
+    
     if (e.target.checked) {
       this.onAdd(item)
     } else {
       this.onSubtract(item)
     }
+  }
+
+  selectedValue(e, item: ProductType, category: ItemCategoryType) {
+    this.onAdd(item)
+    category.products.filter(p=>p.name != item.name).forEach(i => {
+      if (i.qty > 0) i.qty--
+    })
   }
 }

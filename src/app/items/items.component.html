@@ -34,7 +34,7 @@
                             </div>
                             <div *ngIf="category.type == 'choice'">
                                 <input class="form-check-input checkbox-lg" type="radio" [name]="category.name"  id="exampleRadios2" 
-                                (change)="checkValue($event, item)" [checked]="item.qty > 0" >
+                                (change)="selectedValue($event, item, category)" [checked]="item.qty > 0" >
                             </div>
                         </div>
                     </div>
