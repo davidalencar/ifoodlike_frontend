@@ -7,6 +7,9 @@
 <div class="container">
   <form (ngSubmit)="onConfirmPurch()" #form="ngForm">
     <div class="form-row">
+      <h5 class="mb-1">Seus dados</h5>
+    </div>
+    <div class="form-row">
       <div class="form-group col-md-4">
         <label for="inputCustName">Nome</label>
         <input type="text" class="form-control" id="inputCustName" name="userName" required ngModel minLength="3"
@@ -16,16 +19,20 @@
     <div *ngIf="storeService.store.questions.phone == true" class="form-row">
       <div class="form-group col-md-4">
         <label for="inputPassword4">Celular com DDD</label>
-        <input type="phone" inputmode="numeric" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
-          required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
+        <input type="phone" inputmode="numeric" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000"
+          name="userPhone" required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
       </div>
     </div>
     <div *ngIf="storeService.store.questions.address == true">
       <div class="form-row">
+        <h5 class="mb-1">Endereço de entrega</h5>
+      </div>
+      <div class="form-row">
         <div class="form-group col-md-2">
           <label for="inputZip">CEP</label>
-          <input type="text" inputmode="numeric" class="form-control" id="inputZip" placeholder="00000-000" name="zipcode" required ngModel
-            #zipCode="ngModel" mask="00000-000" (keyup)="onZipCodeChange(zipCode.value, form)">
+          <input type="text" inputmode="numeric" class="form-control" id="inputZip" placeholder="00000-000"
+            name="zipcode" required ngModel #zipCode="ngModel" mask="00000-000"
+            (keyup)="onZipCodeChange(zipCode.value, form)">
           <div class="invalid-msg">
             {{ zipCodeQueryError }}
           </div>
@@ -38,13 +45,13 @@
       </div>
       <div class="form-row">
         <div class="form-group col-md-10">
-          <label for="inputAddress">Endereço</label>
+          <label for="inputAddress">Nome da Rua</label>
           <input type="text" class="form-control" id="inputAddress" name="userAddress" required ngModel>
         </div>
         <div class="form-group col-md-2">
           <label for="inputAddressNumber">Número</label>
-          <input type="text" inputmode="numeric" class="form-control" id="inputAddressNumber" placeholder="" name="userAddressNumber"
-            required ngModel>
+          <input type="text" inputmode="numeric" class="form-control" id="inputAddressNumber" placeholder=""
+            name="userAddressNumber" required ngModel>
         </div>
       </div>
       <div class="form-group">
@@ -53,8 +60,47 @@
           name="userAddressComplement" ngModel>
       </div>
     </div>
-    <div class="form-row">
-      <div class="form-group">
+    <div class="form-group">
+      <h5 class="mb-1">Forma de pagamento</h5>
+      <div class="list-group list-group-flush">
+        <div class="list-group-item" *ngIf="storeService.store.paym.money == true">
+          <div class="d-flex w-100 justify-content-between">
+            <div>
+              <label class="mb-1">Dinheiro</label>
+            </div>
+            <div>
+              <input class="form-check-input checkbox-lg" type="radio" name="paym" ngModel id="exampleRadios1"
+                value="money" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group-item" *ngIf="storeService.store.paym.credit == true">
+          <div class="d-flex w-100 justify-content-between">
+            <div>
+              <label class="mb-1">Cartão de crédito</label>
+            </div>
+            <div>
+              <input class="form-check-input checkbox-lg" type="radio" name="paym" ngModel id="exampleRadios1"
+                value="credit" required>
+            </div>
+          </div>
+        </div>
+
+        <div class="list-group-item" *ngIf="storeService.store.paym.transfer.enable == true">
+          <div class="d-flex w-100 justify-content-between">
+            <div>
+              <label class="mb-1">Transferência</label>
+            </div>
+            <div>
+              <input class="form-check-input checkbox-lg" type="radio" name="paym" ngModel id="exampleRadios1"
+                value="transfer" required>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="form-group">
         <label >Forma de pagamento</label>
         <div class="form-check" *ngIf="storeService.store.paym.money == true">
           <input class="form-check-input" type="radio" name="paym" ngModel id="exampleRadios1" value="money" required>
@@ -69,13 +115,14 @@
           </label>
         </div>
         <div class="form-check" *ngIf="storeService.store.paym.transfer.enable == true">
-          <input class="form-check-input" type="radio"  name="paym" ngModel id="exampleRadios2" value="transfer" required>
+          <input class="form-check-input checkbox-lg" type="radio"  name="paym" ngModel id="exampleRadios2" value="transfer" required>
+          <h5 class="mb-1">Transferência</h5>
           <label class="form-check-label" for="exampleRadios2">
-            Transferência            
+                        
           </label>
         </div>
-      </div>
-    </div>
+      </div> -->
+
 
 
     <br>
@@ -83,7 +130,8 @@
     <br>
     <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
       <div class="container justify-content-end">
-        <button type="submit" class="btn btn-success  btn-lg" [disabled]="!form.valid || !storeService.canSubmitOrder()">
+        <button type="submit" class="btn btn-success  btn-lg"
+          [disabled]="!form.valid || !storeService.canSubmitOrder()">
           Enviar
         </button>
       </div>

@@ -18,3 +18,8 @@ div.invalid-msg {
     letter-spacing: .5px;
     font-family: poppins,sans-serif;
 }
+
+.checkbox-lg{
+  width: 1.55rem;
+  height: 1.55rem;
+}
