@@ -1,16 +1,32 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+    <a class="navbar-brand" [routerLink]="['']">
+        <!-- <img src="../assets/img/bslista-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
+        <h1 class="logo">BS.Lista </h1>
+    </a>
+    <div class="d-flex justify-content-end">
+        <a class="nav-link active" [routerLink]="['']" [queryParams]="{ 'plan': 'basic' }"><button
+                class="btn get-started-btn">Começar agora</button></a>
+    </div>
+</nav>
+<div class="jumbotron jumbotron-fluid bg-white">
+    <div class="container">
+        <h1 class="display-4">{{storeService.store.title}}</h1>
+        <p class="lead">{{ storeService.store.complement }}</p>
+    </div>
+</div>
 <nav class="navbar sticky-top navbar-light" style="background-color: #E9ECEF;">
-
     <span class="navbar-brand mb-0 h1">{{ storeService.store.shelfTitle }}</span>
-    <a class="nav-link" [href]="storeService.store.name + '#'+category.name" *ngFor="let category of storeService.categories">{{ category.name }}</a>
+    <a class="nav-link" [href]="storeService.store.name + '#'+category.name"
+        *ngFor="let category of storeService.categories">{{ category.name }}</a>
 </nav>
 <div class="list-group list-group-flush" *ngFor="let category of storeService.categories">
     <div class="list-group-item bg-light">
         <a [id]="category.name">
-            <h4>{{ category.name }} </h4>            
+            <h4>{{ category.name }} </h4>
         </a>
     </div>
     <div *ngFor="let p of storeService.productsByCategory(category.name)">
-        <app-shelfitem  [productId]="p._id"></app-shelfitem>
+        <app-shelfitem [productId]="p._id"></app-shelfitem>
     </div>
 </div>
 <br>
@@ -18,11 +34,9 @@
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
     <div class="container justify-content-end">
-        <button class="btn btn-lg btn-success"
-        [routerLink]="[nextRouterLink()]"
-        [disabled]="!storeService.hasProductsOnBasket()"
-        >
-        {{ nextRouterName() }}
-    </button>
+        <button class="btn btn-lg btn-success" [routerLink]="[nextRouterLink()]"
+            [disabled]="!storeService.hasProductsOnBasket()">
+            {{ nextRouterName() }}
+        </button>
     </div>
 </nav>

@@ -1,3 +1,22 @@
 #navmenu {
     background-color: #DE824F!important;
 }
+
+.btn.get-started-btn {
+    margin-left: 25px;
+    background: #2487ce;
+    color: #fff;  
+    transition: .3s;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.logo {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-family: poppins,sans-serif;
+}

@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-shelf',
   templateUrl: './shelf.component.html',
-  styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css']
+  styleUrls: ['./shelf.component.css', '../../../node_modules/bootstrap/dist/css/bootstrap.min.css']
 })
 export class ShelfComponent implements OnInit {
 
