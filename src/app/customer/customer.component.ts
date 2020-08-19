@@ -9,7 +9,8 @@ import * as moment from 'moment';
   selector: 'app-customer',
   templateUrl: './customer.component.html',
   styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-    './customer.component.css'],
+    './customer.component.css',
+    '../../../node_modules/remixicon/fonts/remixicon.css'],
   providers: [AddressService]
 })
 export class CustomerComponent implements OnInit {

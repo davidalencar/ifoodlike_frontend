@@ -1,3 +1,9 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white justify-content-start">
+  <a class="navbar-brand" [routerLink]="['/', storeService.store.name]">
+    <i class="ri-arrow-left-line"></i>
+  </a>
+  <h1 class="logo">Pedido</h1>
+</nav>
 <table class="table">
   <thead class="thead-light">
     <tr>
@@ -19,12 +25,13 @@
       </tr>
       <tr *ngIf="p.items.length > 0">
         <td colspan="2">
-          <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)"  >
+          <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
             <p>{{ category.name }}</p>
             <ul>
               <li *ngFor="let item of storeService.getItemsInProductItemCategory(category)">
                 {{ item.name }}
-                <span *ngIf="item.price > 0" class="text-muted">({{ storeService.formatPrice(item.price * item.qty) }})</span>                
+                <span *ngIf="item.price > 0"
+                  class="text-muted">({{ storeService.formatPrice(item.price * item.qty) }})</span>
               </li>
             </ul>
           </div>
@@ -64,11 +71,8 @@
 <br>
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-  <div class="container">
-    <a [routerLink]="['/', storeService.store.name]" class="btn btn-success">
-      Comprar mais
-    </a>
-    <button type="submit" class="btn btn-success" [routerLink]="['/', storeService.store.name, 'customer']"
+  <div class="container justify-content-end">
+    <button type="submit" class="btn btn-success btn-lg" [routerLink]="['/', storeService.store.name, 'customer']"
       [disabled]="!storeService.canSubmitOrder()">
       Confirmar pedido
     </button>

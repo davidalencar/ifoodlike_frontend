@@ -8,3 +8,13 @@ div.invalid-msg {
     font-size: 80%;
     color: #dc3545;
   }
+
+  .logo {
+    font-size: 28px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-family: poppins,sans-serif;
+}

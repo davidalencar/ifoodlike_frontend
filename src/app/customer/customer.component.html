@@ -1,3 +1,9 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-white justify-content-start">
+  <a class="navbar-brand" [routerLink]="['/', storeService.store.name]">
+    <i class="ri-arrow-left-line"></i>
+  </a>
+  <h1 class="logo">Pagamento</h1>
+</nav>
 <div class="container">
   <form (ngSubmit)="onConfirmPurch()" #form="ngForm">
     <div class="form-row">
@@ -77,7 +83,7 @@
     <br>
     <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
       <div class="container justify-content-end">
-        <button type="submit" class="btn btn-success" [disabled]="!form.valid || !storeService.canSubmitOrder()">
+        <button type="submit" class="btn btn-success  btn-lg" [disabled]="!form.valid || !storeService.canSubmitOrder()">
           Enviar
         </button>
       </div>
