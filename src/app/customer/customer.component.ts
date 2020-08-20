@@ -66,6 +66,13 @@ export class CustomerComponent implements OnInit {
     }
     data += this.breakLine();
     data += `*Forma de pagamento:* \n${this.formatPaym()}`;
+    if (this.storeService.order.instruction != '') {
+      data += this.breakLine();
+      data += `*Instruções:* \n${this.formatOrderInstructions()}`
+
+    }
+
+
     data += this.breakLine();
     data += this.formatFooter()
 
@@ -124,6 +131,10 @@ export class CustomerComponent implements OnInit {
     order += `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
 
     return order;
+  }
+
+  formatOrderInstructions() {
+    return `\n${this.storeService.order.instruction}`
   }
 
   formatFooter() {

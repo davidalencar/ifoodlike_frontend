@@ -88,3 +88,10 @@ div.invalid-msg {
   letter-spacing: .5px;
   font-family: poppins,sans-serif;
 }
+
+.instruction {
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
+  
+}
