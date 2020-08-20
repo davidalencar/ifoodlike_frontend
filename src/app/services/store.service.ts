@@ -88,7 +88,7 @@ export class StoreService {
 
     wereAllChoicesMade() {
         
-        return this.basketProductsWithChoicesToMake().map(p => p.items.map( c=> this.validateProductItemCategory(c)).reduce((vl1, vl2) => vl1 == vl2), true).reduce((vl1, vl2) => vl1 == vl2, true)
+        return this.basketProductsWithChoicesToMake().map(p => p.items.map( c=> this.validateProductItemCategory(c)).reduce((vl1, vl2) => vl1 && vl2), true).reduce((vl1, vl2) => vl1 && vl2, true)
 
     }
 
