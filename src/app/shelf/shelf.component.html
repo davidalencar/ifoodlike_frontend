@@ -25,7 +25,7 @@
             <h4>{{ category.name }} </h4>
         </a>
     </div>
-    <div *ngFor="let p of storeService.productsByCategory(category.name)">
+    <div [id]="p._id" *ngFor="let p of storeService.productsByCategory(category.name)">
         <app-shelfitem [productId]="p._id"></app-shelfitem>
     </div>
 </div>

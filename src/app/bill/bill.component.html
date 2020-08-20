@@ -18,7 +18,10 @@
           <span class="text-success">{{ p.qty }}X</span>
         </div>
         <div class="col">
-          {{ p.name }}
+          <a  class="text-reset" 
+            [routerLink]="productRouterLink(p)" 
+            [fragment]="p._id" >
+            <span class="font-weight-normal"> {{ p.name }} </span>
           <ng-container *ngIf="p.items.length > 0">
             <div class="text-muted" *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
               {{ category.name }}
@@ -30,6 +33,7 @@
               </ul>
             </div>
           </ng-container>
+        </a>
         </div>
         <div class="col-2 text-center font-weight-light">
           <span> {{ storeService.formatPrice(storeService.totalLineAmount(p))}}</span>
@@ -64,15 +68,15 @@
         </div>
       </ng-container>
       <div class="row product">
-        <div class="col text-muted">
+        <div class="col text-muted warning-msg">
           Taxas
         </div>
       </div>
-      <div class="row text-muted" *ngFor="let t of storeService.store.taxes">
-        <div class="col-10">
+      <div class="row product text-muted" *ngFor="let t of storeService.store.taxes">
+        <div class="col-10 warning-msg">
           {{ t.name }}
         </div>
-        <div class="col text-center">
+        <div class="col text-center warning-msg">
           <span>{{ storeService.formatPrice(t.value) }}</span>
         </div>
       </div>

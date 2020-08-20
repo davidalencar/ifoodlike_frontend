@@ -3,7 +3,7 @@
       <i class="ri-arrow-left-line"></i>
     </a>
   </nav>
-<div class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
+<div [id]="p._id" class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
     <div class="list-group-item productName">
         <h4>{{ p.name }} </h4>
     </div>

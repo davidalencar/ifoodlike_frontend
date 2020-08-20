@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../services/store.service';
+import { ProductType } from '../services/types/product.type';
 
 @Component({
   selector: 'app-bill',
@@ -17,5 +18,13 @@ export class BillComponent implements OnInit {
 
   setPaymMethod(paymMethod: string) {
     this.storeService.order.paymMethod = paymMethod;
+  }
+
+  productRouterLink(p: ProductType) {
+    if (p.items.length > 0) {
+      return ['/', this.storeService.store.name, 'items']
+    }
+
+    return ['/', this.storeService.store.name]
   }
 }
