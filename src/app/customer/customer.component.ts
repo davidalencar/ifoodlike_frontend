@@ -66,7 +66,7 @@ export class CustomerComponent implements OnInit {
     }
     data += this.breakLine();
     data += `*Forma de pagamento:* \n${this.formatPaym()}`;
-    if (this.storeService.order.instruction != '') {
+    if (this.storeService.order.instruction != undefined && this.storeService.order.instruction.trim().length > 0) {
       data += this.breakLine();
       data += `*Instruções:* \n${this.formatOrderInstructions()}`
 
@@ -134,7 +134,7 @@ export class CustomerComponent implements OnInit {
   }
 
   formatOrderInstructions() {
-    return `\n${this.storeService.order.instruction}`
+    return `\n${this.storeService.order.instruction.trim()}`
   }
 
   formatFooter() {
