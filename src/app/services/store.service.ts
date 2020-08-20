@@ -8,6 +8,7 @@ import { StoreType } from './types/store.type'
 import { StoreServiceResponseType } from './types/store.service.response.type'
 import { ItemType } from './types/item.type';
 import { ItemCategoryType } from './types/item.category.type'
+import { OrderType } from './types/order.type'
 
 
 const store_api_uri = 'https://fathomless-chamber-28156.herokuapp.com/api/stores/'
@@ -18,6 +19,7 @@ export class StoreService {
     store: StoreType;
     products: ProductType[];
     categories = [];
+    order: OrderType;
 
     getCategories() {
          this.categories = [...this.store.categories].sort((c1, c2) => {
@@ -90,10 +92,19 @@ export class StoreService {
 
     }
 
+    hasPaymMethodBeenSet() {
+        return this.order.paymMethod;
+    }
+
+    minOrderReached() {
+        return this.bakestTotalAmount() >= this.store.minimumOrderAmount
+    }
+
     canSubmitOrder() {
-        return this.wereAllChoicesMade() && 
-            this.hasProductsOnBasket() &&
-            this.bakestTotalAmount() >= this.store.minimumOrderAmount;
+        return this.hasProductsOnBasket() &&
+            this.wereAllChoicesMade() && 
+            this.minOrderReached() && 
+            this.hasPaymMethodBeenSet();
     }
 
     remainToMinimumOrderAmount() {
@@ -143,6 +154,7 @@ export class StoreService {
     constructor(private http: HttpClient, private titleService: Title) {
         this.store = new StoreType()
         this.products = [new ProductType()]
+        this.order = new OrderType();
     }
 
 }

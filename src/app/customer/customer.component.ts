@@ -75,7 +75,7 @@ export class CustomerComponent implements OnInit {
   formatPaym() {
     var paym: string = '\n'
 
-    switch (this.custData.value.paym) {
+    switch (this.storeService.order.paymMethod) {
       case 'transfer':
         paym += 'Transferência\n'
         paym += `*Banco:* ${this.storeService.store.paym.transfer.bank}\n`

@@ -3,13 +3,18 @@ input.ng-invalid.ng-touched {
     
 }
 div.invalid-msg {
-    width: 100%;
-    margin-top: 0.25rem;
-    font-size: 80%;
     color: #dc3545;
+    font-size: 14px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-family: poppins,sans-serif;
+    
   }
 
-  .logo {
+  .title {
     font-size: 28px;
     margin: 0;
     padding: 0;
@@ -17,6 +22,34 @@ div.invalid-msg {
     font-weight: 300;
     letter-spacing: .5px;
     font-family: poppins,sans-serif;
+}
+
+.sub-title {
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: .5px;
+  font-family: poppins,sans-serif;
+}
+
+.warning-msg {
+  font-size: 12px;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: .5px;
+  font-family: poppins,sans-serif;
+}
+
+.paymmodename {
+  font-size: 8px;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  font-weight: 300;
+  letter-spacing: .5px;
+  font-family: poppins,sans-serif;
 }
 
 .list-group-item.bill {
@@ -29,4 +62,29 @@ div.invalid-msg {
 }
 .row.product {
   margin-top:10px;
+}
+
+.checkbox-lg{
+  width: 1.55rem;
+  height: 1.55rem;
+}
+
+.money-icon {
+  color: green;
+}
+
+.card-icon {
+  color:#25c4f9;
+}
+
+.paymmode.active {
+  background-color: #5eccf0;  
+}
+
+.addMorItens {
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 300;
+  letter-spacing: .5px;
+  font-family: poppins,sans-serif;
 }

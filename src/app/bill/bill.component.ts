@@ -14,4 +14,8 @@ export class BillComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  setPaymMethod(paymMethod: string) {
+    this.storeService.order.paymMethod = paymMethod;
+  }
 }

@@ -1,8 +1,8 @@
 <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white justify-content-start">
-  <a class="navbar-brand" [routerLink]="['/', storeService.store.name]">
+  <a class="navbar-brand" [routerLink]="['/', storeService.store.name, 'bill']">
     <i class="ri-arrow-left-line"></i>
   </a>
-  <h1 class="logo">Pagamento</h1>
+  <h1 class="logo">Entrega</h1>
 </nav>
 <div class="container">
   <form (ngSubmit)="onConfirmPurch()" #form="ngForm">
@@ -60,71 +60,6 @@
           name="userAddressComplement" ngModel>
       </div>
     </div>
-    <div class="form-group">
-      <h5 class="mb-1">Forma de pagamento</h5>
-      <div class="list-group list-group-flush">
-        <div class="list-group-item" *ngIf="storeService.store.paym.money == true">
-          <div class="d-flex w-100 justify-content-between">
-            <div>
-              <label class="mb-1">Dinheiro</label>
-            </div>
-            <div>
-              <input class="form-check-input checkbox-lg" type="radio" name="paym" ngModel id="exampleRadios1"
-                value="money" required>
-            </div>
-          </div>
-        </div>
-
-        <div class="list-group-item" *ngIf="storeService.store.paym.credit == true">
-          <div class="d-flex w-100 justify-content-between">
-            <div>
-              <label class="mb-1">Cartão de crédito</label>
-            </div>
-            <div>
-              <input class="form-check-input checkbox-lg" type="radio" name="paym" ngModel id="exampleRadios1"
-                value="credit" required>
-            </div>
-          </div>
-        </div>
-
-        <div class="list-group-item" *ngIf="storeService.store.paym.transfer.enable == true">
-          <div class="d-flex w-100 justify-content-between">
-            <div>
-              <label class="mb-1">Transferência</label>
-            </div>
-            <div>
-              <input class="form-check-input checkbox-lg" type="radio" name="paym" ngModel id="exampleRadios1"
-                value="transfer" required>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="form-group">
-        <label >Forma de pagamento</label>
-        <div class="form-check" *ngIf="storeService.store.paym.money == true">
-          <input class="form-check-input" type="radio" name="paym" ngModel id="exampleRadios1" value="money" required>
-          <label class="form-check-label" for="exampleRadios1">
-            Dinheiro
-          </label>
-        </div>
-        <div class="form-check" *ngIf="storeService.store.paym.credit == true">
-          <input class="form-check-input" type="radio" name="paym" ngModel id="exampleRadios2" value="credit" required>
-          <label class="form-check-label" for="exampleRadios2">
-            Cartão de crédito            
-          </label>
-        </div>
-        <div class="form-check" *ngIf="storeService.store.paym.transfer.enable == true">
-          <input class="form-check-input checkbox-lg" type="radio"  name="paym" ngModel id="exampleRadios2" value="transfer" required>
-          <h5 class="mb-1">Transferência</h5>
-          <label class="form-check-label" for="exampleRadios2">
-                        
-          </label>
-        </div>
-      </div> -->
-
-
-
     <br>
     <br>
     <br>

@@ -2,19 +2,24 @@
   <a class="navbar-brand" [routerLink]="['/', storeService.store.name]">
     <i class="ri-arrow-left-line"></i>
   </a>
-  <h1 class="logo">Pedido</h1>
+  <h1 class="title">Pedido</h1>
 </nav>
 
 <ul class="list-group">
   <li class="list-group-item bill">
     <div class="container bill">
+      <div class="row">
+        <div class="col">
+          <span class="sub-title">Seu pedido</span>
+        </div>
+      </div>
       <div class="row product" *ngFor="let p of storeService.basketProducts()">
         <div class="col-1 ">
           <span class="text-success">{{ p.qty }}X</span>
         </div>
         <div class="col">
           {{ p.name }}
-          <ng-container *ngIf="p.items.length > 0" >
+          <ng-container *ngIf="p.items.length > 0">
             <div class="text-muted" *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
               {{ category.name }}
               <ul>
@@ -30,7 +35,7 @@
           <span> {{ storeService.formatPrice(storeService.totalLineAmount(p))}}</span>
         </div>
       </div>
-    </div>    
+    </div>
   </li>
   <li class="list-group-item bill">
     <div class="container bill">
@@ -42,6 +47,22 @@
           <span> {{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</span>
         </div>
       </div>
+      <ng-container *ngIf="!storeService.minOrderReached()">
+        <div class="row product">
+          <div class="col-10">
+            <p class="text-muted warning-msg">(Mínimo de
+              {{ storeService.formatPrice(storeService.store.minimumOrderAmount) }})</p>
+            <div class="invalid-msg">
+              *Adicione mais {{ storeService.formatPrice(storeService.remainToMinimumOrderAmount()) }} para fechar seu
+              pedido.
+            </div>
+          </div>
+        </div>        
+        <div class="row product justify-content-end">          
+          <button type="button" class="btn btn-light addMorItens" [routerLink]="['/', storeService.store.name]">+ Adicionar itens</button>
+          
+        </div>
+      </ng-container>
       <div class="row product">
         <div class="col text-muted">
           Taxas
@@ -65,70 +86,46 @@
       </div>
     </div>
   </li>
-</ul>
-
-<!-- <table class="table">
-  <thead class="thead-light">
-    <tr>
-      <th scope="col">{{ storeService.store.productTitle }}</th>
-      <th scope="col">{{ storeService.store.unitTitle }}</th>
-      <th scope="col">Qtde.</th>
-      <th scope="col">Valor</th>
-    </tr>
-  </thead>
-  <tbody>
-    <ng-container *ngFor="let p of storeService.basketProducts()">
-      <tr>
-        <td>
-          {{ p.name }}
-        </td>
-        <td>{{ p.unit }}</td>
-        <td>{{ p.qty }}</td>
-        <td>{{ storeService.formatPrice(p.price * p.qty) }}</td>
-      </tr>
-      <tr *ngIf="p.items.length > 0">
-        <td colspan="2">
-          <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
-            <p>{{ category.name }}</p>
-            <ul>
-              <li *ngFor="let item of storeService.getItemsInProductItemCategory(category)">
-                {{ item.name }}
-                <span *ngIf="item.price > 0"
-                  class="text-muted">({{ storeService.formatPrice(item.price * item.qty) }})</span>
-              </li>
-            </ul>
-          </div>
-        </td>
-        <td colspan="2">
-      </tr>
-
-    </ng-container>
-    <tr>
-      <td colspan="2"></td>
-      <td>Pedido</td>
-      <td>{{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</td>
-    </tr>
-    <tr *ngIf="!storeService.canSubmitOrder()">
-      <td colspan="2"></td>
-      <td colspan="2">
-        <div class="invalid-msg">
-          *Adicione mais {{ storeService.formatPrice(storeService.remainToMinimumOrderAmount()) }} para fechar seu
-          pedido.
+  <li class="list-group-item bill">
+    <div class="container bill">
+      <div class="row">
+        <div class="col">
+          <span class="sub-title">Forma de pagamento</span>
         </div>
-      </td>
-    </tr>
-    <tr *ngFor="let t of storeService.store.taxes">
-      <td colspan="2"></td>
-      <td>{{ t.name }}</td>
-      <td>{{ storeService.formatPrice(t.value) }}</td>
-    </tr>
-    <tr>
-      <td colspan="2"></td>
-      <td>Total</td>
-      <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
-    </tr>
-  </tbody>
-</table> -->
+      </div>
+      <div class="row product">
+        <div class="col">
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+              <label [class]="(storeService.order.paymMethod == 'credit') ? 'btn paymmode active': 'btn paymmode'">
+                <input type="radio" name="options" id="option1" autocomplete="off" (click)="setPaymMethod('credit')">
+                <i class="ri-bank-card-fill card-icon"></i>
+                <p class="text-muted paymmodename">Cartão</p>
+              </label>
+              <label [class]="(storeService.order.paymMethod == 'money') ? 'btn paymmode active': 'btn paymmode'">
+                <input type="radio" name="options" id="option2" autocomplete="off" (click)="setPaymMethod('money')">
+                <i class="ri-money-dollar-circle-line money-icon"></i>
+                <p class="text-muted paymmodename">Dinheiro</p>
+              </label>
+              <label [class]="(storeService.order.paymMethod == 'transfer') ? 'btn paymmode active': 'btn paymmode'">
+                <input type="radio" name="options" id="option3" autocomplete="off" (click)="setPaymMethod('transfer')">
+                <i class="ri-exchange-dollar-line"></i>
+                <p class="text-muted paymmodename">Transferência</p>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row product" *ngIf="!storeService.order.paymMethod">
+        <div class="col-10">          
+          <div class="invalid-msg">
+            (Escolha necessária)
+          </div>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
 
 <br>
 <br>
