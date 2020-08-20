@@ -13,7 +13,7 @@
       <div class="form-group col-md-4">
         <label for="inputCustName">Nome</label>
         <input type="text" class="form-control" id="inputCustName" name="userName" required ngModel minLength="3"
-          maxLength="60" pattern="[a-zA-Z ]*">
+          maxLength="160">
       </div>
     </div>
     <div *ngIf="storeService.store.questions.phone == true" class="form-row">
