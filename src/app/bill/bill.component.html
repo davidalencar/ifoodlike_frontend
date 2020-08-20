@@ -4,7 +4,70 @@
   </a>
   <h1 class="logo">Pedido</h1>
 </nav>
-<table class="table">
+
+<ul class="list-group">
+  <li class="list-group-item bill">
+    <div class="container bill">
+      <div class="row product" *ngFor="let p of storeService.basketProducts()">
+        <div class="col-1 ">
+          <span class="text-success">{{ p.qty }}X</span>
+        </div>
+        <div class="col">
+          {{ p.name }}
+          <ng-container *ngIf="p.items.length > 0" >
+            <div class="text-muted" *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
+              {{ category.name }}
+              <ul>
+                <li *ngFor="let item of storeService.getItemsInProductItemCategory(category)">
+                  {{ item.name }}
+                  <span *ngIf="item.price > 0">({{ storeService.formatPrice(item.price * item.qty) }})</span>
+                </li>
+              </ul>
+            </div>
+          </ng-container>
+        </div>
+        <div class="col-2 text-center font-weight-light">
+          <span> {{ storeService.formatPrice(storeService.totalLineAmount(p))}}</span>
+        </div>
+      </div>
+    </div>    
+  </li>
+  <li class="list-group-item bill">
+    <div class="container bill">
+      <div class="row">
+        <div class="col-10">
+          Subtotal
+        </div>
+        <div class="col text-center font-weight-light">
+          <span> {{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</span>
+        </div>
+      </div>
+      <div class="row product">
+        <div class="col text-muted">
+          Taxas
+        </div>
+      </div>
+      <div class="row text-muted" *ngFor="let t of storeService.store.taxes">
+        <div class="col-10">
+          {{ t.name }}
+        </div>
+        <div class="col text-center">
+          <span>{{ storeService.formatPrice(t.value) }}</span>
+        </div>
+      </div>
+      <div class="row product">
+        <div class="col-10">
+          Total
+        </div>
+        <div class="col-2 text-center font-weight-bold">
+          <span> {{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</span>
+        </div>
+      </div>
+    </div>
+  </li>
+</ul>
+
+<!-- <table class="table">
   <thead class="thead-light">
     <tr>
       <th scope="col">{{ storeService.store.productTitle }}</th>
@@ -65,7 +128,7 @@
       <th>{{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}</th>
     </tr>
   </tbody>
-</table>
+</table> -->
 
 <br>
 <br>

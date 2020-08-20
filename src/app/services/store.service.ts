@@ -59,15 +59,13 @@ export class StoreService {
 
         if (basket.length == 0) return 0;
 
-        let amountCur = 0;
+        return basket.map(p => this.totalLineAmount(p)).reduce((sum, value) => sum + value);
+    }
 
-        amountCur+= basket.map(p => {            
-            var lineAmount = p.items.map( i => i.products.map(p => p.price * p.qty).reduce((sum, value) => sum + value, 0)).reduce((sum, value) => sum + value, 0);
+    totalLineAmount(p: ProductType) {
+        var lineAmount = p.items.map( i => i.products.map(p => p.price * p.qty).reduce((sum, value) => sum + value, 0)).reduce((sum, value) => sum + value, 0);
             
-            return p.price * p.qty + lineAmount * p.qty;
-        }).reduce((sum, value) => sum + value);            
-
-        return amountCur;
+        return p.price * p.qty + lineAmount * p.qty;
     }
 
     hasProductsOnBasket() {

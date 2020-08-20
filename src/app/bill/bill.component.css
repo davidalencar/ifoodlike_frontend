@@ -18,3 +18,15 @@ div.invalid-msg {
     letter-spacing: .5px;
     font-family: poppins,sans-serif;
 }
+
+.list-group-item.bill {
+  padding-left: 0;
+}
+
+.container.bill {
+  padding-left: 5px;
+  padding-right: 25px;
+}
+.row.product {
+  margin-top:10px;
+}
