@@ -1,22 +1,47 @@
-#navmenu {
-    background-color: #DE824F!important;
-}
-
 .btn.get-started-btn {
     margin-left: 25px;
     background: #2487ce;
-    color: #fff;  
+    color: #fff;
+    letter-spacing: .5px;
     transition: .3s;
-    font-size: 14px;
-    font-weight: 600;
+    font-size: 16px;
+    font-weight: 500;
+    font-family: poppins, sans-serif;
 }
 
-.logo {
-    font-size: 28px;
-    margin: 0;
-    padding: 0;
-    line-height: 1;
-    font-weight: 300;
-    letter-spacing: .5px;
-    font-family: poppins,sans-serif;
+.scroll {
+    white-space: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+}
+
+.container.nav {
+    width: 100%;
+    background-color: #E9ECEF;
+}
+
+.nav-item,
+.vertical-align-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.menu-item {
+    margin-left: 5px;
+    margin-right: 5px;
+    margin-bottom: 2px;
+    font-size: 18px;
+    padding: .375rem .75rem;
+    font-weight: 500;
+    padding-left: 0.75rem;
+    border-radius: 30px;
+}
+
+.menu-item.menu-title {
+    font-size: 18px;
 }

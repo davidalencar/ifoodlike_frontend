@@ -31,7 +31,13 @@ export class ShelfComponent implements OnInit {
 
   ngAfterViewInit(): void {
     if (this.routerId.length > 0) {
-      const element = document.getElementById(this.routerId);
+      this.goTo(this.routerId)
+    }
+  }
+
+  goTo(id: string): void {
+    if (id.length > 0) {
+      const element = document.getElementById(id);
       if (element) { 
         element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); 
       }

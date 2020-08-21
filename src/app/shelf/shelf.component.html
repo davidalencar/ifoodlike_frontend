@@ -1,11 +1,11 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light justify-content-between">
+<nav class="navbar navbar-light bg-light justify-content-between">
     <a class="navbar-brand" [routerLink]="['']">
-        <!-- <img src="../assets/img/bslista-solid.svg" width="30" height="30" class="d-inline-block align-top" alt=""> -->
-        <h1 class="logo">BS.Lista </h1>
+        <img src="../assets/img/bslista-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+
     </a>
     <div class="d-flex justify-content-end">
         <a class="nav-link active" [routerLink]="['']" [queryParams]="{ 'plan': 'basic' }"><button
-                class="btn get-started-btn">Começar agora</button></a>
+                class="btn get-started-btn">Criar lista</button></a>
     </div>
 </nav>
 <div class="jumbotron jumbotron-fluid bg-white">
@@ -14,28 +14,35 @@
         <p class="lead">{{ storeService.store.complement }}</p>
     </div>
 </div>
-<nav class="navbar sticky-top navbar-light" style="background-color: #E9ECEF;">
-    <span class="navbar-brand mb-0 h1">{{ storeService.store.shelfTitle }}</span>
-    <a class="nav-link" [href]="storeService.store.name + '#'+category.name"
-        *ngFor="let category of storeService.categories">{{ category.name }}</a>
-</nav>
-<div class="list-group list-group-flush" *ngFor="let category of storeService.categories">
-    <div class="list-group-item bg-light">
-        <a [id]="category.name">
+
+<div class='container nav sticky-top'>
+    <a class="menu-title menu-item " (click)="goTo(storeService.categories[0].name)">
+        {{ storeService.store.shelfTitle }}
+    </a>
+    <nav class='vertical-align-middle scroll sticky-top'>
+        <a class="nav-item  menu-item" *ngFor="let category of storeService.categories " (click)="goTo(category.name) ">
+            <span> {{ category.name }} </span>
+        </a>
+    </nav>
+</div>
+
+
+<div class="list-group list-group-flush " *ngFor="let category of storeService.categories ">
+    <div class="list-group-item bg-light ">
+        <a [id]="category.name ">
             <h4>{{ category.name }} </h4>
         </a>
     </div>
-    <div [id]="p._id" *ngFor="let p of storeService.productsByCategory(category.name)">
-        <app-shelfitem [productId]="p._id"></app-shelfitem>
+    <div [id]="p._id " *ngFor="let p of storeService.productsByCategory(category.name) ">
+        <app-shelfitem [productId]="p._id "></app-shelfitem>
     </div>
 </div>
 <br>
 <br>
 <br>
-<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-    <div class="container justify-content-end">
-        <button class="btn btn-lg btn-success" [routerLink]="[nextRouterLink()]"
-            [disabled]="!storeService.hasProductsOnBasket()">
+<nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light ">
+    <div class="container justify-content-end ">
+        <button class="btn btn-lg btn-success " [routerLink]="[nextRouterLink()] " [disabled]="!storeService.hasProductsOnBasket() ">
             {{ nextRouterName() }}
         </button>
     </div>
