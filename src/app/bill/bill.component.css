@@ -120,4 +120,13 @@ div.invalid-msg {
     background-color: white;
     line-height: 1;
     padding: 10px;
+    
+}
+
+.payment-row {
+    background-color: white;
+    color: #6c757d;
+    border-color: #6c757d;
+    border: 1px solid;
+    border-radius: .25rem;
 }

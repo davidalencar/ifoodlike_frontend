@@ -111,10 +111,10 @@
                         <span class="question-text">Como vai pagar</span>
                     </div>
                 </div>
-                <div class="row product">
+                <div class="row product ">
                     <div class="col">
-                        <div role="group">
-                            <div class="btn-group-toggle" data-toggle="buttons">
+                        <div class="payment-row" role="group">
+                            <div class="btn-group-toggle d-flex justify-content-around" data-toggle="buttons">
                                 <label *ngIf="storeService.store.paym.credit == true"
                                     [class]="(storeService.order.paymMethod == 'credit') ? 'btn paymmode active': 'btn paymmode'">
                                     <input type="radio" name="options" id="option1" autocomplete="off"
@@ -142,76 +142,73 @@
                 </div>
 
                 <!-- ADDRESS -->
-                <div class="row question" *ngIf="storeService.store.questions.address">
-                    <div class="col">
-                        <span class="question-text">Qual é o seu endereço?</span>
-                    </div>
-                </div>
-                <div class="row product" *ngIf="!storeService.hasValidaAddress() else elseAddress">
-                    <div class="col">
-                        <button type="button" class="btn btn-outline-secondary action d-flex"
-                            [routerLink]="['/', storeService.store.name, 'address']">
-                            <div class="col-2">
-                                <i class="ri-map-pin-line"></i>
-                            </div>
-                            <div class="col-10 text-left">
-                                <span class="question-text ">Selecionar endereço</span>
-                            </div>
-                        </button>
-                    </div>
-                </div>
-                <ng-template #elseAddress>
-                    <div class="row product ">
+                <ng-container *ngIf="storeService.store.questions.address">
+                    <div class="row question" >
                         <div class="col">
-                            <button type="button "
-                                class="btn btn-outline-secondary action d-flex"
-                                [routerLink]="[ '/', storeService.store.name, 'address']">
+                            <span class="question-text">Qual é o seu endereço?</span>
+                        </div>
+                    </div>
+                    <div class="row product" *ngIf="!storeService.hasValidaAddress() else elseAddress">
+                        <div class="col">
+                            <button type="button" class="btn btn-outline-secondary action d-flex"
+                                [routerLink]="['/', storeService.store.name, 'address']">
                                 <div class="col-2">
                                     <i class="ri-map-pin-line"></i>
                                 </div>
                                 <div class="col-10 text-left">
-                                    <span class="question-text">{{ this.storeService.formatAddressLine1() }}
-                                        <br> {{ this.storeService.formatAddressLine2() }}</span>
+                                    <span class="question-text ">Selecionar endereço</span>
                                 </div>
                             </button>
                         </div>
                     </div>
-                </ng-template>
-            </div>
-        </li>
+                    <ng-template #elseAddress>
+                        <div class="row product ">
+                            <div class="col">
+                                <button type="button " class="btn btn-outline-secondary action d-flex"
+                                    [routerLink]="[ '/', storeService.store.name, 'address']">
+                                    <div class="col-2">
+                                        <i class="ri-map-pin-line"></i>
+                                    </div>
+                                    <div class="col-10 text-left">
+                                        <span class="question-text">{{ this.storeService.formatAddressLine1() }}
+                                            <br> {{ this.storeService.formatAddressLine2() }}</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ng-container>
 
-        <li class="list-group-item bill">
-            <div class="container">
-                <div class="row">
+                <!-- USER NAME -->
+                <div class="row question">
                     <div class="col">
-                        <span class="sub-title">Qual é o seu nome?</span>
+                        <span class="question-text">Seu nome</span>
                     </div>
                 </div>
-                <div class="row product">
+                <div class="row product ">
                     <div class="col">
                         <input type="text" name="userName" class="form-control" minLength="3" maxLength="80"
                             [(ngModel)]="storeService.order.userName" required>
                     </div>
                 </div>
-            </div>
-        </li>
-        <li class="list-group-item bill" *ngIf="storeService.store.questions.phone == true">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <span class="sub-title">Seu telefonnne</span>
-                    </div>
-                </div>
-                <div class="row product">
-                    <div class="col">
-                        <input type="phone" name="userPhone" inputmode="numeric" class="form-control"
-                            placeholder="(00) 9 0000 0000" required mask="(00) 0 0000-0000"
-                            [dropSpecialCharacters]="false" [(ngModel)]="storeService.order.userPhone">
-                    </div>
-                </div>
-            </div>
-        </li>
 
+                <!-- USER phone -->
+                <ng-container *ngIf="storeService.store.questions.phone == true">
+                    <div class="row question" >
+                        <div class="col">
+                            <span class="question-text">Seu telefone</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="phone" name="userPhone" inputmode="numeric" class="form-control"
+                                placeholder="(00) 9 0000 0000" required mask="(00) 0 0000-0000"
+                                [dropSpecialCharacters]="false" [(ngModel)]="storeService.order.userPhone">
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </li>
     </ul>
 
     <br>
