@@ -78,7 +78,7 @@ div.invalid-msg {
 }
 
 .paymmode.active {
-    background-color: #5eccf0;
+    border-color: black;
 }
 
 .addMorItens {
