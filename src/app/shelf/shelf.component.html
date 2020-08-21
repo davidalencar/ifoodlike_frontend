@@ -15,13 +15,13 @@
     </div>
 </div>
 
-<div class='container nav sticky-top'>
-    <a class="menu-title menu-item " (click)="goTo(storeService.categories[0].name)">
-        {{ storeService.store.shelfTitle }}
+<div class="container nav sticky-top bg-white">
+    <a class="menu-title" (click)="goTo(storeService.categories[0].name)">
+       {{ storeService.store.shelfTitle }}
     </a>
     <nav class='vertical-align-middle scroll sticky-top'>
         <a class="nav-item  menu-item" *ngFor="let category of storeService.categories " (click)="goTo(category.name) ">
-            <span> {{ category.name }} </span>
+            <div class="menu-name">{{ category.name }}</div>
         </a>
     </nav>
 </div>
