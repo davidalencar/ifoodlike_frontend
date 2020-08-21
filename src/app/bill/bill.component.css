@@ -41,7 +41,7 @@ div.invalid-msg {
 }
 
 .paymmodename {
-    font-size: 8px;
+    font-size: 10px;
     margin: 0;
     padding: 0;
     line-height: 1;
@@ -89,7 +89,7 @@ div.invalid-msg {
 }
 
 .card-icon {
-    color: #25c4f9;
+    color: #6c757d;
 }
 
 .paymmode.active {
