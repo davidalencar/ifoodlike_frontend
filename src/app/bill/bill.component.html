@@ -107,8 +107,11 @@
             <div class="container">
                 <!-- PAGAMENTO -->
                 <div class="row">
-                    <div class="col">
+                    <div class="col-8">
                         <span class="question-text">Como vai pagar</span>
+                    </div>
+                    <div class="col-2" *ngIf="!storeService.order.paymMethod">
+                        <span class="badge badge-danger">Obrigatório</span>
                     </div>
                 </div>
                 <div class="row product ">
@@ -144,8 +147,11 @@
                 <!-- ADDRESS -->
                 <ng-container *ngIf="storeService.store.questions.address">
                     <div class="row question" >
-                        <div class="col">
+                        <div class="col-8">
                             <span class="question-text">Qual é o seu endereço?</span>
+                        </div>
+                        <div class="col-2" *ngIf="!storeService.hasValidaAddress()">
+                            <span class="badge badge-danger">Obrigatório</span>
                         </div>
                     </div>
                     <div class="row product" *ngIf="!storeService.hasValidaAddress() else elseAddress">
