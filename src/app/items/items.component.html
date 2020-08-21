@@ -3,9 +3,9 @@
       <i class="ri-arrow-left-line"></i>
     </a>
   </nav>
-<div [id]="p._id" class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
+<div class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
     <div class="list-group-item productName">
-        <h4>{{ p.name }} </h4>
+        <h4 [id]="p._id" >{{ p.name }} </h4>
     </div>
 
     <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
