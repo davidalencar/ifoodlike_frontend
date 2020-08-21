@@ -8,5 +8,8 @@ export class AddressType{
     unidade: string;
     ibge: string;
     gia: string;
-    erro?: boolean
+    erro?: boolean;
+    numero?: string;
+
+    
   }

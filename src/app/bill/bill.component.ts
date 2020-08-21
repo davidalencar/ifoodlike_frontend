@@ -6,8 +6,8 @@ import { ProductType } from '../services/types/product.type';
   selector: 'app-bill',
   templateUrl: './bill.component.html',
   styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-  './bill.component.css',
-  '../../../node_modules/remixicon/fonts/remixicon.css']
+  '../../../node_modules/remixicon/fonts/remixicon.css',
+  './bill.component.css']
 })
 export class BillComponent implements OnInit {
 

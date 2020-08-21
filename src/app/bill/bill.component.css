@@ -1,7 +1,7 @@
 input.ng-invalid.ng-touched {
     border: 1px solid red;
-    
 }
+
 div.invalid-msg {
     color: #dc3545;
     font-size: 14px;
@@ -10,88 +10,91 @@ div.invalid-msg {
     line-height: 1;
     font-weight: 300;
     letter-spacing: .5px;
-    font-family: poppins,sans-serif;
-    
-  }
+    font-family: poppins, sans-serif;
+}
 
-  .title {
+.title {
     font-size: 28px;
     margin: 0;
     padding: 0;
     line-height: 1;
     font-weight: 300;
     letter-spacing: .5px;
-    font-family: poppins,sans-serif;
+    font-family: poppins, sans-serif;
 }
 
 .sub-title {
-  font-size: 18px;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: .5px;
-  font-family: poppins,sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-family: poppins, sans-serif;
 }
 
 .warning-msg {
-  font-size: 12px;
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: .5px;
-  font-family: poppins,sans-serif;
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-family: poppins, sans-serif;
 }
 
 .paymmodename {
-  font-size: 8px;
-  margin: 0;
-  padding: 0;
-  line-height: 1;
-  font-weight: 300;
-  letter-spacing: .5px;
-  font-family: poppins,sans-serif;
+    font-size: 8px;
+    margin: 0;
+    padding: 0;
+    line-height: 1;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-family: poppins, sans-serif;
 }
 
 .list-group-item.bill {
-  padding-left: 0;
+    padding-left: 0;
 }
 
 .container.bill {
-  padding-left: 5px;
-  padding-right: 25px;
-}
-.row.product {
-  margin-top:10px;
+    padding-left: 5px;
+    padding-right: 25px;
 }
 
-.checkbox-lg{
-  width: 1.55rem;
-  height: 1.55rem;
+.row.product {
+    margin-top: 10px;
+}
+
+.checkbox-lg {
+    width: 1.55rem;
+    height: 1.55rem;
 }
 
 .money-icon {
-  color: green;
+    color: green;
 }
 
 .card-icon {
-  color:#25c4f9;
+    color: #25c4f9;
 }
 
 .paymmode.active {
-  background-color: #5eccf0;  
+    background-color: #5eccf0;
 }
 
 .addMorItens {
-  border-radius: 50px;
-  font-size: 12px;
-  font-weight: 300;
-  letter-spacing: .5px;
-  font-family: poppins,sans-serif;
+    border-radius: 50px;
+    font-size: 12px;
+    font-weight: 300;
+    letter-spacing: .5px;
+    font-family: poppins, sans-serif;
 }
 
 .instruction {
-  border-top-style: none;
-  border-right-style: none;
-  border-left-style: none;
-  
+    border-top-style: none;
+    border-right-style: none;
+    border-left-style: none;
+}
+
+.btn.action {
+    width: 100%;
 }

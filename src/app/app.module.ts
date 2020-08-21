@@ -12,7 +12,8 @@ import { BillComponent } from './bill/bill.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AccountComponent } from './account/account.component';
 import { UserService } from './services/user.service';
-import { ItemsComponent } from './items/items.component' 
+import { ItemsComponent } from './items/items.component';
+import { AddressComponent } from './address/address.component' 
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { ItemsComponent } from './items/items.component'
     BillComponent,
     CustomerComponent,
     AccountComponent,
-    ItemsComponent
+    ItemsComponent,
+    AddressComponent
   ],
   imports: [
     BrowserModule,

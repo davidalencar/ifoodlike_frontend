@@ -1,0 +1,71 @@
+<nav class="navbar sticky-top  navbar-expand-lg navbar-light bg-white justify-content-start">
+    <a class="navbar-brand" [routerLink]="['/', storeService.store.name, 'bill']">
+        <i class="ri-arrow-left-line"></i>
+    </a>
+    <h1 class="title">Endereço</h1>
+</nav>
+
+<ul class="list-group">
+    <li class="list-group-item bill">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span class="sub-title">Qual é o CEP?</span>
+                </div>
+            </div>
+            <div class="row control">
+                <div class="col">
+                    <input type="text" inputmode="numeric" class="form-control" placeholder="00.000-000" name="zipcode" required [(ngModel)]="storeService.order.address.cep" #zipCode="ngModel" mask="00.000-000" (keyup)="onZipCodeChange(zipCode.value)">
+                    <div class="invalid-msg">
+                        {{ zipCodeQueryError }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item bill" *ngIf="this.storeService.order.address.logradouro != undefined">
+        <div class="container">
+            <div class="row">
+                <div class="col-2">
+                    <i class="ri-map-pin-line"></i>
+                </div>
+                <div class="col">
+                    {{ this.storeService.order.address.logradouro }}
+                    <br> {{ formatAddress() }}
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item bill" *ngIf="this.storeService.order.address.logradouro != undefined">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span class="sub-title">Qual é o número?</span>
+                </div>
+            </div>
+            <div class="row control">
+                <div class="col">
+                    <input type="text" inputmode="numeric" class="form-control" required [(ngModel)]="storeService.order.address.numero">
+                </div>
+            </div>
+            <div class="row control">
+                <div class="col">
+                    <span class="sub-title">Complemento</span>
+                </div>
+            </div>
+            <div class="row control">
+                <div class="col">
+                    <input type="text" class="form-control" placeholder="Apartamento, bloco ou andar." [(ngModel)]="storeService.order.address.complemento">
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+    <div class="container justify-content-end">
+        <button type="submit" class="btn btn-success btn-lg" [routerLink]="['/', storeService.store.name, 'bill']" [disabled]="!storeService.hasValidaAddress()">
+      Salvar endereço
+    </button>
+    </div>
+</nav>

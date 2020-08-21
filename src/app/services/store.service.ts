@@ -100,6 +100,32 @@ export class StoreService {
         return this.bakestTotalAmount() >= this.store.minimumOrderAmount
     }
 
+    hasValidaAddress() {
+        if (!this.store.questions.address) return true;
+
+        if (this.order.address == undefined) return false;
+        if (this.order.address.cep == undefined) return false;
+        if (this.order.address.logradouro == undefined) return false;
+        if (this.order.address.localidade == undefined) return false;
+        if (this.order.address.numero == undefined) return false;
+        if (this.order.address.numero == '') return false;
+
+        return true;
+    }
+
+    formatAddressLine1() {
+        var line1 = `${this.order.address.logradouro}, ${this.order.address.numero}`
+        if (this.order.address.complemento != undefined && this.order.address.complemento != ''){
+          line1+= ` - ${this.order.address.complemento}`
+        }
+        return line1;
+      }
+  
+      formatAddressLine2() {
+        return `${this.order.address.bairro}, ${this.order.address.localidade}/${this.order.address.uf}`
+      }
+
+
     canSubmitOrder() {
         return this.hasProductsOnBasket() &&
             this.wereAllChoicesMade() && 
