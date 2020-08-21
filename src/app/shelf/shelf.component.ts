@@ -39,7 +39,7 @@ export class ShelfComponent implements OnInit {
     if (id.length > 0) {
       const element = document.getElementById(id);
       if (element) { 
-        element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"}); 
+        element.scrollIntoView({behavior: "auto", block: "center", inline: "nearest"}); 
       }
     }
   }
