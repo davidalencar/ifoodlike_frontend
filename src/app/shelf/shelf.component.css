@@ -50,6 +50,11 @@
 }
 
 .menu-title {
+    color: black;
     font-size: 22px;
     margin: 15px 4px;
+}
+
+.nav-item.menu {
+    text-decoration: none;
 }
