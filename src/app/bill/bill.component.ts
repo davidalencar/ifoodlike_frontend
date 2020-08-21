@@ -1,20 +1,57 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import { ProductType } from '../services/types/product.type';
+import { CookieService } from 'ngx-cookie-service';
+
 import * as moment from 'moment';
+import { stringify } from '@angular/compiler/src/util';
 
 @Component({
   selector: 'app-bill',
   templateUrl: './bill.component.html',
   styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-  '../../../node_modules/remixicon/fonts/remixicon.css',
-  './bill.component.css']
+    '../../../node_modules/remixicon/fonts/remixicon.css',
+    './bill.component.css']
 })
 export class BillComponent implements OnInit {
 
-  constructor(public storeService: StoreService) { }
+  constructor(public storeService: StoreService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
+    this.getDataFromCookie();
+  }
+
+  getDataFromCookie() {
+
+    if (this.cookieService.get('user-name').length > 0) {
+      this.storeService.order.userName = this.cookieService.get('user-name');
+    }
+    if (this.cookieService.get('user-phone').length > 0) {      
+      this.storeService.order.userPhone = this.cookieService.get('user-phone');
+    }
+    if (this.cookieService.get('user-address').length > 0) {
+      this.storeService.order.address = JSON.parse(this.cookieService.get('user-address'));       
+    }
+    if (this.cookieService.get('user-paym').length > 0) {
+      this.storeService.order.paymMethod = this.cookieService.get('user-paym');
+    }
+
+  }
+
+  setDataToCookie() {
+    if (this.storeService.order.userName != undefined) {
+      this.cookieService.set('user-name', this.storeService.order.userName);
+    }
+    if (this.storeService.order.userPhone != undefined) {
+      this.cookieService.set('user-phone', this.storeService.order.userPhone);
+    }
+    if (this.storeService.order.address.cep != undefined) {  
+      this.cookieService.set('user-address', JSON.stringify(this.storeService.order.address));
+    }
+    if (this.storeService.order.paymMethod != undefined) {
+      this.cookieService.set('user-paym', this.storeService.order.paymMethod);
+    }
+
   }
 
   setPaymMethod(paymMethod: string) {
@@ -30,6 +67,7 @@ export class BillComponent implements OnInit {
   }
 
   onConfirmPurch() {
+    this.setDataToCookie();
     const apiURI = 'https://api.whatsapp.com/send?'
     const argPhone = (this.storeService.store.phone) ? `phone=${this.storeService.store.phone}` : ''
     const argsOrder = `&text=${window.encodeURIComponent(this.formatData())}`

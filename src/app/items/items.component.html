@@ -53,7 +53,7 @@
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
     <div class="container justify-content-end">       
-        <button class="btn btn-lg btn-success" [routerLink]="['/', storeService.store.name, 'bill']"
+        <button class="btn btn-lg btn-success btn-confirm" [routerLink]="['/', storeService.store.name, 'bill']"
             [disabled]="!storeService.wereAllChoicesMade()">
             Fechar pedido
         </button>

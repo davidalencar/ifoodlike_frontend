@@ -15,3 +15,7 @@ div.invalid-msg {
   font-size: 80%;
   color: #dc3545;
 }
+
+.btn-confirm {
+  width: 100%;
+}

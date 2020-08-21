@@ -123,22 +123,22 @@
                                     [class]="(storeService.order.paymMethod == 'credit') ? 'col btn paymmode active': 'col btn paymmode'">
                                     <input type="radio" name="options" id="option1" autocomplete="off"
                                         (click)="setPaymMethod('credit')">
-                                    <i class="ri-bank-card-fill card-icon"></i>
-                                    <p class="text-muted paymmodename">Cartão</p>
+                                    <i class="ri-bank-card-fill"></i>
+                                    <p class="paymmodename">Cartão</p>
                                 </label>
                                 <label *ngIf="storeService.store.paym.money == true"
                                     [class]="(storeService.order.paymMethod == 'money') ? 'col btn paymmode active': 'col btn paymmode'">
                                     <input type="radio" name="options" id="option2" autocomplete="off"
                                         (click)="setPaymMethod('money')">
-                                    <i class="ri-money-dollar-circle-line money-icon"></i>
-                                    <p class="text-muted paymmodename">Dinheiro</p>
+                                    <i class="ri-money-dollar-circle-line"></i>
+                                    <p class="paymmodename">Dinheiro</p>
                                 </label>
                                 <label *ngIf="storeService.store.paym.transfer.enable == true"
                                     [class]="(storeService.order.paymMethod == 'transfer') ? 'col btn paymmode active': 'col btn paymmode'">
                                     <input type="radio" name="options" id="option3" autocomplete="off"
                                         (click)="setPaymMethod('transfer')">
                                     <i class="ri-exchange-dollar-line"></i>
-                                    <p class="text-muted paymmodename">Transferência</p>
+                                    <p class="paymmodename">Transferência</p>
                                 </label>
                             </div>
                         </div>
@@ -223,7 +223,7 @@
     <br>
     <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
         <div class="container justify-content-end">
-            <button type="submit" class="btn btn-success btn-lg"
+            <button type="submit" class="btn btn-success btn-lg btn-confirm"
                 [disabled]="!form.valid || !storeService.canSubmitOrder()">
                 Confirmar pedido
             </button>

@@ -14,6 +14,7 @@ import { AccountComponent } from './account/account.component';
 import { UserService } from './services/user.service';
 import { ItemsComponent } from './items/items.component';
 import { AddressComponent } from './address/address.component' 
+import { CookieService } from 'ngx-cookie-service'
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { AddressComponent } from './address/address.component'
   ],
   providers: [
     StoreService,
-    UserService
+    UserService,
+    CookieService
   ],
   bootstrap: [AppComponent]
 })

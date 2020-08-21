@@ -84,16 +84,11 @@ div.invalid-msg {
     height: 1.55rem;
 }
 
-.money-icon {
-    color: green;
-}
-
-.card-icon {
-    color: #6c757d;
-}
 
 .paymmode.active {
-    border-color: black;
+    border-color: #393e46;
+    background-color: #393e46;
+    color: white;
 }
 
 .addMorItens {
@@ -129,4 +124,8 @@ div.invalid-msg {
     border-color: #6c757d;
     border: 1px solid;
     border-radius: .25rem;
+}
+
+.btn-confirm {
+    width: 100%;
 }

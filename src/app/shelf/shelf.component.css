@@ -58,3 +58,7 @@
 .nav-item.menu {
     text-decoration: none;
 }
+
+.btn-confirm {
+    width: 100%;
+}
