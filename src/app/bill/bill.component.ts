@@ -23,33 +23,35 @@ export class BillComponent implements OnInit {
 
   getDataFromCookie() {
 
-    if (this.cookieService.get('user-name').length > 0) {
+    if (this.cookieService.check('user-name')) {
       this.storeService.order.userName = this.cookieService.get('user-name');
     }
-    if (this.cookieService.get('user-phone').length > 0) {      
+    if (this.cookieService.check('user-phone')) {      
       this.storeService.order.userPhone = this.cookieService.get('user-phone');
     }
-    if (this.cookieService.get('user-address').length > 0) {
+    if (this.cookieService.check('user-address')) {
       this.storeService.order.address = JSON.parse(this.cookieService.get('user-address'));       
     }
-    if (this.cookieService.get('user-paym').length > 0) {
+    if (this.cookieService.check('user-paym')) {
       this.storeService.order.paymMethod = this.cookieService.get('user-paym');
     }
 
   }
 
   setDataToCookie() {
+    const expires = 14;
+
     if (this.storeService.order.userName != undefined) {
-      this.cookieService.set('user-name', this.storeService.order.userName);
+      this.cookieService.set('user-name', this.storeService.order.userName, expires);
     }
     if (this.storeService.order.userPhone != undefined) {
-      this.cookieService.set('user-phone', this.storeService.order.userPhone);
+      this.cookieService.set('user-phone', this.storeService.order.userPhone, expires);
     }
     if (this.storeService.order.address.cep != undefined) {  
-      this.cookieService.set('user-address', JSON.stringify(this.storeService.order.address));
+      this.cookieService.set('user-address', JSON.stringify(this.storeService.order.address), expires);
     }
     if (this.storeService.order.paymMethod != undefined) {
-      this.cookieService.set('user-paym', this.storeService.order.paymMethod);
+      this.cookieService.set('user-paym', this.storeService.order.paymMethod, expires);
     }
 
   }
