@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 
 import { UserType } from './types/user.type'
 
-const apiUrl = 'https://fathomless-chamber-28156.herokuapp.com/api/users'
+const apiUrl = 'https://fathomless-chamber-28156.herokuapp.com/users'
 
 
 @Injectable()

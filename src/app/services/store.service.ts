@@ -11,7 +11,7 @@ import { ItemCategoryType } from './types/item.category.type'
 import { OrderType } from './types/order.type'
 
 
-const store_api_uri = 'https://fathomless-chamber-28156.herokuapp.com/api/stores/'
+const store_api_uri = 'https://fathomless-chamber-28156.herokuapp.com/stores/'
 
 @Injectable()
 export class StoreService {
