@@ -2,20 +2,20 @@ import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Title }     from '@angular/platform-browser';
+import { environment } from '../../environments/environment';
 
-import { ProductType } from './types/product.type'
-import { StoreType } from './types/store.type'
-import { StoreServiceResponseType } from './types/store.service.response.type'
+import { ProductType } from './types/product.type';
+import { StoreType } from './types/store.type';
+import { StoreServiceResponseType } from './types/store.service.response.type';
 import { ItemType } from './types/item.type';
-import { ItemCategoryType } from './types/item.category.type'
-import { OrderType } from './types/order.type'
-
-
-const store_api_uri = 'https://fathomless-chamber-28156.herokuapp.com/stores/'
+import { ItemCategoryType } from './types/item.category.type';
+import { OrderType } from './types/order.type';
+import { SalesResponseType } from './types/sales.response.type'; 
 
 @Injectable()
 export class StoreService {
 
+    salesId: string = '';
     store: StoreType;
     products: ProductType[];
     categories = [];
@@ -163,7 +163,7 @@ export class StoreService {
 
 
     storeDataRequest(storename: string): Observable<StoreServiceResponseType> {
-        const url = `${store_api_uri}${storename}`;
+        const url = `${environment.loja_api}stores/${storename}`;
         return this.http.get<StoreServiceResponseType>(url);
     }
 
@@ -175,6 +175,61 @@ export class StoreService {
                 this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })
+    }
+
+    sendOrder() {
+        const url = `${environment.loja_api}sales`;
+        
+        return this.http.post<SalesResponseType>(url, this.createOrder())
+    }
+
+    createOrder() {
+        var data = {
+            customer: {
+                name: this.order.userName,
+                phone: this.order.userPhone,
+                address: {
+                    zipCode: this.order.address.cep,
+                    street: this.order.address.logradouro,
+                    number: this.order.address.numero,
+                    district: this.order.address.bairro,
+                    city: this.order.address.localidade,
+                    state: this.order.address.uf,
+                    complement: this.order.address.complemento
+                }
+            },
+            order: {
+                store: this.store.name,
+                paymMethod: this.order.paymMethod,
+                lines: []
+            }
+        }
+
+        this.basketProducts().forEach(p => {
+            var line = {
+                qty: p.qty,
+                product: p.name,
+                amount: this.totalLineAmount(p),
+                items: []
+            }
+            this.orderProductItemsCategory(p.items).forEach(c =>  {
+                var citem = {
+                    category: c.name,
+                    items: []
+                }
+
+                this.getItemsInProductItemCategory(c).forEach(i => {
+                    citem.items.push({
+                        qty: i.qty,
+                        item: i.name
+                    })
+                })
+                line.items.push(citem)
+            })
+            data.order.lines.push(line)
+        })
+
+        return data;
     }
 
     constructor(private http: HttpClient, private titleService: Title) {

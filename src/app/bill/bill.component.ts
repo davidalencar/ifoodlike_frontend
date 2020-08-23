@@ -4,7 +4,8 @@ import { ProductType } from '../services/types/product.type';
 import { CookieService } from 'ngx-cookie-service';
 
 import * as moment from 'moment';
-import { stringify } from '@angular/compiler/src/util';
+
+import { SalesResponseType } from '../services/types/sales.response.type';
 
 @Component({
   selector: 'app-bill',
@@ -14,6 +15,8 @@ import { stringify } from '@angular/compiler/src/util';
     './bill.component.css']
 })
 export class BillComponent implements OnInit {
+
+  commandNow: string = 'confirm';
 
   constructor(public storeService: StoreService, private cookieService: CookieService) { }
 
@@ -69,7 +72,17 @@ export class BillComponent implements OnInit {
   }
 
   onConfirmPurch() {
+    this.commandNow = 'spinner';
     this.setDataToCookie();
+    this.storeService.sendOrder()
+    .subscribe((data: SalesResponseType)=> {
+      this.storeService.salesId = data.salesId;
+      this.commandNow = 'share';
+  })
+    
+  }
+
+  sendViaWhats() {
     const apiURI = 'https://api.whatsapp.com/send?'
     const argPhone = (this.storeService.store.phone) ? `phone=${this.storeService.store.phone}` : ''
     const argsOrder = `&text=${window.encodeURIComponent(this.formatData())}`
@@ -83,6 +96,8 @@ export class BillComponent implements OnInit {
   formatData() {
     var data: string = '';
 
+    data+= this.formatHeader()
+    data += this.breakLine();
     data += this.formatUserInfo();
     data += this.breakLine();
     data += `*Pedido:* \n${this.formatOrder()}`;
@@ -124,6 +139,17 @@ export class BillComponent implements OnInit {
     }
 
     return paym;
+  }
+
+  formatSalesId() {
+    var orderFormated = String(this.storeService.salesId);
+    return `#${orderFormated.padStart(4, '0')}`
+  }
+
+  formatHeader() {
+    var header = `Pedido: ${this.formatSalesId()}`;
+    
+    return header;
   }
 
   formatUserInfo() {

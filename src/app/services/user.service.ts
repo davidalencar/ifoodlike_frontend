@@ -1,10 +1,9 @@
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment'
 
 import { UserType } from './types/user.type'
-
-const apiUrl = 'https://fathomless-chamber-28156.herokuapp.com/users'
 
 
 @Injectable()
@@ -18,6 +17,6 @@ export class UserService{
         user.email = uemail;
         user.password = 'firstpwd';
         user.plan = plan;
-        return this.http.post<UserType>(apiUrl, user)
+        return this.http.post<UserType>(`${environment.loja_api}/users`, user)
       }
 }
