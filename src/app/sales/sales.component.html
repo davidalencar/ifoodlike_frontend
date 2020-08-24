@@ -1,5 +1,10 @@
 <app-nav-back title="Pedidos" [route]="['/', 'user', 'board']"></app-nav-back>
-<ul class="list-group">
+
+<div *ngIf="sales.length == 0" class="spinner-border" role="status">
+    <span class="sr-only">Carregando...</span>
+</div>
+
+<ul class="list-group" *ngIf="sales.length > 0">
     <li class="list-group-item" *ngFor="let s of sales">
         <div class="container">
             <a (click)="showSales(s.salesId)">
@@ -87,7 +92,7 @@
                         </span>
                     </div>
                 </div>
-                
+
                 <div class="row question">
                     <div class="col-3">
                         <span class="question-title">
@@ -147,8 +152,22 @@
                         {{ s.cust.phone}}
                     </div>
                 </div>
+                <div class="row question">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary  d-flex"
+                            target="_blank"
+                            [href]="talkViaWhats(s)">
+                            <div class="col-2">
+                                <i class="ri-whatsapp-line"></i>
+                            </div>
+                            <div class="col">
+                                Chamar no Whats
+                            </div>
+                        </a>
+                    </div>
+                </div>
             </ng-container>
-
+            
         </div>
     </li>
 </ul>

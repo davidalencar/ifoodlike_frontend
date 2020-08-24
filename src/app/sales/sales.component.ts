@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import * as moment from 'moment';
 
 
-import { UserService } from '../services/user.service';
+import { DashBoardService } from '../services/dashboard.service';
 import { StoreService } from '../services/store.service';
 import { SalesType } from '../services/types/sales.type'
 
@@ -22,11 +22,11 @@ export class SalesComponent implements OnInit {
   salesToShow = []
   sales: SalesType[] = [];
 
-  constructor(private route: ActivatedRoute, public storeService: StoreService, public userSevice: UserService) {
+  constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardSevice: DashBoardService) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
       
-      this.storeService.getStoreSalesData(id, this.userSevice.userToken.access_token)      
+      this.dashBoardSevice.getStoreSalesData(id)      
           .subscribe(data => {
             this.sales = data.sales;
           }, (e: any) =>{
@@ -58,8 +58,19 @@ export class SalesComponent implements OnInit {
   
   formatDeliveryAddressL2(s: SalesType) {
     const ad = s.cust.address;
-    
-    return `CEP: ${ad.zipCode} - ${ad.district} - ${ad.city}/${ad.state}`
-    
+    return `CEP: ${ad.zipCode} - ${ad.district} - ${ad.city}/${ad.state}`    
+  }
+
+  talkViaWhats(s: SalesType) {
+    const apiURI = 'https://api.whatsapp.com/send?'
+    const argPhone = `phone=${s.cust.name}` 
+    const argsOrder = `&text=${window.encodeURIComponent(this.formatMsgToWhats(s))}`
+    return `${apiURI}${argPhone}${argsOrder}`
+  }
+
+  formatMsgToWhats(s: SalesType) {
+    var msg = `Oi ${s.cust.name}, tudo bem?\n`
+    msg+= `Tem um minutinho para falar sobre o pedido ${this.storeService.formatSalesId(s.salesId)}?`
+    return msg;
   }
 }

@@ -1,4 +1,5 @@
 export class SalesType {
+    salesId: string;
     store: string;
     time: Date;
     cust: {

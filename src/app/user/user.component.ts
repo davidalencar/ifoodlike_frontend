@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../services/user.service';
+import { DashBoardService } from '../services/dashboard.service';
 
 @Component({
   selector: 'app-user',
@@ -10,7 +10,7 @@ import { UserService } from '../services/user.service';
 })
 export class UserComponent implements OnInit {
 
-  constructor(public userService: UserService) { }
+  constructor(public dashBoardService: DashBoardService) { }
   
 
   ngOnInit(): void {

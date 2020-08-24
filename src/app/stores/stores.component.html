@@ -1,7 +1,0 @@
-<ul class="list-group">
-    <li class="list-group-item" *ngFor="let storename of userService.userToken.stores">
-        <button class="btn"  [routerLink]="['/', storename, 'sales']">
-            {{ storename }}
-        </button>
-    </li>
-</ul>

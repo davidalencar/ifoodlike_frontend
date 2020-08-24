@@ -11,12 +11,11 @@ import { ShelfitemComponent } from './shelfitem/shelfitem.component';
 import { BillComponent } from './bill/bill.component';
 import { CustomerComponent } from './customer/customer.component';
 import { AccountComponent } from './account/account.component';
-import { UserService } from './services/user.service';
+import { DashBoardService } from './services/dashboard.service';
 import { ItemsComponent } from './items/items.component';
 import { AddressComponent } from './address/address.component' 
 import { CookieService } from 'ngx-cookie-service';
 import { SalesComponent } from './sales/sales.component';
-import { StoresComponent } from './stores/stores.component';
 import { UserComponent } from './user/user.component';
 import { NavBackComponent } from './nav-back/nav-back.component';
 import { ProductComponent } from './product/product.component'
@@ -32,7 +31,6 @@ import { ProductComponent } from './product/product.component'
     ItemsComponent,
     AddressComponent,
     SalesComponent,
-    StoresComponent,
     UserComponent,
     NavBackComponent,
     ProductComponent
@@ -46,7 +44,7 @@ import { ProductComponent } from './product/product.component'
   ],
   providers: [
     StoreService,
-    UserService,
+    DashBoardService,
     CookieService
   ],
   bootstrap: [AppComponent]

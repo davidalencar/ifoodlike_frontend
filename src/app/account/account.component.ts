@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Title } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
-import { UserService } from '../services/user.service'
+import { DashBoardService } from '../services/dashboard.service'
 import { UserType } from '../services/types/user.type';
 import { TokenType } from '../services/types/token.type';
 
@@ -24,7 +24,7 @@ export class AccountComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private titleService: Title,
-    private userService: UserService) {
+    private dashBoardService: DashBoardService) {
     this.titleService.setTitle('BS.Lista - bslista.com')
 
     const id: Observable<string> = route.queryParams.pipe(map(p => p.plan));
@@ -40,7 +40,7 @@ export class AccountComponent implements OnInit {
   onSend(form: NgForm) {
 
     if (this.userPlan != '') {
-      this.userService.createUser(form.value.userName,
+      this.dashBoardService.createUser(form.value.userName,
         form.value.userPhone,
         form.value.userEmail,
         this.userPlan)
@@ -54,9 +54,9 @@ export class AccountComponent implements OnInit {
       this.showMsg = true;
 
     } else {
-      this.userService.login(form.value.userEmail, form.value.userPwd)
+      this.dashBoardService.login(form.value.userEmail, form.value.userPwd)
         .subscribe((token: TokenType) => {
-          this.userService.userToken = token;
+          this.dashBoardService.userToken = token;
           
           if (token.stores.length == 1) {
             this.router.navigate([token.stores[0], 'sales'])

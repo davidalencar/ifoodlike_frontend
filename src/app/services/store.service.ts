@@ -181,15 +181,7 @@ export class StoreService {
                 this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })
-    }
-
-    getStoreSalesData(storeName: string, accessToken: string) {
-        const url = `${environment.loja_api}sales/${storeName}`;
-
-        return this.http.get<{sales: SalesType[]}>(url,{
-            headers:{ 'Authorization' : accessToken}
-        })
-    }
+    }    
 
     sendOrder() {
         const url = `${environment.loja_api}sales`;
