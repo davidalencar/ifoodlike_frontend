@@ -210,7 +210,12 @@ export class StoreService {
                     city: this.order.address.localidade,
                     state: this.order.address.uf,
                     complement: this.order.address.complemento
-                }
+                },
+                stores: [
+                    {
+                        name: this.store.name
+                    }
+                ]
             },
             order: {
                 store: this.store.name,

@@ -25,7 +25,6 @@ export class SalesComponent implements OnInit {
   constructor(private route: ActivatedRoute, public storeService: StoreService, public userSevice: UserService) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
-      if (!this.storeService.store.name)
       
       this.storeService.getStoreSalesData(id, this.userSevice.userToken.access_token)      
           .subscribe(data => {
@@ -33,6 +32,7 @@ export class SalesComponent implements OnInit {
           }, (e: any) =>{
             console.log(e)
           })
+      
     });    
   }
 

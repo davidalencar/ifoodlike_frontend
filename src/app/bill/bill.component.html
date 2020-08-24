@@ -217,8 +217,21 @@
                 <div class="row">
                     <div class="col text-center">
                         <span class="question-text ">Pedido recebido =)</span>
-                        <p class="text-multed">
+                        <p class="text-muted font-weight-bold">
                             {{ formatSalesId() }}
+                        </p>
+                    </div>
+                </div>
+                <div class="row" *ngIf="storeService.order.paymMethod == 'transfer'">
+                    <div class="col">
+                        <span class="question-text ">Dados para trnsferência</span>
+                        <p class="text-muted">
+                            <span class="question-text ">Banco:</span>
+                            {{ storeService.store.paym.transfer.bank }} <br>
+                            <span class="question-text ">Conta:</span>
+                            {{ storeService.store.paym.transfer.account }} <br>
+                            <span class="question-text ">Documento:</span>
+                            {{ storeService.store.paym.transfer.document }}
                         </p>
                     </div>
                 </div>
