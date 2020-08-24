@@ -63,7 +63,7 @@ export class SalesComponent implements OnInit {
 
   talkViaWhats(s: SalesType) {
     const apiURI = 'https://api.whatsapp.com/send?'
-    const argPhone = `phone=${s.cust.name}` 
+    const argPhone = `phone=55${s.cust.phone}` 
     const argsOrder = `&text=${window.encodeURIComponent(this.formatMsgToWhats(s))}`
     return `${apiURI}${argPhone}${argsOrder}`
   }

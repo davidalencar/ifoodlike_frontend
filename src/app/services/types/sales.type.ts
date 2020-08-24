@@ -12,6 +12,7 @@ export class SalesType {
             state: string;
             complement: string;
         };
+        phone: string;
         name: string;
         custId: string;
     };
