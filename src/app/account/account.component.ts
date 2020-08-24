@@ -43,7 +43,8 @@ export class AccountComponent implements OnInit {
         form.value.userPhone,
         form.value.userEmail,
         this.userPlan)
-        .subscribe((data: UserType) => {          
+        .subscribe((data: UserType) => {   
+          console.log(data)       
         });
         this.showMsg = true;
 

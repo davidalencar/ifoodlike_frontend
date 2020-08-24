@@ -27,9 +27,8 @@ export class UserService{
         const user = new UserType();
         user.name = uname;
         user.phone = uphone;
-        user.email = uemail;
-        user.password = 'firstpwd';
+        user.email = uemail;        
         user.plan = plan;
-        return this.http.post<UserType>(`${environment.loja_api}/users`, user)
+        return this.http.post<UserType>(`${environment.loja_api}users`, user)
       }
 }

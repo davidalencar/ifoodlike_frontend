@@ -7,19 +7,25 @@
             <h1 class="h3 mb-3 font-weight-normal">Crie sua conta</h1>
 
             <div class="form-group">
-                <input type="text" class="form-control" id="inputCustName" name="userName" required ngModel
+                <input type="text" class="form-control" name="userName" required ngModel
                     minLength="3" maxLength="60" pattern="[a-zA-Z ]*" placeholder="Seu nome">
             </div>
 
             <div class="form-group">
-                <input type="phone" class="form-control" id="inputPhone" placeholder="(00) 9 0000 0000" name="userPhone"
+                <input type="phone" class="form-control" placeholder="(00) 9 0000 0000" name="userPhone"
                     required ngModel mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
             </div>
 
             <div class="form-group">
-                <input type="email" class="form-control" id="inputPhone" placeholder="E-mail" name="userEmail" required
+                <input type="email" class="form-control" placeholder="E-mail" name="userEmail" required
                     ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
             </div>
+            <!-- <div class="form-group">
+                <input type="password"  class="form-control" placeholder="Senha" name="userPwd" required ngModel>
+            </div>
+            <div class="form-group">
+                <input type="password"  class="form-control" placeholder="Confirmar senha" name="userPwdConfirm" required ngModel>
+            </div> -->
             
             <div class="form-group">
                 <span class="text-muted">Não compartilhamos seus dados.</span>
@@ -32,10 +38,11 @@
                     <h4>Crie sua conta</h4>
                 </a> ou acesse:
             </p>
-            <label for="inputEmail" class="sr-only">E-mail</label>
-            <input type="email" id="inputEmail" class="form-control" placeholder="E-mail" name="userEmail" required autofocus ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-            <label for="inputPassword" class="sr-only">Password</label>
-            <input type="password" id="inputPassword" class="form-control" placeholder="Senha" name="userPwd" required ngModel>
+            
+            <input type="email" class="form-control" placeholder="E-mail" name="userEmail" required autofocus ngModel pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
+            
+            <input type="password" class="form-control" placeholder="Senha" name="userPwd" required ngModel>
+            
             <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="remember-me"> Lembrar
@@ -53,7 +60,7 @@
 </div>
 <ng-template #elseMsgBlock>
     <h1>
-        Guardados seu contato e informaremos assim que estiver tudo pronto =)
+        Entraremos em contato =)
     </h1>
     <a href="http://www.bslista.com">
         <h2>bslista.com</h2>
