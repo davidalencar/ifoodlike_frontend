@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Title }     from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import {map} from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { Title }     from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../services/user.service'
 import { UserType } from '../services/types/user.type';
+import { TokenType } from '../services/types/token.type';
 
 @Component({
   selector: 'app-account',
@@ -19,7 +20,10 @@ export class AccountComponent implements OnInit {
   public showMsg: boolean = false;
   public msg:string = '';
 
-  constructor(private route: ActivatedRoute, private titleService: Title, private userService: UserService) { 
+  constructor(private route: ActivatedRoute, 
+    private router: Router,
+    private titleService: Title, 
+    private userService: UserService) { 
     this.titleService.setTitle('BS.Lista - bslista.com')
 
     const id: Observable<string> = route.queryParams.pipe(map(p => p.plan));    
@@ -44,7 +48,17 @@ export class AccountComponent implements OnInit {
         this.showMsg = true;
 
     } else {
-      window.location.href = 'http://www.bslista.com'
+      this.userService.login(form.value.userEmail, form.value.userPwd)
+        .subscribe((token: TokenType) => {
+          this.userService.userToken = token;
+          console.log(token)
+          if (token.stores.length == 1){
+            this.router.navigate([token.stores[0], 'sales'])
+          } 
+          this.router.navigate(['user/stores'])
+
+        })
+      
     }
 
     

@@ -1,0 +1,108 @@
+<ul class="list-group">
+    <li class="list-group-item" *ngFor="let s of sales">
+        <div class="container">
+            <a (click)="showSales(s.salesId)">
+                <div class="row">
+                    <div class="col-2">
+                        {{storeService.formatSalesId(s.salesId)}}
+                    </div>
+                    <div class="col-3">
+                        {{formatDate(s.time)}}
+                    </div>
+                    <div class="col">
+                        {{s.cust.name}}
+                    </div>
+                    <div class="col-2">
+                        {{ storeService.formatPrice(s.totalAmount) }}
+                    </div>
+                </div>
+            </a>
+            <ng-container *ngIf="salesToShow.includes(s.salesId)">
+                <div class="row">
+                    <div class="col">
+                        Items
+                    </div>
+                </div>
+                <ng-container *ngFor="let l of s.lines">
+                    <div class="row">
+                        <div class="col-2">
+                            <span class="text-success">{{ l.qty }}X</span>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-normal"> {{ l.product }} </span>
+                        </div>
+                    </div>
+                    <div class="row" *ngFor="let c of l.items">
+                        <div class="col text-muted">
+                            {{c.category}}
+                            <ul>
+                                <li *ngFor="let i of c.items">
+                                    <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
+                                    {{i.item}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row question" *ngIf="s.instruction">
+                    <div class="col-2">
+                        <span class="question-title">
+                            Obs.:
+                        </span>
+                    </div>
+                    <div class="col">
+                        {{ s. instruction }}
+                    </div>
+                </div>
+                <div class="row question">
+                    <div class="col-4">
+                        <span class="question-title">
+                            Pagamento:
+                        </span>
+                    </div>
+                    <div class="col">
+                        <label *ngIf="s.paymMethod == 'credit'" class="text-center">
+                            <i class="ri-bank-card-fill"></i>
+                            <p class="paymmodename">Cartão</p>
+                        </label>
+                        <label *ngIf="s.paymMethod == 'money'" class="text-center">
+                            <i class="ri-money-dollar-circle-line"></i>
+                            <p class="paymmodename">Dinheiro</p>
+                        </label>
+                        <label *ngIf="s.paymMethod == 'transfer'" class="text-center">
+
+                            <i class="ri-exchange-dollar-line"></i>
+                            <p class="paymmodename">Transferência</p>
+                        </label>
+                    </div>
+                </div>
+                <div class="row question">
+                    <div class="col">
+                        <span class="question-title">
+                            Endereço:
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ formatDeliveryAddressL1(s)}}<br>
+                        {{ formatDeliveryAddressL2(s)}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col question">
+                        <span class="question-title">
+                            Telefone:
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ s.cust.phone}}
+                    </div>
+                </div>
+            </ng-container>
+
+        </div>
+    </li>
+</ul>

@@ -1,7 +1,7 @@
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Title }     from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { environment } from '../../environments/environment';
 
 import { ProductType } from './types/product.type';
@@ -10,7 +10,8 @@ import { StoreServiceResponseType } from './types/store.service.response.type';
 import { ItemType } from './types/item.type';
 import { ItemCategoryType } from './types/item.category.type';
 import { OrderType } from './types/order.type';
-import { SalesResponseType } from './types/sales.response.type'; 
+import { SalesResponseType } from './types/sales.response.type';
+import { SalesType } from './types/sales.type'
 
 @Injectable()
 export class StoreService {
@@ -22,13 +23,13 @@ export class StoreService {
     order: OrderType;
 
     getCategories() {
-         this.categories = [...this.store.categories].sort((c1, c2) => {
+        this.categories = [...this.store.categories].sort((c1, c2) => {
             return c1.order - c2.order
         }).filter(c => c.enable == true)
     }
 
     basketProducts() {
-        return this.orderProductsByName(this.products.filter(p => p.qty > 0))    
+        return this.orderProductsByName(this.products.filter(p => p.qty > 0))
     }
 
     basketProductsWithItems() {
@@ -36,15 +37,15 @@ export class StoreService {
     }
 
     basketProductsWithChoicesToMake() {
-        return this.basketProducts().filter(p => p.items.filter(c=> c.type == 'choice').length > 0)
+        return this.basketProducts().filter(p => p.items.filter(c => c.type == 'choice').length > 0)
     }
 
     getItemsInProductItemCategory(category: ItemCategoryType) {
         return this.orderProductItemsByName(category.products.filter(i => i.qty > 0))
     }
 
-    validateProductItemCategory(category: ItemCategoryType){
-       
+    validateProductItemCategory(category: ItemCategoryType) {
+
         if (category.type == 'choice' && this.getItemsInProductItemCategory(category).length == 0) {
             return false;
         }
@@ -52,7 +53,7 @@ export class StoreService {
         return true;
     }
 
-    hasBasketProductsWithItems(){
+    hasBasketProductsWithItems() {
         return this.basketProductsWithItems().length > 0;
     }
 
@@ -65,8 +66,8 @@ export class StoreService {
     }
 
     totalLineAmount(p: ProductType) {
-        var lineAmount = p.items.map( i => i.products.map(p => p.price * p.qty).reduce((sum, value) => sum + value, 0)).reduce((sum, value) => sum + value, 0);
-            
+        var lineAmount = p.items.map(i => i.products.map(p => p.price * p.qty).reduce((sum, value) => sum + value, 0)).reduce((sum, value) => sum + value, 0);
+
         return p.price * p.qty + lineAmount * p.qty;
     }
 
@@ -74,7 +75,7 @@ export class StoreService {
         return this.basketProducts().length > 0;
     }
 
-    
+
 
     storeTaxesTotalAmount() {
         if (this.store.taxes.length == 0) return 0;
@@ -87,8 +88,8 @@ export class StoreService {
     }
 
     wereAllChoicesMade() {
-        
-        return this.basketProductsWithChoicesToMake().map(p => p.items.map( c=> this.validateProductItemCategory(c)).reduce((vl1, vl2) => vl1 && vl2), true).reduce((vl1, vl2) => vl1 && vl2, true)
+
+        return this.basketProductsWithChoicesToMake().map(p => p.items.map(c => this.validateProductItemCategory(c)).reduce((vl1, vl2) => vl1 && vl2), true).reduce((vl1, vl2) => vl1 && vl2, true)
 
     }
 
@@ -115,21 +116,21 @@ export class StoreService {
 
     formatAddressLine1() {
         var line1 = `${this.order.address.logradouro}, ${this.order.address.numero}`
-        if (this.order.address.complemento != undefined && this.order.address.complemento != ''){
-          line1+= ` - ${this.order.address.complemento}`
+        if (this.order.address.complemento != undefined && this.order.address.complemento != '') {
+            line1 += ` - ${this.order.address.complemento}`
         }
         return line1;
-      }
-  
-      formatAddressLine2() {
+    }
+
+    formatAddressLine2() {
         return `${this.order.address.bairro}, ${this.order.address.localidade}/${this.order.address.uf}`
-      }
+    }
 
 
     canSubmitOrder() {
         return this.hasProductsOnBasket() &&
-            this.wereAllChoicesMade() && 
-            this.minOrderReached() && 
+            this.wereAllChoicesMade() &&
+            this.minOrderReached() &&
             this.hasPaymMethodBeenSet();
     }
 
@@ -143,15 +144,15 @@ export class StoreService {
 
     productsByCategory(category: string) {
         return this.orderProductsByName(this.products.filter(p => p.category == category))
-            
+
     }
 
     orderProductsByName(list: ProductType[]) {
-        return list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        return list.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
     }
 
     orderProductItemsByName(list: ItemType[]) {
-        return list.sort((a,b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        return list.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
     }
 
     orderProductItemsCategory(list: ItemCategoryType[]) {
@@ -161,6 +162,11 @@ export class StoreService {
 
     }
 
+    formatSalesId(salesid: string) {    
+        var orderFormated = String(salesid);
+        return `#${orderFormated.padStart(4, '0')}`
+      }
+
 
     storeDataRequest(storename: string): Observable<StoreServiceResponseType> {
         const url = `${environment.loja_api}stores/${storename}`;
@@ -169,17 +175,25 @@ export class StoreService {
 
     getStoreData(storeName: string) {
         this.storeDataRequest(storeName)
-            .subscribe((data:StoreServiceResponseType) => {
-                this.store = data.store;                
+            .subscribe((data: StoreServiceResponseType) => {
+                this.store = data.store;
                 this.products = data.products;
                 this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })
     }
 
+    getStoreSalesData(storeName: string, accessToken: string) {
+        const url = `${environment.loja_api}sales/${storeName}`;
+
+        return this.http.get<{sales: SalesType[]}>(url,{
+            headers:{ 'Authorization' : accessToken}
+        })
+    }
+
     sendOrder() {
         const url = `${environment.loja_api}sales`;
-        
+
         return this.http.post<SalesResponseType>(url, this.createOrder())
     }
 
@@ -201,6 +215,9 @@ export class StoreService {
             order: {
                 store: this.store.name,
                 paymMethod: this.order.paymMethod,
+                totalAmount: this.basketTotalAmountWithTaxes(),
+                instruction: this.order.instruction,
+                taxes: this.store.taxes,
                 lines: []
             }
         }
@@ -212,7 +229,7 @@ export class StoreService {
                 amount: this.totalLineAmount(p),
                 items: []
             }
-            this.orderProductItemsCategory(p.items).forEach(c =>  {
+            this.orderProductItemsCategory(p.items).forEach(c => {
                 var citem = {
                     category: c.name,
                     items: []

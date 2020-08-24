@@ -4,11 +4,24 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment'
 
 import { UserType } from './types/user.type'
+import { TokenType } from './types/token.type'
 
 
 @Injectable()
 export class UserService{
     constructor(private http: HttpClient) { }
+
+    userToken : TokenType = {
+      access_token : '',
+      stores: []
+    }
+
+    login(email:string, password: string) {
+      return this.http.post<TokenType>(`${environment.loja_api}accounts`, {
+        email,
+        password
+      }) 
+    }
 
     createUser(uname:string, uphone:string, uemail:string, plan: string): Observable<UserType> {
         const user = new UserType();
