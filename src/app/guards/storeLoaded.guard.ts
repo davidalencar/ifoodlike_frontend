@@ -17,6 +17,7 @@ export class StoreLoadedGuard implements CanActivate {
     canActivate(route: 	ActivatedRouteSnapshot) {
         if (this.storeService.store.name == undefined) {
             window.location.href = '/' + route.params['id'];
+            return false;
         }
         return true
     }

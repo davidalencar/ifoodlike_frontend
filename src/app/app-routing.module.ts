@@ -5,10 +5,11 @@ import { BillComponent } from './bill/bill.component'
 import { CustomerComponent } from './customer/customer.component'
 import { AccountComponent } from './account/account.component'
 import { ItemsComponent } from './items/items.component'
-import { StoreLoadedGuard } from './guards/storeLoaded.guard'
 import { AddressComponent } from './address/address.component'
 import { SalesComponent } from './sales/sales.component'
-import { StoresComponent } from './stores/stores.component'
+import { UserComponent } from './user/user.component'
+import { StoreLoadedGuard } from './guards/storeLoaded.guard'
+import { AuthGuard } from './guards/auth.guard'
 
 
 const routes: Routes = [
@@ -18,8 +19,8 @@ const routes: Routes = [
   { path: ':id/bill', component: BillComponent, canActivate: [StoreLoadedGuard]},
   { path: ':id/customer', component: CustomerComponent, canActivate: [StoreLoadedGuard]},
   { path: ':id/address', component: AddressComponent, canActivate: [StoreLoadedGuard]},
-  { path: ':id/sales', component: SalesComponent},
-  { path: 'user/stores', component: StoresComponent}
+  { path: ':id/sales', component: SalesComponent, canActivate: [AuthGuard]},
+  { path: 'user/board', component: UserComponent, canActivate: [AuthGuard]}
 
 ];
 

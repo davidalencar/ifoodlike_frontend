@@ -43,10 +43,13 @@
             
             <input type="password" class="form-control" placeholder="Senha" name="userPwd" required ngModel>
             
-            <div class="checkbox mb-3">
+            <!-- <div class="checkbox mb-3">
                 <label>
                     <input type="checkbox" value="remember-me"> Lembrar
                 </label>
+            </div> -->
+            <div class="invalid-msg text-center">
+                <span> {{ msgError }} </span>
             </div>
         </ng-template>
         <button class="btn btn-lg btn-primary btn-block" type="submit" [disabled]="!form.valid">Enviar</button>

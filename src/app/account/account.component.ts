@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { Title }     from '@angular/platform-browser';
+import { Title } from '@angular/platform-browser';
 import { NgForm } from '@angular/forms';
 import { UserService } from '../services/user.service'
 import { UserType } from '../services/types/user.type';
@@ -12,22 +12,23 @@ import { TokenType } from '../services/types/token.type';
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-  './account.component.css']
+    './account.component.css']
 })
 export class AccountComponent implements OnInit {
 
-  public userPlan:string = '';
+  public userPlan: string = '';
   public showMsg: boolean = false;
-  public msg:string = '';
+  public msg: string = '';
+  public msgError: string = '';
 
-  constructor(private route: ActivatedRoute, 
+  constructor(private route: ActivatedRoute,
     private router: Router,
-    private titleService: Title, 
-    private userService: UserService) { 
+    private titleService: Title,
+    private userService: UserService) {
     this.titleService.setTitle('BS.Lista - bslista.com')
 
-    const id: Observable<string> = route.queryParams.pipe(map(p => p.plan));    
-    id.subscribe((plan:string)=> {
+    const id: Observable<string> = route.queryParams.pipe(map(p => p.plan));
+    id.subscribe((plan: string) => {
       if (plan)
         this.userPlan = plan;
     })
@@ -38,30 +39,37 @@ export class AccountComponent implements OnInit {
 
   onSend(form: NgForm) {
 
-    if (this.userPlan != ''){
+    if (this.userPlan != '') {
       this.userService.createUser(form.value.userName,
         form.value.userPhone,
         form.value.userEmail,
         this.userPlan)
-        .subscribe((data: UserType) => {   
-          console.log(data)       
-        });
-        this.showMsg = true;
+        .subscribe(
+          (data: UserType) => {
+            
+          },
+          (e: any) => {
+            
+          });
+      this.showMsg = true;
 
     } else {
       this.userService.login(form.value.userEmail, form.value.userPwd)
         .subscribe((token: TokenType) => {
           this.userService.userToken = token;
-          console.log(token)
-          if (token.stores.length == 1){
+          
+          if (token.stores.length == 1) {
             this.router.navigate([token.stores[0], 'sales'])
-          } 
-          this.router.navigate(['user/stores'])
+          }
+          this.router.navigate(['user/board'])
 
+        }, (e: any) => {
+          if (e.status == 401)
+            this.msgError = 'Usuário ou senha inválida.';
         })
-      
+
     }
 
-    
+
   }
 }

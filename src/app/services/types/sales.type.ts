@@ -18,13 +18,8 @@ export class SalesType {
     totalAmount: number;
     instruction: string;
     taxes: [{
-        name: {
-            type: string;
-            trim: true
-        };
-        value: {
-            type: number
-        }
+        name: string
+        value: number;
     }];
     lines: [{
         qty: number;
