@@ -1,9 +1,4 @@
-<nav class="navbar sticky-top  navbar-expand-lg navbar-light bg-white justify-content-start">
-    <a class="navbar-brand" [routerLink]="['/', storeService.store.name, 'bill']">
-        <i class="ri-arrow-left-line"></i>
-    </a>
-    <h1 class="title">Endereço</h1>
-</nav>
+<app-nav-back title="Endereço" [route]="['/', storeService.store.name, 'bill']"></app-nav-back>
 
 <ul class="list-group">
     <li class="list-group-item bill">

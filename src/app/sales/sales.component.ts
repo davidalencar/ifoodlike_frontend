@@ -27,11 +27,11 @@ export class SalesComponent implements OnInit {
     id.subscribe((id: string) => {
       if (!this.storeService.store.name)
       
-      this.storeService.getStoreSalesData(id, this.userSevice.userToken.access_token)
-      
+      this.storeService.getStoreSalesData(id, this.userSevice.userToken.access_token)      
           .subscribe(data => {
-            console.log(data)
             this.sales = data.sales;
+          }, (e: any) =>{
+            console.log(e)
           })
     });    
   }

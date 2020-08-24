@@ -1,9 +1,4 @@
-<nav class="navbar sticky-top  navbar-expand-lg navbar-light bg-white justify-content-start">
-    <a class="navbar-brand" [routerLink]="['/', storeService.store.name]">
-        <i class="ri-arrow-left-line"></i>
-    </a>
-    <h1 class="title">Pedido</h1>
-</nav>
+<app-nav-back title="Pedido" [route]="['/', storeService.store.name]"></app-nav-back>
 
 <form #form="ngForm" (ngSubmit)="onConfirmPurch()">
     <ul class="list-group">

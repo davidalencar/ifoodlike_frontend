@@ -17,7 +17,8 @@ import { AddressComponent } from './address/address.component'
 import { CookieService } from 'ngx-cookie-service';
 import { SalesComponent } from './sales/sales.component';
 import { StoresComponent } from './stores/stores.component';
-import { UserComponent } from './user/user.component'
+import { UserComponent } from './user/user.component';
+import { NavBackComponent } from './nav-back/nav-back.component'
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { UserComponent } from './user/user.component'
     AddressComponent,
     SalesComponent,
     StoresComponent,
-    UserComponent
+    UserComponent,
+    NavBackComponent
   ],
   imports: [
     BrowserModule,

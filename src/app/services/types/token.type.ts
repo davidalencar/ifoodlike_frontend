@@ -1,4 +1,5 @@
 export class TokenType{
     access_token: string;
-    stores: string[]
+    userName: string;
+    stores: string[];
 }

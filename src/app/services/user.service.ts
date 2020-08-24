@@ -13,6 +13,7 @@ export class UserService{
 
     userToken : TokenType = {
       access_token : '',
+      userName: '',
       stores: []
     }
 

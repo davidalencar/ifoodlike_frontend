@@ -1,18 +1,14 @@
-<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-white justify-content-start">
-    <a class="navbar-brand" [routerLink]="['/', storeService.store.name]">
-      <i class="ri-arrow-left-line"></i>
-    </a>
-  </nav>
+<app-nav-back title="Personalizar" [route]="['/', storeService.store.name]"></app-nav-back>
 <div class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
     <div class="list-group-item productName">
-        <h4 [id]="p._id" >{{ p.name }} </h4>
+        <h4 [id]="p._id">{{ p.name }} </h4>
     </div>
 
     <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
         <div class="list-group-item  bg-light">
             <h4>{{ category.name }} </h4>
             <div class="invalid-msg" *ngIf="!storeService.validateProductItemCategory(category)">
-               <h6> (Escolha necessária)</h6> 
+                <h6> (Escolha necessária)</h6>
             </div>
         </div>
         <div *ngFor="let item of storeService.orderProductItemsByName(category.products)">
@@ -38,21 +34,22 @@
                                 </ng-template>
                             </div>
                             <div *ngIf="category.type == 'choice'">
-                                <input class="form-check-input checkbox-lg" type="radio" [name]="category.name"  id="exampleRadios2" 
-                                (change)="selectedValue($event, item, category)" [checked]="item.qty > 0" >
+                                <input class="form-check-input checkbox-lg" type="radio" [name]="category.name"
+                                    id="exampleRadios2" (change)="selectedValue($event, item, category)"
+                                    [checked]="item.qty > 0">
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </div>
 <br>
 <br>
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-    <div class="container justify-content-end">       
+    <div class="container justify-content-end">
         <button class="btn btn-lg btn-success btn-confirm" [routerLink]="['/', storeService.store.name, 'bill']"
             [disabled]="!storeService.wereAllChoicesMade()">
             Fechar pedido
