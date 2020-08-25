@@ -148,7 +148,8 @@ export class StoreService {
     }
 
     orderProductsByName(list: ProductType[]) {
-        return list.sort((a, b) => (a.name > b.name) ? 1 : ((b.name > a.name) ? -1 : 0))
+        return list.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0)
+            .sort((a,b) => (a.enable && !b.enable) ? -1 : (b.enable && !a.enable) ? 1: 0)
     }
 
     orderProductItemsByName(list: ItemType[]) {
