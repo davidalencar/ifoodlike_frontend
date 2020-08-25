@@ -13,6 +13,7 @@ export class ProductType {
     qty?: number;
     maxQty?: number;
     items: ItemCategoryType [];
+    changed: boolean = false;
     constructor(){
         this.qty = 0;
     }

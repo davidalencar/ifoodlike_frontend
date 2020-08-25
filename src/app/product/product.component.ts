@@ -15,6 +15,9 @@ import { map } from 'rxjs/operators';
 })
 export class ProductComponent implements OnInit {
 
+  commandNow: string = 'confirm';
+  
+  storeName: string = '';
   productsToShow:string[] = [];
   products: ProductType[] = [];
   categories:{name: string, enable: boolean, order: number}[] = [];
@@ -22,7 +25,7 @@ export class ProductComponent implements OnInit {
   constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
-      
+      this.storeName = id;
       this.dashBoardService.getStoreProductsData(id)      
           .subscribe(data => {
             this.categories = this.dashBoardService.sortCategories(data.categories);
@@ -43,5 +46,21 @@ export class ProductComponent implements OnInit {
     } else {
       this.productsToShow.push(id)
     }
+  }
+
+  changeItem(p: ProductType) {
+    p.enable = !p.enable;
+    p.changed = true;
+  }
+
+  saveProducts() {
+    this.commandNow = 'spinner';
+    this.dashBoardService.putStoreProductsData(this.products, this.storeName)
+      .subscribe(data => {
+        if (data.status == 'OK') {
+          this.commandNow = 'confirm';
+          this.products.forEach(p=> p.changed = false);
+        }
+      })
   }
 }

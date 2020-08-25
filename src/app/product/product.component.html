@@ -20,19 +20,38 @@
             <div class="container">
                 <a (click)="showProduct(p._id)">
                     <div class="row">
-                        <div class="col">
+                        <div class="col-8">
                             {{ p.name }}
+                        </div>
+                        <div class="col">
+                            <label class="switch ">
+                                <input type="checkbox" [checked]="p.enable" (click)="changeItem(p)" class="default">
+                                <span class="slider round"></span>
+                              </label>
                         </div>
                     </div>
                 </a>
-                <ng-container *ngIf="productsToShow.includes(p._id)">
+                <!-- <ng-container *ngIf="productsToShow.includes(p._id)">
                     <div class="row">
                         <div class="col">
                             {{ p.price }}
                         </div>
                     </div>
-                </ng-container>
+                </ng-container> -->
             </div>
         </li>
     </ng-container>
 </ul>
+
+<br>
+
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light" *ngIf="dashBoardService.filterChangedProducts(products).length > 0">
+    <div class="container justify-content-center">
+        <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <button *ngIf="commandNow == 'confirm'"  type="submit" class="btn btn-success btn-lg btn-confirm" (click)="saveProducts()">
+            Salvar
+        </button>
+    </div>
+</nav>

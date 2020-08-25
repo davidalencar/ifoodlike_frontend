@@ -43,6 +43,22 @@ export class DashBoardService {
         })
     }
 
+    filterChangedProducts(list: ProductType[]) {
+        return list.filter(p => p.changed);
+    }
+
+    putStoreProductsData(list: ProductType[], storeName: string) {
+
+        const url = `${environment.loja_api}products/control/${storeName}`;
+        const data = this.filterChangedProducts(list).map(p => {
+            return { id: p._id, enable: p.enable};
+        })
+
+        return this.http.put<{ status: string }>(url, {products: data }, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
+    }
+
     getStoreProductsData(storeName: string) {
         const url = `${environment.loja_api}products/${storeName}`;
 
