@@ -19,6 +19,7 @@ export class ProductComponent implements OnInit {
   
   storeName: string = '';
   productsToShow:string[] = [];
+  categoriesToShow:string[] = [];
   products: ProductType[] = [];
   categories:{name: string, enable: boolean, order: number}[] = [];
 
@@ -48,6 +49,15 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  showCategory(name: string) {
+    if (this.categoriesToShow.includes(name)) {
+      this.categoriesToShow = this.categoriesToShow.filter(i => i != name)
+    } else {
+      this.categoriesToShow.push(name)
+    }
+  }
+  
+
   changeItem(p: ProductType) {
     p.enable = !p.enable;
     p.changed = true;
@@ -63,4 +73,6 @@ export class ProductComponent implements OnInit {
         }
       })
   }
+
+  
 }

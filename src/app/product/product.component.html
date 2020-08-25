@@ -9,37 +9,46 @@
     <ng-container *ngFor="let c of categories ">
         <li class="list-group-item bg-light">
             <div class="container">
-                <div class="row">
-                    <div class="col">
-                        {{ c.name }}
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item" *ngFor="let p of dashBoardService.filterProductsByCategory(products, c.name)">
-            <div class="container">
-                <a (click)="showProduct(p._id)">
+                <a (click)="showCategory(c.name)">
                     <div class="row">
-                        <div class="col-8">
-                            {{ p.name }}
-                        </div>
                         <div class="col">
-                            <label class="switch ">
-                                <input type="checkbox" [checked]="p.enable" (click)="changeItem(p)" class="default">
-                                <span class="slider round"></span>
-                              </label>
+                            {{ c.name }}
+                        </div>
+                        <div class="col-2">
+                            <span class="badge badge-dark">
+                                {{ dashBoardService.filterProductsByCategory(products, c.name).length }}
+                            </span>
                         </div>
                     </div>
                 </a>
-                <!-- <ng-container *ngIf="productsToShow.includes(p._id)">
-                    <div class="row">
-                        <div class="col">
-                            {{ p.price }}
-                        </div>
-                    </div>
-                </ng-container> -->
             </div>
         </li>
+        <ng-container *ngIf="categoriesToShow.includes(c.name)">
+            <li class="list-group-item" *ngFor="let p of dashBoardService.filterProductsByCategory(products, c.name)">
+                <div class="container">
+                    <a (click)="showProduct(p._id)">
+                        <div class="row">
+                            <div class="col-8">
+                                {{ p.name }}
+                            </div>
+                            <div class="col">
+                                <label class="switch ">
+                                    <input type="checkbox" [checked]="p.enable" (click)="changeItem(p)" class="default">
+                                    <span class="slider round"></span>
+                                  </label>
+                            </div>
+                        </div>
+                    </a>
+                    <!-- <ng-container *ngIf="productsToShow.includes(p._id)">
+                        <div class="row">
+                            <div class="col">
+                                {{ p.price }}
+                            </div>
+                        </div>
+                    </ng-container> -->
+                </div>
+            </li>
+        </ng-container>
     </ng-container>
 </ul>
 
