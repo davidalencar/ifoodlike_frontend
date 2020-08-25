@@ -26,16 +26,17 @@ export class BillComponent implements OnInit {
 
   getDataFromCookie() {
 
-    if (this.cookieService.check('user-name')) {
+    if (this.cookieService.check('user-name') && this.storeService.order.userName == undefined) {
       this.storeService.order.userName = this.cookieService.get('user-name');
     }
-    if (this.cookieService.check('user-phone')) {      
+    if (this.cookieService.check('user-phone') && this.storeService.order.userPhone == undefined) {      
       this.storeService.order.userPhone = this.cookieService.get('user-phone');
     }
-    if (this.cookieService.check('user-address')) {
+    
+    if (this.cookieService.check('user-address') && this.storeService.order.address.cep == undefined) {
       this.storeService.order.address = JSON.parse(this.cookieService.get('user-address'));       
     }
-    if (this.cookieService.check('user-paym')) {
+    if (this.cookieService.check('user-paym') && this.storeService.order.paymMethod == undefined) {
       this.storeService.order.paymMethod = this.cookieService.get('user-paym');
     }
 
