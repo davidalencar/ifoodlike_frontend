@@ -1,17 +1,20 @@
 <div class="list-group-item">
-    <div class="d-flex w-100 justify-content-between">
+    <div [class]="(product.enable == false) ? 'd-flex w-100 justify-content-between text-muted': 'd-flex w-100 justify-content-between'">
         <div>
             <h5 class="mb-1">{{ product.name }}</h5>           
             <p class="text-muted">{{ product.description }}</p>
-            <p> <b> {{ product.unit }}</b></p>
-            <small>{{ storeService.formatPrice(product.price) }}</small>
+            <ng-container *ngIf="product.enable">
+                <p> <b> {{ product.unit }}</b></p>
+                <small>{{ storeService.formatPrice(product.price) }}</small>
+            </ng-container>
+            <span *ngIf="!product.enable">(Indisponível)</span>
         </div>
-        <div class="d-flex flex-column justify-content-between">
+        <div class="d-flex flex-column justify-content-between" *ngIf="product.enable">
             <img *ngIf="!product.img else elseBlockImg" src="../../assets/empimg.png" class="card-img-left">
             <ng-template #elseBlockImg>
                 <img [src]="product.img" class="card-img-left" alt="...">
             </ng-template>
-            <div class="col-12">                
+            <div class="col-12" >                
                 <div class="btn-group itemcontrol" role="group" aria-label="Basic example">
                     <button type="button" class="btn" (click)="onSubtract()"><i class="ri-indeterminate-circle-fill ri-lg"></i></button>
                     <button type="button" class="btn"><span>{{ product.qty }} </span></button>
