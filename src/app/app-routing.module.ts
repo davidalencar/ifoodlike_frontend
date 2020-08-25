@@ -9,6 +9,7 @@ import { UserComponent } from './user/user.component'
 import { SalesComponent } from './sales/sales.component'
 import { CustomerComponent } from './customer/customer.component'
 import { ProductComponent } from './product/product.component'
+import { StoreComponent } from './store/store.component'
 
 
 import { StoreLoadedGuard } from './guards/storeLoaded.guard'
@@ -25,8 +26,9 @@ const routes: Routes = [
   { path: 'user/board', component: UserComponent, canActivate: [AuthGuard]},
   { path: ':id/sales', component: SalesComponent, canActivate: [AuthGuard]},
   { path: ':id/cust', component: CustomerComponent, canActivate: [AuthGuard]},
-  { path: ':id/products', component: ProductComponent, canActivate: [AuthGuard]}
-
+  { path: ':id/products', component: ProductComponent, canActivate: [AuthGuard]},
+  { path: ':id/store', component: StoreComponent, canActivate: [AuthGuard]}
+  
 ];
 
 @NgModule({

@@ -7,6 +7,7 @@ import { UserType } from './types/user.type'
 import { TokenType } from './types/token.type'
 import { SalesType } from './types/sales.type';
 import { ProductType } from './types/product.type';
+import { StoreType } from './types/store.type';
 
 
 @Injectable()
@@ -33,6 +34,14 @@ export class DashBoardService {
         user.email = uemail;
         user.plan = plan;
         return this.http.post<UserType>(`${environment.loja_api}users`, user)
+    }
+
+    getStoreData(storeName: string) {
+        const url = `${environment.loja_api}stores/control/${storeName}`;
+
+        return this.http.get<{ store: StoreType }>(url, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
     }
 
     getStoreSalesData(storeName: string) {
