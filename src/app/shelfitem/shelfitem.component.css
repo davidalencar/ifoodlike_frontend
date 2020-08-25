@@ -14,3 +14,7 @@ div.list-group-item {
     bottom: 0;
     right: 0;
 }
+
+.dable-item {
+    font-size: 14px;
+}
