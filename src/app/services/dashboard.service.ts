@@ -18,6 +18,7 @@ export class DashBoardService {
 
     userToken: TokenType = { access_token: '', userName: '', stores: [] }
     sales: SalesType[] = [];
+    salesDeleted: SalesType[] = [];
     salesPickingList: SalesType[] = [];
     currentStore: string = '';
 
@@ -81,6 +82,25 @@ export class DashBoardService {
         return this.http.put<{ status: string }>(url, { products: data }, {
             headers: { 'Authorization': this.userToken.access_token }
         })
+    }
+
+    deleteStoreSalesData() {
+        const url = `${environment.loja_api}sales/deleteMany/${this.currentStore}`;
+        const data = this.salesDeleted.map(s => {
+            return { salesId: s.salesId };
+        })
+
+        this.http.post<{ status: string }>(url, { sales: data }, {
+            headers: { 'Authorization': this.userToken.access_token }
+        }).subscribe(status => {
+            if (status.status == 'OK') {
+                this.getStoreSalesData(this.currentStore)
+                    .subscribe(sales => {
+                        this.salesDeleted = [];
+                        this.sales = sales.sales;
+                    })
+            }
+        }, e => console.log(e))
     }
 
     putStoreSalesStaus(list: SalesType[], newStatus: string) {

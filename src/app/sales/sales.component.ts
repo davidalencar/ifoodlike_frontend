@@ -101,4 +101,18 @@ export class SalesComponent implements OnInit {
     this.router.navigate([this.dashBoardService.currentStore, 'picking'])
   }
 
+  deleteSales(s: SalesType) {
+    if(!this.dashBoardService.salesDeleted.includes(s)) {
+      this.dashBoardService.salesDeleted.push(s);
+    }
+  }
+
+  unDeleteSales(salesId: string) {
+    this.dashBoardService.salesDeleted = this.dashBoardService.salesDeleted.filter(s => s.salesId != salesId);
+  }
+
+  sendDelete() {
+    this.dashBoardService.deleteStoreSalesData();
+  }
+
 }
