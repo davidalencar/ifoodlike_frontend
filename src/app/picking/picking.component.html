@@ -1,62 +1,73 @@
 <app-nav-back title="Lista de separação" [route]="['/', dashBoardService.currentStore, 'sales']"></app-nav-back>
 
-<h2>Items simples</h2>
-<ul class="list-group" *ngIf="groupItems.simple != undefined">
-    <ng-container *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.simple)">
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        {{ p.product }}
-                    </div>
-                    <div class="col">
-                        {{ p.qty }}
-                    </div>
-                </div>
-            </div>
-        </li>
-
-    </ng-container>
-</ul>
-
-<h2>Items compostos</h2>
-<ul class="list-group" *ngIf="groupItems.simple != undefined">
-    <ng-container *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.compose)">
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        {{ p.product }}
-                    </div>
-                    <div class="col">
-                        {{ p.qty }}
-                    </div>
-                </div>
-            </div>
-        </li>
-
-    </ng-container>
-</ul>
-
-
-<h2>Pedidos</h2>
 
 <ul class="list-group">
+    <ng-container *ngIf="groupItems.simple != undefined">
+        <li class="list-group-item bg-light">
+            <span class="title">Separar</span>
+        </li>
+        <li class="list-group-item" *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.compose)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <span class="font-weight-bold">{{ p.qty }} X</span>
+                    </div>
+                    <div class="col">
+                        {{ p.product }}
+                    </div>
+                </div>
+                <div class="row" *ngFor="let c of p.items">
+                    <div class="col text-muted">
+                        {{c.category}}
+                        <ul>
+                            <li *ngFor="let i of c.items">
+                                <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
+                                {{i.item}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ng-container>
+    <ng-container *ngIf="groupItems.simple != undefined">
+        <li class="list-group-item" *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.simple)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-3">
+                        <span class="font-weight-bold">{{ p.qty }} X</span>
+                    </div>
+                    <div class="col">
+                        {{ p.product }}
+                    </div>
+                </div>
+            </div>
+        </li>
+
+    </ng-container>
+</ul>
+
+<div class="page-brack">
+
+</div>
+
+<ul class="list-group">
+    <li class="list-group-item bg-light">
+        <span class="title">Entregar</span>
+    </li>
     <li class="list-group-item" *ngFor="let s of dashBoardService.salesPickingList">
         <div class="container">
             <div class="row">
                 <div class="col-4">
-                    Ordem:
+                    <span class="font-weight-bold">Ordem:</span>
                 </div>
                 <div class="col-4">
-                    <input type="number" inputmode="numeric" name="deliveryOrder" class="form-control" 
-                    [(ngModel)]="s.deliveryOrder" required pattern="[0-9]">
-                    
+                    <input type="number" inputmode="numeric" name="deliveryOrder" class="form-control"
+                        [(ngModel)]="s.deliveryOrder" required pattern="[0-9]">
                 </div>
 
             </div>
-            
-            <div class="row">
+            <div class="row question">
                 <div class="col-2">
                     {{storeService.formatSalesId(s.salesId)}}
                 </div>
@@ -170,10 +181,10 @@
 </ul>
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light ">
     <div class="container justify-content-between">
-        <button class="btn btn-lg btn-success btn-confirm" (click)="onSendPickingList()" >
+        <button class="btn btn-lg btn-success btn-confirm" (click)="onSendPickingList()">
             Enviar
         </button>
-        <button class="btn btn-lg btn-success btn-confirm" (click)="onOrderSales()" >
+        <button class="btn btn-lg btn-success btn-confirm" (click)="onOrderSales()">
             Organizar
         </button>
     </div>

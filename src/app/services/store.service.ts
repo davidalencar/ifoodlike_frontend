@@ -149,7 +149,7 @@ export class StoreService {
 
     orderProductsByName(list: ProductType[]) {
         return list.sort((a, b) => (a.name > b.name) ? 1 : (b.name > a.name) ? -1 : 0)
-            .sort((a,b) => (a.enable && !b.enable) ? -1 : (b.enable && !a.enable) ? 1: 0)
+            .sort((a, b) => (a.enable && !b.enable) ? -1 : (b.enable && !a.enable) ? 1 : 0)
     }
 
     orderProductItemsByName(list: ItemType[]) {
@@ -163,10 +163,10 @@ export class StoreService {
 
     }
 
-    formatSalesId(salesid: string) {    
+    formatSalesId(salesid: string) {
         var orderFormated = String(salesid);
         return `#${orderFormated.padStart(4, '0')}`
-      }
+    }
 
 
     storeDataRequest(storename: string): Observable<StoreServiceResponseType> {
@@ -182,7 +182,7 @@ export class StoreService {
                 this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })
-    }    
+    }
 
     sendOrder() {
         const url = `${environment.loja_api}sales`;
@@ -221,25 +221,19 @@ export class StoreService {
         }
 
         this.basketProducts().forEach(p => {
-            var line = {
-                qty: p.qty,
-                product: p.name,
-                amount: this.totalLineAmount(p),
-                items: []
-            }
+            var line = { qty: p.qty, product: p.name, amount: this.totalLineAmount(p), items: [] }
+            
             this.orderProductItemsCategory(p.items).forEach(c => {
-                var citem = {
-                    category: c.name,
-                    items: []
-                }
+                var citem = { category: c.name, items: [] }
 
                 this.getItemsInProductItemCategory(c).forEach(i => {
-                    citem.items.push({
-                        qty: i.qty,
-                        item: i.name
-                    })
+                    if (i.qty > 0) {
+                        citem.items.push({ qty: i.qty, item: i.name })
+                    }
                 })
-                line.items.push(citem)
+                if(citem.items.length > 0) {
+                    line.items.push(citem)
+                }
             })
             data.order.lines.push(line)
         })
