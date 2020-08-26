@@ -1,4 +1,7 @@
 export class SalesType {
+    status: string;
+    deliveryOrder: number = 0;
+    selected: boolean = false;
     salesId: string;
     store: string;
     time: Date;

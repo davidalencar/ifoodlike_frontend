@@ -1,9 +1,8 @@
-import * as _ from 'lodash';
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/operators';
-import * as moment from 'moment';
+
 
 
 import { DashBoardService } from '../services/dashboard.service';
@@ -19,27 +18,33 @@ import { SalesType } from '../services/types/sales.type'
 })
 export class SalesComponent implements OnInit {
 
+  noSales = false;
   viewNow: string = 'sales'
   salesToShow = []
-  sales: SalesType[] = [];
-  groupItems: {
-    conpose: any[],
-    simple: any[]
-  };
 
-  items: {
-    qty: number,
-    products: string
-  }[] = [];
+  items: { qty: number, products: string }[] = [];
 
 
-  constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardSevice: DashBoardService) {
-    const id: Observable<string> = route.params.pipe(map(p => p.id));
+  constructor(private route: ActivatedRoute, 
+    public storeService: StoreService, 
+    public dashBoardService: DashBoardService, 
+    private router: Router) {
+    if (this.dashBoardService.sales.length == 0) {
+      this.fill();
+    } 
+  }
+
+  fill () {
+    const id: Observable<string> = this.route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
 
-      this.dashBoardSevice.getStoreSalesData(id)
+      this.dashBoardService.getStoreSalesData(id)
         .subscribe(data => {
-          this.sales = data.sales;
+          this.dashBoardService.sales = data.sales;
+
+          if (this.dashBoardService.sales.length == 0) {
+            this.noSales = true;
+          }
 
         }, (e: any) => {
           console.log(e)
@@ -48,38 +53,10 @@ export class SalesComponent implements OnInit {
     });
   }
 
-  convertToProductView() {
-    const mapLine = this.sales.map(s => s.lines).reduce((a, b) => {
-      a.push(...b);
-      return a;
-    });
-
-    this.groupItems = {
-      conpose: [],
-      simple: []
-    };
-
-
-    const groups = _.groupBy(mapLine, 'product');
-    Object.keys(groups).forEach(pg => {
-
-      const conpose = groups[pg].filter(p => p.items.length > 0);
-      if (conpose.length > 0) {
-        this.groupItems.conpose = [...conpose, this.groupItems.conpose]
-      } else {
-        const p = groups[pg].reduce((a, b) => {
-          a.qty + b.qty;
-          return a;
-        })
-        this.groupItems.simple.push(p)
-      }
-    })
-
+  getSelectedSales(): SalesType[] {
+    return this.dashBoardService.salesListGrabCopy(this.dashBoardService.sales.filter(s => s.selected));
   }
 
-  ordeByName(list: any[]) {
-    return list.sort((a, b) => (a.product > b.product) ? 1 : ((b.product > a.product) ? -1 : 0))
-  }
 
   ngOnInit(): void {
   }
@@ -92,19 +69,7 @@ export class SalesComponent implements OnInit {
     }
   }
 
-  formatDate(date: Date) {
-    return moment(date).format('DD/MM/YYYY HH:mm')
-  }
-
-  formatDeliveryAddressL1(s: SalesType) {
-    const ad = s.cust.address;
-    return `${ad.street}, ${ad.number}${(ad.complement) ? ' - ' + ad.complement : ''}`
-  }
-
-  formatDeliveryAddressL2(s: SalesType) {
-    const ad = s.cust.address;
-    return `CEP: ${ad.zipCode} - ${ad.district} - ${ad.city}/${ad.state}`
-  }
+  
 
   talkViaWhats(s: SalesType) {
     const apiURI = 'https://api.whatsapp.com/send?'
@@ -119,10 +84,21 @@ export class SalesComponent implements OnInit {
     return msg;
   }
 
-  changeView(view: string) {
-    this.viewNow = view;
-    if (view == 'items') {
-      this.convertToProductView();
-    }
+  onSetSelectStatus(value: boolean, status: string) {
+    this.dashBoardService.sales.forEach(s => {
+      if (s.status == status){
+        s.selected = value
+      }    
+    })
   }
+
+  onSetSelect(value: boolean) {
+    this.dashBoardService.sales.forEach(s => s.selected = value)
+  }
+
+  generatePickingList() {
+    this.dashBoardService.salesPickingList = this.getSelectedSales();
+    this.router.navigate([this.dashBoardService.currentStore, 'picking'])
+  }
+
 }
