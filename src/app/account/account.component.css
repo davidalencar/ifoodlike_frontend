@@ -1,9 +1,6 @@
-html,
-body {
-  height: 100%;
-}
 
-body {
+.account {
+  height: 100%;
   display: -ms-flexbox;
   display: -webkit-box;
   display: flex;
@@ -15,8 +12,27 @@ body {
   justify-content: center;
   padding-top: 40px;
   padding-bottom: 40px;
-  background-color: #f5f5f5;
+  background-color: #F8F9FA;
 }
+
+.signin {
+  border: 1px solid #d8dee2;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 20px;
+}
+.signup {
+  text-align: center;
+  width: 100%;
+  border: 1px solid #d8dee2;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: white;
+  margin-bottom: 20px;
+  color: #24292e;
+}
+
 
 .form-signin {
   width: 100%;
@@ -60,3 +76,6 @@ div.invalid-msg {
   color: #dc3545;
 }
 
+.singup {
+  margin-top: 0.25rem;
+}

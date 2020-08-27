@@ -32,13 +32,9 @@ export class DashBoardService {
         })
     }
 
-    createUser(uname: string, uphone: string, uemail: string, plan: string): Observable<UserType> {
-        const user = new UserType();
-        user.name = uname;
-        user.phone = uphone;
-        user.email = uemail;
-        user.plan = plan;
-        return this.http.post<UserType>(`${environment.loja_api}users`, user)
+    createUser(name: string, phone: string, email: string, plan: string, store: string) {
+
+        return this.http.post<{ status: string, user: UserType} >(`${environment.loja_api}users`, { name, phone, email, plan, store })
     }
 
 
@@ -60,7 +56,7 @@ export class DashBoardService {
         })
     }
 
-    salesListGrabCopy (list: SalesType[]):SalesType[]  {
+    salesListGrabCopy(list: SalesType[]): SalesType[] {
         return JSON.parse(JSON.stringify(list));
     }
 

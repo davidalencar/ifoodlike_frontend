@@ -11,14 +11,14 @@ import { TokenType } from '../services/types/token.type';
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
-  styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-    './account.component.css']
+  styleUrls: ['./account.component.css']
 })
 export class AccountComponent implements OnInit {
 
-  public userPlan: string = '';
-  public showMsg: boolean = false;
-  public msg: string = '';
+  public currentView = 'login';
+  public canSubmit = true;
+  public newStore = '';
+
   public msgError: string = '';
 
   constructor(private route: ActivatedRoute,
@@ -26,50 +26,52 @@ export class AccountComponent implements OnInit {
     private titleService: Title,
     private dashBoardService: DashBoardService) {
     this.titleService.setTitle('BS.Lista - bslista.com')
-
-    const id: Observable<string> = route.queryParams.pipe(map(p => p.plan));
-    id.subscribe((plan: string) => {
-      if (plan)
-        this.userPlan = plan;
-    })
   }
 
   ngOnInit(): void {
   }
 
-  onSend(form: NgForm) {
+  changeView(view: string) {
+    this.currentView = view;
+  }
 
-    if (this.userPlan != '') {
-      this.dashBoardService.createUser(form.value.userName,
-        form.value.userPhone,
-        form.value.userEmail,
-        this.userPlan)
-        .subscribe(
-          (data: UserType) => {
-            
-          },
-          (e: any) => {
-            
-          });
-      this.showMsg = true;
+  logIn(form: NgForm) {
+    this.canSubmit = false;
+    this.dashBoardService.login(form.value.userEmail, form.value.userPwd)
+      .subscribe((token: TokenType) => {
+        this.dashBoardService.userToken = token;
 
-    } else {
-      this.dashBoardService.login(form.value.userEmail, form.value.userPwd)
-        .subscribe((token: TokenType) => {
-          this.dashBoardService.userToken = token;
-          
-          if (token.stores.length == 1) {
-            this.router.navigate([token.stores[0], 'sales'])
+        this.router.navigate(['user/board'])
+
+      }, (e: any) => {
+        if (e.status == 401) {
+          this.canSubmit = true;
+          this.msgError = 'Usuário ou senha inválida.';
+        }
+      })
+  }
+
+  signup(form: NgForm) {
+    this.canSubmit = false;
+    this.dashBoardService.createUser(form.value.userName,
+      form.value.userPhone,
+      form.value.userEmail,
+      form.value.storePlan,
+      form.value.storeName)
+      .subscribe(
+        (data) => {
+          if(data.status == 'OK'){
+            this.newStore = 'minha.bslista.com/' + form.value.storeName;
+            this.currentView = 'welcome';
+          } else {
+            this.msgError = data.status;
+            this.canSubmit = true;
           }
-          this.router.navigate(['user/board'])
 
-        }, (e: any) => {
-          if (e.status == 401)
-            this.msgError = 'Usuário ou senha inválida.';
-        })
-
-    }
-
+        },
+        (e: any) => {
+          this.canSubmit = true;
+        });
 
   }
 }
