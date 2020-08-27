@@ -103,17 +103,17 @@ export class BillComponent implements OnInit {
     data += this.formatUserInfo();
     data += this.breakLine();
     data += `*Pedido:* \n${this.formatOrder()}`;
-    // if (this.storeService.store.questions.address == true) {
-    //   data += this.breakLine();
-    //   data += `*Endereço:* \n${this.formatAddress()}`
-    // }
-    // data += this.breakLine();
-    // data += `*Forma de pagamento:* \n${this.formatPaym()}`;
-    // if (this.storeService.order.instruction != undefined && this.storeService.order.instruction.trim().length > 0) {
-    //   data += this.breakLine();
-    //   data += `*Instruções:* \n${this.formatOrderInstructions()}`
+    if (this.storeService.store.questions.address == true) {
+      data += this.breakLine();
+      data += `*Endereço:* \n${this.formatAddress()}`
+    }
+    data += this.breakLine();
+    data += `*Forma de pagamento:* \n${this.formatPaym()}`;
+    if (this.storeService.order.instruction != undefined && this.storeService.order.instruction.trim().length > 0) {
+      data += this.breakLine();
+      data += `*Instruções:* \n${this.formatOrderInstructions()}`
 
-    // }
+    }
 
 
     data += this.breakLine();
