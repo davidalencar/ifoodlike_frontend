@@ -29,12 +29,12 @@ export class BillComponent implements OnInit {
     if (this.cookieService.check('user-name') && this.storeService.order.userName == undefined) {
       this.storeService.order.userName = this.cookieService.get('user-name');
     }
-    if (this.cookieService.check('user-phone') && this.storeService.order.userPhone == undefined) {      
+    if (this.cookieService.check('user-phone') && this.storeService.order.userPhone == undefined) {
       this.storeService.order.userPhone = this.cookieService.get('user-phone');
     }
-    
+
     if (this.cookieService.check('user-address') && this.storeService.order.address.cep == undefined) {
-      this.storeService.order.address = JSON.parse(this.cookieService.get('user-address'));       
+      this.storeService.order.address = JSON.parse(this.cookieService.get('user-address'));
     }
     if (this.cookieService.check('user-paym') && this.storeService.order.paymMethod == undefined) {
       this.storeService.order.paymMethod = this.cookieService.get('user-paym');
@@ -51,7 +51,7 @@ export class BillComponent implements OnInit {
     if (this.storeService.order.userPhone != undefined) {
       this.cookieService.set('user-phone', this.storeService.order.userPhone, expires);
     }
-    if (this.storeService.order.address.cep != undefined) {  
+    if (this.storeService.order.address.cep != undefined) {
       this.cookieService.set('user-address', JSON.stringify(this.storeService.order.address), expires);
     }
     if (this.storeService.order.paymMethod != undefined) {
@@ -76,11 +76,12 @@ export class BillComponent implements OnInit {
     this.commandNow = 'spinner';
     this.setDataToCookie();
     this.storeService.sendOrder()
-    .subscribe((data: SalesResponseType)=> {
-      this.storeService.salesId = data.salesId;
-      this.commandNow = 'share';
-  })
-    
+      .subscribe((data: SalesResponseType) => {
+        this.storeService.salesId = data.salesId;
+        //this.commandNow = 'share';
+        this.sendViaWhats()
+      })
+
   }
 
   sendViaWhats() {
@@ -97,7 +98,7 @@ export class BillComponent implements OnInit {
   formatData() {
     var data: string = '';
 
-    data+= this.formatHeader()
+    data += this.formatHeader()
     data += this.breakLine();
     data += this.formatUserInfo();
     data += this.breakLine();
@@ -149,7 +150,7 @@ export class BillComponent implements OnInit {
 
   formatHeader() {
     var header = `Pedido: ${this.formatSalesId()}`;
-    
+
     return header;
   }
 
