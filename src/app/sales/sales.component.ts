@@ -30,17 +30,19 @@ export class SalesComponent implements OnInit {
     public dashBoardService: DashBoardService, 
     private router: Router) {
     if (this.dashBoardService.sales.length == 0) {
-      this.fill();
+      this.onRefresh();
     } 
   }
 
-  fill () {
+  onRefresh () {
     const id: Observable<string> = this.route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
 
       this.dashBoardService.getStoreSalesData(id)
         .subscribe(data => {
           this.dashBoardService.sales = data.sales;
+          this.dashBoardService.salesDeleted = [];
+          this.dashBoardService.salesPickingList = [];
 
           if (this.dashBoardService.sales.length == 0) {
             this.noSales = true;

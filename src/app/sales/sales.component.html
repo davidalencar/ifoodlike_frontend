@@ -21,6 +21,7 @@
         </div>
     </div>
     <a class="nav-link" (click)="generatePickingList()">Gerar lista de separação</a>
+    <a class="nav-link" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
 </nav>
 
 <ul class="list-group" *ngIf="dashBoardService.sales.length > 0">
@@ -36,9 +37,9 @@
                     </a>
                 </div>
                 <div class="col">
-                    <span class="">
-                        {{dashBoardService.formatDate(s.time)}}
-                    </span>
+                    <a (click)="showSales(s.salesId)">
+                        <span class=""> {{dashBoardService.formatDate(s.time)}} </span>
+                    </a>
                 </div>
                 <div class="col-3">
                     <label *ngIf="s.status == 'received'" class="text-center">
@@ -218,9 +219,9 @@
         <div class="container">
             <div class="row">
                 <div class="col">
-                   
-                        {{storeService.formatSalesId(s.salesId)}}
-                   
+
+                    {{storeService.formatSalesId(s.salesId)}}
+
                 </div>
                 <div class="col-1">
                     <a (click)="unDeleteSales(s.salesId)">
