@@ -1,12 +1,6 @@
 <app-nav-back title="Pedidos" [route]="['/', 'user', 'board']"></app-nav-back>
 
 
-<div *ngIf="dashBoardService.sales.length == 0 && noSales==false" class="spinner-border" role="status">
-    <span class="sr-only">Carregando...</span>
-</div>
-
-<h2 *ngIf="noSales == true">Nenhuma venda</h2>
-
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="nav-item dropdown">
         <a class="nav-link dropdown-toggle text-reset" data-toggle="dropdown" aria-haspopup="true"
@@ -17,12 +11,61 @@
             <a class="dropdown-item" (click)="onSetSelect(true)">Todos</a>
             <a class="dropdown-item" (click)="onSetSelect(false)">Nenhum</a>
             <a class="dropdown-item" (click)="onSetSelectStatus(true, 'received')">Recebidos</a>
-
+            <a class="dropdown-item" (click)="onSetSelectStatus(true, 'picked')">Separados</a>
         </div>
     </div>
-    <a class="nav-link" (click)="generatePickingList()">Gerar lista de separação</a>
+
+    <a class="nav-link" (click)="onDeleteSelected()"><i class="ri-delete-bin-line"></i></a>
+    <a class="nav-link" (click)="generatePickingList()">Separar e Entregar</a>
     <a class="nav-link" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
 </nav>
+
+<div *ngIf="dashBoardService.sales.length == 0 && noSales==false" class="spinner-border" role="status">
+    <span class="sr-only">Carregando...</span>
+</div>
+
+<h2 *ngIf="noSales == true">Nenhuma venda</h2>
+
+<div id="deleteSales">
+
+</div>
+<ul class="list-group" *ngIf="dashBoardService.salesDeleted.length > 0">
+    <li class="list-group-item bg-danger">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span class="font-weight-bold" style="color:white"> Excluir</span>
+                </div>
+            </div>
+        </div>
+    </li>
+
+    <li class="list-group-item" *ngFor="let s of dashBoardService.salesDeleted">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+
+                    {{storeService.formatSalesId(s.salesId)}}
+
+                </div>
+                <div class="col-1">
+                    <a (click)="unDeleteSales(s.salesId)">
+                        <i class="ri-arrow-go-back-line"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-group-item">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <button type="button" class="btn btn-danger" (click)="sendDelete()">Confirmar</button>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
 
 <ul class="list-group" *ngIf="dashBoardService.sales.length > 0">
     <li class="list-group-item" *ngFor="let s of dashBoardService.sales">
@@ -52,12 +95,6 @@
 
                     </label>
                 </div>
-                <div class="col-1">
-                    <a (click)="deleteSales(s)">
-                        <i class="ri-delete-bin-line"></i>
-                    </a>
-                </div>
-
             </div>
 
             <ng-container *ngIf="salesToShow.includes(s.salesId)">
@@ -204,40 +241,3 @@
     </li>
 </ul>
 
-<ul class="list-group" *ngIf="dashBoardService.salesDeleted.length > 0">
-    <li class="list-group-item bg-danger">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <span class="font-weight-bold" style="color:white"> Excluir</span>
-                </div>
-            </div>
-        </div>
-    </li>
-
-    <li class="list-group-item" *ngFor="let s of dashBoardService.salesDeleted">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-
-                    {{storeService.formatSalesId(s.salesId)}}
-
-                </div>
-                <div class="col-1">
-                    <a (click)="unDeleteSales(s.salesId)">
-                        <i class="ri-arrow-go-back-line"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </li>
-    <li class="list-group-item">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-danger" (click)="sendDelete()">Confirmar</button>
-                </div>
-            </div>
-        </div>
-    </li>
-</ul>

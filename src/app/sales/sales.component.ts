@@ -25,24 +25,25 @@ export class SalesComponent implements OnInit {
   items: { qty: number, products: string }[] = [];
 
 
-  constructor(private route: ActivatedRoute, 
-    public storeService: StoreService, 
-    public dashBoardService: DashBoardService, 
+  constructor(private route: ActivatedRoute,
+    public storeService: StoreService,
+    public dashBoardService: DashBoardService,
     private router: Router) {
     if (this.dashBoardService.sales.length == 0) {
       this.onRefresh();
-    } 
+    }
   }
 
-  onRefresh () {
+  onRefresh() {
     const id: Observable<string> = this.route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
+      this.dashBoardService.sales = [];
+      this.dashBoardService.salesDeleted = [];
+      this.dashBoardService.salesPickingList = [];
 
       this.dashBoardService.getStoreSalesData(id)
         .subscribe(data => {
           this.dashBoardService.sales = data.sales;
-          this.dashBoardService.salesDeleted = [];
-          this.dashBoardService.salesPickingList = [];
 
           if (this.dashBoardService.sales.length == 0) {
             this.noSales = true;
@@ -71,7 +72,7 @@ export class SalesComponent implements OnInit {
     }
   }
 
-  
+
 
   talkViaWhats(s: SalesType) {
     const apiURI = 'https://api.whatsapp.com/send?'
@@ -88,9 +89,9 @@ export class SalesComponent implements OnInit {
 
   onSetSelectStatus(value: boolean, status: string) {
     this.dashBoardService.sales.forEach(s => {
-      if (s.status == status){
+      if (s.status == status) {
         s.selected = value
-      }    
+      }
     })
   }
 
@@ -103,11 +104,12 @@ export class SalesComponent implements OnInit {
     this.router.navigate([this.dashBoardService.currentStore, 'picking'])
   }
 
-  deleteSales(s: SalesType) {
-    if(!this.dashBoardService.salesDeleted.includes(s)) {
-      this.dashBoardService.salesDeleted.push(s);
-    }
+  onDeleteSelected() {
+    this.dashBoardService.salesDeleted = this.getSelectedSales();
+    
+    
   }
+
 
   unDeleteSales(salesId: string) {
     this.dashBoardService.salesDeleted = this.dashBoardService.salesDeleted.filter(s => s.salesId != salesId);
