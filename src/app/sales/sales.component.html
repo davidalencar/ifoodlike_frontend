@@ -1,5 +1,6 @@
 <app-nav-back title="Pedidos" [route]="['/', 'user', 'board']"></app-nav-back>
 
+estatisticas aqui
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="nav-item dropdown">
@@ -15,9 +16,12 @@
         </div>
     </div>
 
-    <a class="nav-link" (click)="onDeleteSelected()"><i class="ri-delete-bin-line"></i></a>
-    <a class="nav-link" (click)="generatePickingList()">Separar e Entregar</a>
-    <a class="nav-link" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
+    <a class="nav-link" (click)="generatePickingList()">Separar</a>
+    <div class="d-flex command-group">
+        <a class="command" (click)="viewTotal = !viewTotal"><i class="ri-calculator-line"></i></a>
+        <a class="command" (click)="onDeleteSelected()"><i class="ri-delete-bin-line"></i></a>
+        <a class="command" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
+    </div>
 </nav>
 
 <div *ngIf="dashBoardService.sales.length == 0 && noSales==false" class="spinner-border" role="status">
@@ -26,9 +30,7 @@
 
 <h2 *ngIf="noSales == true">Nenhuma venda</h2>
 
-<div id="deleteSales">
 
-</div>
 <ul class="list-group" *ngIf="dashBoardService.salesDeleted.length > 0">
     <li class="list-group-item bg-danger">
         <div class="container">
@@ -68,6 +70,22 @@
 </ul>
 
 <ul class="list-group" *ngIf="dashBoardService.sales.length > 0">
+    <li class="list-group-item" *ngIf="viewTotal">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <span>Quantos: <span
+                            class="text-success font-weight-bold">{{ getSelectedSales().length}}</span></span>
+
+                </div>
+                <div class="col">
+                    <span>Total: <span
+                            class="text-success font-weight-bold">{{ storeService.formatPrice(sumSelectedSales())}}</span></span>
+                </div>
+            </div>
+        </div>
+
+    </li>
     <li class="list-group-item" *ngFor="let s of dashBoardService.sales">
         <div class="container">
             <div class="row">
@@ -240,4 +258,3 @@
         </div>
     </li>
 </ul>
-

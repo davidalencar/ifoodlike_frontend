@@ -18,6 +18,7 @@ import { SalesType } from '../services/types/sales.type'
 })
 export class SalesComponent implements OnInit {
 
+  viewTotal = false;
   noSales = false;
   viewNow: string = 'sales'
   salesToShow = []
@@ -72,6 +73,10 @@ export class SalesComponent implements OnInit {
     }
   }
 
+  sumSelectedSales() {
+    return this.getSelectedSales().map(s => s.totalAmount).reduce((s1, s2) => s1 + s2, 0)
+  }
+
 
 
   talkViaWhats(s: SalesType) {
@@ -105,8 +110,7 @@ export class SalesComponent implements OnInit {
   }
 
   onDeleteSelected() {
-    this.dashBoardService.salesDeleted = this.getSelectedSales();
-    
+    this.dashBoardService.salesDeleted = this.getSelectedSales();    
     
   }
 
