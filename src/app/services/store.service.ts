@@ -101,8 +101,7 @@ export class StoreService {
         return this.bakestTotalAmount() >= this.store.minimumOrderAmount
     }
 
-    hasValidaAddress() {
-        if (!this.store.questions.address) return true;
+    hasValidaAddress() {        
 
         if (this.order.address == undefined) return false;
         if (this.order.address.cep == undefined) return false;

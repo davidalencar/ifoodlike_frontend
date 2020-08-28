@@ -33,17 +33,18 @@ export class BillComponent implements OnInit {
       this.storeService.order.userPhone = this.cookieService.get('user-phone');
     }
 
-    if (this.cookieService.check('user-address') && this.storeService.order.address.cep == undefined) {
+    if (this.cookieService.check('user-address') && this.storeService.order.address.cep == undefined) {      
       this.storeService.order.address = JSON.parse(this.cookieService.get('user-address'));
     }
     if (this.cookieService.check('user-paym') && this.storeService.order.paymMethod == undefined) {
+      
       this.storeService.order.paymMethod = this.cookieService.get('user-paym');
     }
 
   }
 
   setDataToCookie() {
-    const expires = 14;
+    const expires = 60;
 
     if (this.storeService.order.userName != undefined) {
       this.cookieService.set('user-name', this.storeService.order.userName, expires);
@@ -55,6 +56,7 @@ export class BillComponent implements OnInit {
       this.cookieService.set('user-address', JSON.stringify(this.storeService.order.address), expires);
     }
     if (this.storeService.order.paymMethod != undefined) {
+      
       this.cookieService.set('user-paym', this.storeService.order.paymMethod, expires);
     }
 
@@ -93,7 +95,7 @@ export class BillComponent implements OnInit {
   }
 
   breakLine() {
-    return '\n\n---\n\n'
+    return '\n---\n'
   }
 
   formatData() {
@@ -101,15 +103,12 @@ export class BillComponent implements OnInit {
 
     data += this.formatHeader()
     data += this.breakLine();
-    data += this.formatUserInfo();
-    data += this.breakLine();
-    data += `*Pedido:* \n${this.formatOrder()}`;
+    data += `_Itens_ \n${this.formatOrder()}`;
     if (this.storeService.store.questions.address == true) {
       data += this.breakLine();
       data += `*Endereço:* \n${this.formatAddress()}`
     }
-    data += this.breakLine();
-    data += `*Forma de pagamento:* \n${this.formatPaym()}`;
+    
     if (this.storeService.order.instruction != undefined && this.storeService.order.instruction.trim().length > 0) {
       data += this.breakLine();
       data += `*Instruções:* \n${this.formatOrderInstructions()}`
@@ -124,20 +123,20 @@ export class BillComponent implements OnInit {
   }
 
   formatPaym() {
-    var paym: string = '\n'
+    var paym: string = ''
 
     switch (this.storeService.order.paymMethod) {
       case 'transfer':
-        paym += 'Transferência\n'
-        paym += `*Banco:* ${this.storeService.store.paym.transfer.bank}\n`
-        paym += `*Conta:* ${this.storeService.store.paym.transfer.account}\n`
-        paym += `*Documento:* ${this.storeService.store.paym.transfer.document}`
+        paym += '_Transferência_\n'
+        paym += `_Banco: ${this.storeService.store.paym.transfer.bank}_\n`
+        paym += `_Conta: ${this.storeService.store.paym.transfer.account}_\n`
+        paym += `_Documento: ${this.storeService.store.paym.transfer.document}_`
         break;
       case 'money':
-        paym += 'Dinheiro'
+        paym += '_Dinheiro_'
         break;
       case 'credit':
-        paym += 'Cartão de crédito'
+        paym += '_Cartão de crédito_'
         break;
     }
 
@@ -150,16 +149,16 @@ export class BillComponent implements OnInit {
   }
 
   formatHeader() {
-    var header = `Pedido: ${this.formatSalesId()}`;
+    var header = `*${this.formatSalesId()}*`;
+    header+= `\n _${this.formatUserInfo()}_`;
 
     return header;
   }
 
   formatUserInfo() {
-    var userInfo: string = `*${this.storeService.order.userName.trim()}*`
-    if (this.storeService.store.questions.phone == true) {
-      userInfo += '\n';
-      userInfo += `${this.storeService.order.userPhone}`
+    var userInfo: string = `${this.storeService.order.userName.trim()}`
+    if (this.storeService.store.questions.phone == true) {      
+      userInfo += ` - ${this.storeService.order.userPhone}`
     }
     return userInfo;
   }
@@ -172,7 +171,7 @@ export class BillComponent implements OnInit {
     var order: string = '';
 
     this.storeService.basketProducts().forEach(p => {
-      order += `    \n ${p.qty}  _${p.unit.trim()}_  ${p.name}  (${this.storeService.formatPrice(p.price * p.qty)})`
+      order += `    \n *${p.qty}X*  _${p.unit.trim()}_  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
 
       this.storeService.orderProductItemsCategory(p.items).forEach(category => {
         order += `\n  _${category.name}_`
@@ -184,6 +183,7 @@ export class BillComponent implements OnInit {
     order += '\n'
     this.storeService.store.taxes.forEach(t => order += `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
     order += `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
+    order += `\n_Pagamento:_ ${this.formatPaym()}`;
 
     return order;
   }
