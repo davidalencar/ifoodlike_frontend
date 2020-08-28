@@ -20,7 +20,8 @@ import { UserComponent } from './user/user.component';
 import { NavBackComponent } from './nav-back/nav-back.component';
 import { ProductComponent } from './product/product.component';
 import { StoreComponent } from './store/store.component';
-import { PickingComponent } from './picking/picking.component'
+import { PickingComponent } from './picking/picking.component';
+import { ProductsComponent } from './products/products.component'
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { PickingComponent } from './picking/picking.component'
     NavBackComponent,
     ProductComponent,
     StoreComponent,
-    PickingComponent
+    PickingComponent,
+    ProductsComponent
   ],
   imports: [
     BrowserModule,

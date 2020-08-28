@@ -156,7 +156,16 @@
                     </span>
                 </div>
             </div>
-
+            <div class="row question">
+                <div class="col">
+                    Custo:
+                </div>
+                <div class="col-3">
+                    <span class="text-danger font-weight-bold">
+                        {{ storeService.formatPrice(dashBoardService.calcSalesCost(s)) }}
+                    </span>
+                </div>
+            </div>
             <div class="row question">
                 <div class="col-3">
                     <span class="question-title">

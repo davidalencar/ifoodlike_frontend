@@ -68,8 +68,13 @@ export class ProductComponent implements OnInit {
   }
 
   onChangeCategory(category: string, p: ProductType) {
-    this.showCategory(category);
-    this.showProduct(p._id);
+    if (!this.categoriesToShow.includes(category)) {
+      this.categoriesToShow.push(category)
+    }
+    if (!this.productsToShow.includes(p._id)) {      
+      this.productsToShow.push(p._id)
+    } 
+    
     p.category = category,
     p.changed = true;
 

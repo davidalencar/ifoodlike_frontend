@@ -169,13 +169,21 @@
                 </div>
                 <div class="row question">
                     <div class="col">
-                        <span class="question-title">
-                            Total:
-                        </span>
+                        Total:
                     </div>
                     <div class="col-3">
                         <span class="text-success font-weight-bold">
                             {{ storeService.formatPrice(s.totalAmount) }}
+                        </span>
+                    </div>
+                </div>
+                <div class="row question">
+                    <div class="col">
+                        Custo:
+                    </div>
+                    <div class="col-3">
+                        <span class="text-danger font-weight-bold">
+                            {{ storeService.formatPrice(dashBoardService.calcSalesCost(s)) }}
                         </span>
                     </div>
                 </div>

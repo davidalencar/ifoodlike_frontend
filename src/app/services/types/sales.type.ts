@@ -1,10 +1,12 @@
+import { ProductType } from './product.type';
+
 export class SalesType {
     status: string;
     deliveryOrder: number = 0;
     selected: boolean = false;
     salesId: string;
     store: string;
-    time: Date;
+    time: Date;    
     cust: {
         address: {
             zipCode: string;
@@ -28,6 +30,7 @@ export class SalesType {
     }];
     lines: [{
         qty: number;
+        productId: ProductType;
         product: string;
         amount: number;
         items: [{

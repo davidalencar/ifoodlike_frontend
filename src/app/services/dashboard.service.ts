@@ -34,7 +34,7 @@ export class DashBoardService {
 
     createUser(name: string, phone: string, email: string, plan: string, store: string) {
 
-        return this.http.post<{ status: string, user: UserType} >(`${environment.loja_api}users`, { name, phone, email, plan, store })
+        return this.http.post<{ status: string, user: UserType }>(`${environment.loja_api}users`, { name, phone, email, plan, store })
     }
 
 
@@ -157,9 +157,20 @@ export class DashBoardService {
 
     storeUpdate(store: StoreType) {
         const url = `${environment.loja_api}stores/${this.currentStore}`;
-       
+
         return this.http.put<StoreType>(url, store, {
             headers: { 'Authorization': this.userToken.access_token }
         })
+    }
+
+    calcSalesCost(sale: SalesType) {
+        return sale.lines.map(l => {
+            if (l.productId != undefined) {
+                console.log(l.productId);
+                return l.productId.cost * l.qty;
+            } else {
+                return 0;
+            }
+        }).reduce((a, b) => a + b, 0);
     }
 }

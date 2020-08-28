@@ -220,7 +220,7 @@ export class StoreService {
         }
 
         this.basketProducts().forEach(p => {
-            var line = { qty: p.qty, product: p.name, amount: this.totalLineAmount(p), items: [] }
+            var line = { qty: p.qty,productId: p, product: p.name, amount: this.totalLineAmount(p), items: [] }
             
             this.orderProductItemsCategory(p.items).forEach(c => {
                 var citem = { category: c.name, items: [] }

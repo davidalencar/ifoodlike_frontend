@@ -7,6 +7,7 @@ export class ProductType {
     description?: string;
     unit: string;
     price: number;
+    cost: number;
     category: string;
     enable: boolean;
     img?: string;
