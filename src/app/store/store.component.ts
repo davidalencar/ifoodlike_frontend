@@ -19,7 +19,8 @@ export class StoreComponent implements OnInit {
   store: StoreType = new StoreType();
   storeCompare: StoreType = new StoreType();
   storeName: string;
-  categories: any[];
+
+  sectionsToShow: string[] = [];
 
 
   constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService) {
@@ -28,7 +29,7 @@ export class StoreComponent implements OnInit {
       this.storeName = id;
       this.dashBoardService.getStoreData(id)
         .subscribe(data => {
-          this.store = data.store;
+          this.store = data.store;          
           this.storeCompare = JSON.parse(JSON.stringify(data.store));
         })
 
@@ -48,6 +49,17 @@ export class StoreComponent implements OnInit {
       })
   }
 
+
+  sortCategories() {
+    return this.store.categories.sort((c1, c2) => {
+      return c1.order - c2.order
+    }).filter(c => c.enable == true)
+  }
+
+  orderCategory(plus: number, category:string) {
+    this.store.categories.find(c => c.name == category).order+= plus;
+  }
+
   delTaxe(taxe: string) {
     this.store.taxes = this.store.taxes.filter(t => t.name != taxe)
   }
@@ -59,8 +71,42 @@ export class StoreComponent implements OnInit {
     this.store.taxes.push({ name, value });
   }
 
+  onAddCategory(name: string) {
+    if (name.trim().length < 3) return;
+
+    this.store.categories.push({
+      name,
+      enable: true,
+      order: 1000
+    });
+
+    this.reOrderCategories();
+  }
+
+  reOrderCategories() {
+    var newOrder = this.sortCategories();
+    for (let index = 0; index < newOrder.length; index++) {
+      newOrder[index].order = index;      
+    }
+
+    this.store.categories = newOrder;
+  }
+
+  delCategory(name: string) {
+    this.store.categories = this.store.categories.filter(c => c.name != name)
+    this.reOrderCategories()
+  }
+
   canSave() {
     return this.deepEqual(this.store, this.storeCompare) == false;
+  }
+
+  onShowSection(name: string) {
+    if (this.sectionsToShow.includes(name)) {
+      this.sectionsToShow = this.sectionsToShow.filter(s => s != name);
+    } else {
+      this.sectionsToShow.push(name);
+    }
   }
 
   deepEqual(object1, object2) {

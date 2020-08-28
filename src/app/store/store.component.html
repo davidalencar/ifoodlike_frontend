@@ -7,14 +7,16 @@
 <ul class="list-group" *ngIf="store.name != undefined">
     <li class="list-group-item bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    Aparência
+            <a (click)="onShowSection('aparencia')">
+                <div class="row">
+                    <div class="col">
+                        Aparência
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </li>
-    <ng-container>
+    <ng-container *ngIf="sectionsToShow.includes('aparencia')">
         <li class="list-group-item">
             <div class="container">
                 <!-- TITULO -->
@@ -65,7 +67,7 @@
                             [(ngModel)]="store.productTitle" required>
                     </div>
                 </div>
-            
+
             </div>
         </li>
     </ng-container>
@@ -73,14 +75,16 @@
     <!-- COMUNICACAO -->
     <li class="list-group-item bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    Comunicação
+            <a (click)="onShowSection('comunicacao')">
+                <div class="row">
+                    <div class="col">
+                        Comunicação
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </li>
-    <ng-container>
+    <ng-container *ngIf="sectionsToShow.includes('comunicacao')">
         <li class="list-group-item">
             <div class="container">
                 <div class="row question">
@@ -130,14 +134,16 @@
     <!-- REGRAS -->
     <li class="list-group-item bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    Regras
+            <a (click)="onShowSection('regras')">
+                <div class="row">
+                    <div class="col">
+                        Regras
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </li>
-    <ng-container>
+    <ng-container *ngIf="sectionsToShow.includes('regras')">
         <li class="list-group-item">
             <div class="container">
                 <div class="row question">
@@ -249,14 +255,17 @@
     <!-- TAXAS -->
     <li class="list-group-item bg-light">
         <div class="container">
-            <div class="row">
-                <div class="col">
-                    Taxas
+            <a (click)="onShowSection('taxas')">
+                <div class="row">
+                    <div class="col">
+                        Taxas
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
     </li>
-    <ng-container>
+    <!-- TAXAS  -->
+    <ng-container *ngIf="sectionsToShow.includes('taxas')">
         <li class="list-group-item">
             <div class="container">
                 <div class="row question">
@@ -270,14 +279,17 @@
                         <ul class="list-group ">
                             <li class="list-group-item bg-light">
                                 <div class="form-inline">
-                                    <input type="text" class="form-control mb-2 mr-sm-2" name="taxeName" ngModel #taxeName="ngModel" placeholder="Nome">
+                                    <input type="text" class="form-control mb-2 mr-sm-2" name="taxeName" ngModel
+                                        #taxeName="ngModel" placeholder="Nome">
                                     <div class="input-group mb-2 mr-sm-2">
                                         <div class="input-group-prepend">
                                             <div class="input-group-text">R$</div>
                                         </div>
-                                        <input type="text" inputmode="numeric" name="taxeValue" ngModel  #taxeValue="ngModel" class="form-control" placeholder="00,00">
+                                        <input type="text" inputmode="numeric" name="taxeValue" ngModel
+                                            #taxeValue="ngModel" class="form-control" placeholder="00,00">
                                     </div>
-                                    <button type="submit" class="btn btn-primary mb-2" (click)="onAddTaxe(taxeName.value, taxeValue.value)">Criar</button>
+                                    <button type="submit" class="btn btn-primary mb-2"
+                                        (click)="onAddTaxe(taxeName.value, taxeValue.value)">Criar</button>
                                 </div>
                             </li>
                             <li class="list-group-item" *ngFor="let t of store.taxes">
@@ -303,6 +315,66 @@
             </div>
         </li>
     </ng-container>
+
+    <!-- CATEGORIAS  -->
+    <li class="list-group-item bg-light">
+        <div class="container">
+            <a (click)="onShowSection('categorias')">
+                <div class="row">
+                    <div class="col">
+                        Organização
+                    </div>
+                </div>
+            </a>
+        </div>
+    </li>
+    <ng-container>
+        <li class="list-group-item" *ngIf="sectionsToShow.includes('categorias')">
+            <div class="container">
+                <div class="row question">
+                    <div class="col">
+                        <span class="question-text">Dividir prateleira:</span>
+                    </div>
+                </div>
+                <div class="row question ">
+                    <div class="col">
+                        <ul class="list-group ">
+                            <li class="list-group-item bg-light">
+                                <div class="form-inline">
+                                    <input type="text" class="form-control mb-2 mr-sm-2" name="categoryName" ngModel
+                                        #categoryName="ngModel" placeholder="Nome">
+                                    <button type="submit" class="btn btn-primary mb-2"
+                                        (click)="onAddCategory(categoryName.value)">Criar</button>
+                                </div>
+                            </li>
+                            <li class="list-group-item" *ngFor="let c of sortCategories()">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-8">
+                                            {{ c.name }}
+                                        </div>
+                                        <div class="col">
+                                            <div class="btn-group-vertical">
+                                                <button type="button" class="btn" (click)="orderCategory(-1, c.name)"><i
+                                                        class="ri-arrow-up-fill"></i></button>
+                                                <button type="button" class="btn" (click)="orderCategory(1, c.name)"><i
+                                                        class="ri-arrow-down-fill"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <a (click)="delCategory(c.name)">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ng-container>
 </ul>
 <br>
 <br>
@@ -313,7 +385,8 @@
         <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-        <button *ngIf="commandNow == 'confirm'"  type="submit" class="btn btn-success btn-lg btn-confirm" (click)="saveStore()">
+        <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
+            (click)="saveStore()">
             Salvar
         </button>
     </div>

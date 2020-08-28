@@ -6,7 +6,7 @@
 
 <ul class="list-group" *ngIf="products.length > 0">
 
-    <ng-container *ngFor="let c of categories ">
+    <ng-container *ngFor="let c of categories">
         <li class="list-group-item bg-light">
             <div class="container">
                 <a (click)="showCategory(c.name)">
@@ -26,40 +26,94 @@
         <ng-container *ngIf="categoriesToShow.includes(c.name)">
             <li class="list-group-item" *ngFor="let p of dashBoardService.filterProductsByCategory(products, c.name)">
                 <div class="container">
-                    <a (click)="showProduct(p._id)">
-                        <div class="row">
-                            <div class="col-8">
+                    <div class="row">
+                        <div class="col-1">
+                            <a (click)="showProduct(p._id)">
+                                <i class="ri-pencil-line"></i>
+                            </a>
+                        </div>
+                        <div class="col-8">
+                            <a (click)="showProduct(p._id)">
                                 {{ p.name }}
-                            </div>
-                            <div class="col">
-                                <label class="switch ">
-                                    <input type="checkbox" [checked]="p.enable" (click)="changeItem(p)" class="default">
-                                    <span class="slider round"></span>
-                                  </label>
-                            </div>
+                            </a>
                         </div>
-                    </a>
-                    <!-- <ng-container *ngIf="productsToShow.includes(p._id)">
+                        <div class="col">
+                            <label class="switch ">
+                                <input type="checkbox" [checked]="p.enable" (click)="changeItem(p)" class="default">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="productsToShow.includes(p._id)">
                         <div class="row">
                             <div class="col">
-                                {{ p.price }}
+                                <select class="form-control" name="" (change)="onChangeCategory($event.target.value, p)"
+                                    required>
+                                    <option value=""> - Mudar categoria - </option>
+                                    <option *ngFor="let c of categories" [value]="c.name">{{ c.name }}</option>
+                                </select>
                             </div>
                         </div>
-                    </ng-container> -->
+                    </ng-container>
                 </div>
             </li>
         </ng-container>
+    </ng-container>
+    <ng-container *ngIf="noCategory().length > 0">
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <span>Sem categoria</span><br>
+                        <span class="text-muted"> Não são exibidos na loja</span>
+
+                    </div>
+                    <div class="col-2">
+                        <span class="badge badge-dark">
+                            {{ noCategory().length }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item" *ngFor="let p of noCategory()">
+            <div class="container">
+                <a (click)="showProduct(p._id)">
+                    <div class="row">
+                        <div class="col-1">
+                            <i class="ri-pencil-line"></i>
+                        </div>
+                        <div class="col-8">
+                            {{ p.name }}
+                        </div>
+                    </div>
+                </a>
+                <ng-container *ngIf="productsToShow.includes(p._id)">
+                    <div class="row">
+                        <div class="col">
+                            <select class="form-control" name="" (change)="onChangeCategory($event.target.value, p)"
+                                required>
+                                <option value=""> - Selecionar - </option>
+                                <option *ngFor="let c of categories" [value]="c.name">{{ c.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+        </li>
     </ng-container>
 </ul>
 
 <br>
 
-<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light" *ngIf="dashBoardService.filterChangedProducts(products).length > 0">
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light"
+    *ngIf="dashBoardService.filterChangedProducts(products).length > 0">
     <div class="container justify-content-center">
         <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
         </div>
-        <button *ngIf="commandNow == 'confirm'"  type="submit" class="btn btn-success btn-lg btn-confirm" (click)="saveProducts()">
+        <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
+            (click)="saveProducts()">
             Salvar
         </button>
     </div>

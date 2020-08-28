@@ -72,7 +72,7 @@ export class DashBoardService {
 
         const url = `${environment.loja_api}products/control/${storeName}`;
         const data = this.filterChangedProducts(list).map(p => {
-            return { id: p._id, enable: p.enable };
+            return { id: p._id, enable: p.enable, category: p.category };
         })
 
         return this.http.put<{ status: string }>(url, { products: data }, {

@@ -41,6 +41,10 @@ export class ProductComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  noCategory() {
+    return this.products.filter(p => this.categories.findIndex(c => c.name == p.category) == -1)
+  }
+
   showProduct(id: string) {
     if (this.productsToShow.includes(id)) {
       this.productsToShow = this.productsToShow.filter(i => i != id)
@@ -61,6 +65,14 @@ export class ProductComponent implements OnInit {
   changeItem(p: ProductType) {
     p.enable = !p.enable;
     p.changed = true;
+  }
+
+  onChangeCategory(category: string, p: ProductType) {
+    this.showCategory(category);
+    this.showProduct(p._id);
+    p.category = category,
+    p.changed = true;
+
   }
 
   saveProducts() {
