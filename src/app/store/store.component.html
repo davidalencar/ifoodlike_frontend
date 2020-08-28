@@ -304,3 +304,17 @@
         </li>
     </ng-container>
 </ul>
+<br>
+<br>
+<br>
+<br>
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light" *ngIf="canSave()">
+    <div class="container justify-content-center">
+        <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <button *ngIf="commandNow == 'confirm'"  type="submit" class="btn btn-success btn-lg btn-confirm" (click)="saveStore()">
+            Salvar
+        </button>
+    </div>
+</nav>

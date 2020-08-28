@@ -153,4 +153,13 @@ export class DashBoardService {
         const ad = s.cust.address;
         return `CEP: ${ad.zipCode} - ${ad.district} - ${ad.city}/${ad.state}`
     }
+
+
+    storeUpdate(store: StoreType) {
+        const url = `${environment.loja_api}stores/${this.currentStore}`;
+       
+        return this.http.put<StoreType>(url, store, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
+    }
 }
