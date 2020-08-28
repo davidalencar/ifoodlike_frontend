@@ -86,9 +86,10 @@ export class BillComponent implements OnInit {
 
   sendViaWhats() {
     const apiURI = 'https://api.whatsapp.com/send?'
-    const argPhone = (this.storeService.store.phone) ? `phone=${this.storeService.store.phone}` : ''
-    const argsOrder = `&text=${window.encodeURIComponent(this.formatData())}`
-    window.location.href = `${apiURI}${argPhone}${argsOrder}`
+    const argPhone = (this.storeService.store.phone) ? `phone=${this.storeService.store.phone}` : '';
+    const argsOrder = `&text=${window.encodeURIComponent(this.formatData())}`;
+    window.open(`${apiURI}${argPhone}${argsOrder}`)
+    window.location.href = `/${this.storeService.store.name}`;
   }
 
   breakLine() {
