@@ -2,8 +2,7 @@
 
 <div class="container">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-
+    <nav class="navbar navbar-light bg-light justify-content-start">
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-reset" data-toggle="dropdown" aria-haspopup="true"
                 aria-expanded="false">
@@ -16,7 +15,6 @@
                 <a class="dropdown-item" (click)="onSetSelectStatus(true, 'picked')">Separados</a>
             </div>
         </div>
-
         <a class="nav-link " (click)="generatePickingList()"> <span>Entregar </span> <i class="ri-truck-line"></i></a>
         <div class="d-flex command-group">
             <a class="command" (click)="viewTotal = !viewTotal"><i class="ri-calculator-line"></i></a>

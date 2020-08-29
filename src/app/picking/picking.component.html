@@ -9,33 +9,27 @@
                     </li>
                     <li class="list-group-item"
                         *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.compose)">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-2">
-                                    <span class="font-weight-bold">{{ p.qty }} X</span>
-                                </div>
-                                <div class="col">
-                                    {{ p.product }}
-                                </div>
-                                <div class="col-2">
-                                    <div class="input-group mb-3" *ngIf="p.productId != undefined">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">R$</span>
-                                        </div>
-                                        <input type="text" class="form-control" name="composePCostPrice" [(ngModel)]="p.productId.cost">
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <span class="font-weight-bold">{{ p.qty }}X</span>
                             </div>
-                            <div class="row" *ngFor="let c of p.items">
-                                <div class="col text-muted">
-                                    {{c.category}}
-                                    <ul>
-                                        <li *ngFor="let i of c.items">
-                                            <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
-                                            {{i.item}}
-                                        </li>
-                                    </ul>
-                                </div>
+                            <div class="col">
+                                {{ p.product }}
+                            </div>
+                            <div class="col-3">
+                                <input  *ngIf="p.productId != undefined" type="text" class="form-control" name="composePCostPrice"
+                                        [(ngModel)]="p.productId.cost">
+                            </div>
+                        </div>
+                        <div class="row" *ngFor="let c of p.items">
+                            <div class="col text-muted">
+                                {{c.category}}
+                                <ul>
+                                    <li *ngFor="let i of c.items">
+                                        <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
+                                        {{i.item}}
+                                    </li>
+                                </ul>
                             </div>
                         </div>
                     </li>
@@ -43,24 +37,20 @@
                 <ng-container *ngIf="groupItems.simple != undefined">
                     <li class="list-group-item"
                         *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.simple)">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-3">
-                                    <span class="font-weight-bold">{{ p.qty }} X</span>
-                                </div>
-                                <div class="col">
-                                    {{ p.product }}
-                                </div>
-                                <div class="col-2">
-                                    <div class="input-group mb-3">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">R$</span>
-                                        </div>
-                                        <input type="text" class="form-control" name="pCostPrice"   [(ngModel)]="p.productId.cost">
-                                    </div>
-                                </div>
+
+                        <div class="row">
+                            <div class="col-3">
+                                <span class="font-weight-bold">{{ p.qty }}X</span>
+                            </div>
+                            <div class="col">
+                                {{ p.product }}
+                            </div>
+                            <div class="col-3">
+                                <input  *ngIf="p.productId != undefined" type="text" class="form-control" name="composePCostPrice"
+                                        [(ngModel)]="p.productId.cost">
                             </div>
                         </div>
+
                     </li>
                 </ng-container>
             </ul>
@@ -68,7 +58,7 @@
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-8">
             <span>Total do custo:</span>
         </div>
         <div class="col-2">
@@ -216,7 +206,7 @@
     </div>
 
     <div class="row">
-        <div class="col">
+        <div class="col-8">
             <span>Total do vendas:</span>
         </div>
         <div class="col-2">
