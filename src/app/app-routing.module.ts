@@ -9,6 +9,7 @@ import { UserComponent } from './user/user.component'
 import { SalesComponent } from './sales/sales.component'
 import { CustomerComponent } from './customer/customer.component'
 import { ProductComponent } from './product/product.component'
+import { ProductsComponent } from './products/products.component'
 import { StoreComponent } from './store/store.component'
 import { PickingComponent } from './picking/picking.component';
 
@@ -28,6 +29,7 @@ const routes: Routes = [
   { path: ':id/sales', component: SalesComponent, canActivate: [AuthGuard]},
   { path: ':id/cust', component: CustomerComponent, canActivate: [AuthGuard]},
   { path: ':id/products', component: ProductComponent, canActivate: [AuthGuard]},
+  { path: ':id/product', component: ProductsComponent, canActivate: [AuthGuard]},
   { path: ':id/store', component: StoreComponent, canActivate: [AuthGuard]},
   { path: ':id/picking', component: PickingComponent, canActivate: [AuthGuard]}
   

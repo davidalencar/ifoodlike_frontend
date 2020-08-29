@@ -164,13 +164,6 @@ export class DashBoardService {
     }
 
     calcSalesCost(sale: SalesType) {
-        return sale.lines.map(l => {
-            if (l.productId != undefined) {
-                console.log(l.productId);
-                return l.productId.cost * l.qty;
-            } else {
-                return 0;
-            }
-        }).reduce((a, b) => a + b, 0);
+        return sale.lines.map(l => (l.productId != undefined) ? l.productId.cost * l.qty : 0).reduce((a, b) => a + b, 0);
     }
 }

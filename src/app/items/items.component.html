@@ -1,42 +1,45 @@
 <app-nav-back title="Personalizar" [route]="['/', storeService.store.name]"></app-nav-back>
-<div class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
-    <div class="list-group-item productName">
-        <h4 [id]="p._id">{{ p.name }} </h4>
-    </div>
-
-    <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
-        <div class="list-group-item  bg-light">
-            <h4>{{ category.name }} </h4>
-            <div class="invalid-msg" *ngIf="!storeService.validateProductItemCategory(category)">
-                <h6> (Escolha necessária)</h6>
-            </div>
+<div class="container">
+    <div class="list-group list-group-flush" *ngFor="let p of storeService.basketProductsWithItems()">
+        <div class="list-group-item productName">
+            <h4 [id]="p._id">{{ p.name }} </h4>
         </div>
-        <div *ngFor="let item of storeService.orderProductItemsByName(category.products)">
-            <div class="list-group-item">
-                <div class="d-flex w-100 justify-content-between">
-                    <div>
-                        <h5 class="mb-1">{{ item.name }}</h5>
-                        <small *ngIf="item.price > 0">{{ storeService.formatPrice(item.price) }}</small>
-                    </div>
-                    <div class="d-flex flex-column justify-content-between">
-                        <div class="col-12">
-                            <div *ngIf="category.type == ''">
-                                <div *ngIf="item.maxQty > 1 else elseBlock" class="btn-group itemcontrol" role="group">
-                                    <button type="button" class="btn" (click)="onSubtract(item)"><i
-                                            class="ri-indeterminate-circle-fill ri-lg"></i></button>
-                                    <button type="button" class="btn"><span>{{ item.qty }} </span></button>
-                                    <button type="button" class="btn" (click)="onAdd(item)"><i
-                                            class="ri-add-circle-fill ri-lg"></i></button>
+
+        <div *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
+            <div class="list-group-item  bg-light">
+                <h4>{{ category.name }} </h4>
+                <div class="invalid-msg" *ngIf="!storeService.validateProductItemCategory(category)">
+                    <h6> (Escolha necessária)</h6>
+                </div>
+            </div>
+            <div *ngFor="let item of storeService.orderProductItemsByName(category.products)">
+                <div class="list-group-item">
+                    <div class="d-flex w-100 justify-content-between">
+                        <div>
+                            <h5 class="mb-1">{{ item.name }}</h5>
+                            <small *ngIf="item.price > 0">{{ storeService.formatPrice(item.price) }}</small>
+                        </div>
+                        <div class="d-flex flex-column justify-content-between">
+                            <div class="col-12">
+                                <div *ngIf="category.type == ''">
+                                    <div *ngIf="item.maxQty > 1 else elseBlock" class="btn-group itemcontrol"
+                                        role="group">
+                                        <button type="button" class="btn" (click)="onSubtract(item)"><i
+                                                class="ri-indeterminate-circle-fill ri-lg"></i></button>
+                                        <button type="button" class="btn"><span>{{ item.qty }} </span></button>
+                                        <button type="button" class="btn" (click)="onAdd(item)"><i
+                                                class="ri-add-circle-fill ri-lg"></i></button>
+                                    </div>
+                                    <ng-template #elseBlock>
+                                        <input class="form-check-input checkbox-lg" type="checkbox"
+                                            (change)="checkValue($event, item)" [checked]="item.qty > 0" />
+                                    </ng-template>
                                 </div>
-                                <ng-template #elseBlock>
-                                    <input class="form-check-input checkbox-lg" type="checkbox"
-                                        (change)="checkValue($event, item)" [checked]="item.qty > 0" />
-                                </ng-template>
-                            </div>
-                            <div *ngIf="category.type == 'choice'">
-                                <input class="form-check-input checkbox-lg" type="radio" [name]="category.name"
-                                    id="exampleRadios2" (change)="selectedValue($event, item, category)"
-                                    [checked]="item.qty > 0">
+                                <div *ngIf="category.type == 'choice'">
+                                    <input class="form-check-input checkbox-lg" type="radio" [name]="category.name"
+                                        id="exampleRadios2" (change)="selectedValue($event, item, category)"
+                                        [checked]="item.qty > 0">
+                                </div>
                             </div>
                         </div>
                     </div>

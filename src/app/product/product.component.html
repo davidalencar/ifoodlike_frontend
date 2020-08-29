@@ -45,13 +45,18 @@
                         </div>
                     </div>
                     <ng-container *ngIf="productsToShow.includes(p._id)">
-                        <div class="row">
+                        <div class="row row-form">
                             <div class="col">
                                 <select class="form-control" name="" (change)="onChangeCategory($event.target.value, p)"
                                     required>
                                     <option value=""> - Mudar categoria - </option>
                                     <option *ngFor="let c of categories" [value]="c.name">{{ c.name }}</option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="row row-form">
+                            <div class="col">
+                                <button type="button" class="btn btn-outline-secondary"  [routerLink]="['/', storeName, 'product']" >Editar detalhes</button>
                             </div>
                         </div>
                     </ng-container>
@@ -89,7 +94,7 @@
                     </div>
                 </a>
                 <ng-container *ngIf="productsToShow.includes(p._id)">
-                    <div class="row">
+                    <div class="row row-form">
                         <div class="col">
                             <select class="form-control" name="" (change)="onChangeCategory($event.target.value, p)"
                                 required>

@@ -1,267 +1,271 @@
 <app-nav-back title="Pedido" [route]="['/', storeService.store.name]"></app-nav-back>
-
-<form #form="ngForm" (ngSubmit)="onConfirmPurch()">
-    <ul class="list-group">
-        <li class="list-group-item bill">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <span class="sub-title">Seu pedido</span>
+<div class="container">
+    <form #form="ngForm" (ngSubmit)="onConfirmPurch()">
+        <ul class="list-group">
+            <li class="list-group-item bill">
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <span class="sub-title">Seu pedido</span>
+                        </div>
+                    </div>
+                    <div class="row product" *ngFor="let p of storeService.basketProducts()">
+                        <div class="col-1 bill-col1">
+                            <span class="text-success">{{ p.qty }}X</span>
+                        </div>
+                        <div class="col-8">
+                            <a class="text-reset" [routerLink]="productRouterLink(p)" [fragment]="p._id">
+                                <span class="font-weight-normal"> {{ p.name }} </span>
+                                <ng-container *ngIf="p.items.length > 0">
+                                    <div class="text-muted warning-msg"
+                                        *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
+                                        {{ category.name }}
+                                        <ul>
+                                            <li
+                                                *ngFor="let item of storeService.getItemsInProductItemCategory(category)">
+                                                <span *ngIf="item.qty > 1">{{ item.qty }}X </span>
+                                                {{ item.name }}
+                                                <span
+                                                    *ngIf="item.price > 0">({{ storeService.formatPrice(item.price * item.qty) }})</span>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </ng-container>
+                            </a>
+                        </div>
+                        <div class="col-2 text-right font-weight-light">
+                            {{ storeService.formatPrice(storeService.totalLineAmount(p))}}
+                        </div>
                     </div>
                 </div>
-                <div class="row product" *ngFor="let p of storeService.basketProducts()">
-                    <div class="col-1 bill-col1">
-                        <span class="text-success">{{ p.qty }}X</span>
+            </li>
+            <li class="list-group-item instruction-line">
+                <div class="container instruction-line">
+                    <div class="row">
+                        <div class="col">
+                            <textarea name="userInstruction" class="form-control instruction" rows="2"
+                                placeholder="Adicionar instruções"
+                                [(ngModel)]="storeService.order.instruction"></textarea>
+                        </div>
                     </div>
-                    <div class="col-8">
-                        <a class="text-reset" [routerLink]="productRouterLink(p)" [fragment]="p._id">
-                            <span class="font-weight-normal"> {{ p.name }} </span>
-                            <ng-container *ngIf="p.items.length > 0">
-                                <div class="text-muted warning-msg"
-                                    *ngFor="let category of storeService.orderProductItemsCategory(p.items)">
-                                    {{ category.name }}
-                                    <ul>
-                                        <li *ngFor="let item of storeService.getItemsInProductItemCategory(category)">
-                                            <span *ngIf="item.qty > 1">{{ item.qty }}X </span>
-                                            {{ item.name }}
-                                            <span
-                                                *ngIf="item.price > 0">({{ storeService.formatPrice(item.price * item.qty) }})</span>
-                                        </li>
-                                    </ul>
+                </div>
+            </li>
+            <li class="list-group-item bill">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-9 bill-col1">
+                            Subtotal
+                        </div>
+                        <div class="col-2 text-center font-weight-light">
+                            <span> {{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</span>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="!storeService.minOrderReached()">
+                        <div class="row product">
+                            <div class="col-9 bill-col1">
+                                <p class="text-muted warning-msg">(Mínimo de
+                                    {{ storeService.formatPrice(storeService.store.minimumOrderAmount) }})</p>
+                                <div class="invalid-msg">
+                                    *Adicione mais
+                                    {{ storeService.formatPrice(storeService.remainToMinimumOrderAmount()) }}
+                                    para fechar seu pedido.
                                 </div>
-                            </ng-container>
-                        </a>
+                            </div>
+                        </div>
+                        <div class="row product justify-content-end">
+                            <div class="col-6">
+                                <button type="button" class="btn btn-outline-success addMorItens"
+                                    [routerLink]="['/', storeService.store.name]">+
+                                    Adicionar itens</button>
+                            </div>
+                        </div>
+                    </ng-container>
+                    <div class="row product">
+                        <div class="col bill-col1 text-muted warning-msg">
+                            Taxas
+                        </div>
                     </div>
-                    <div class="col-2 text-right font-weight-light">
-                        {{ storeService.formatPrice(storeService.totalLineAmount(p))}}
+                    <div class="row product text-muted" *ngFor="let t of storeService.store.taxes">
+                        <div class="col-9 bill-col1">
+                            {{ t.name }}
+                        </div>
+                        <div class="col-2 text-center">
+                            {{ storeService.formatPrice(t.value) }}
+                        </div>
                     </div>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item instruction-line">
-            <div class="container instruction-line">
-                <div class="row">
-                    <div class="col">
-                        <textarea name="userInstruction" class="form-control instruction" rows="2"
-                            placeholder="Adicionar instruções" [(ngModel)]="storeService.order.instruction"></textarea>
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item bill">
-            <div class="container">
-                <div class="row">
-                    <div class="col-9 bill-col1">
-                        Subtotal
-                    </div>
-                    <div class="col-2 text-center font-weight-light">
-                        <span> {{ storeService.formatPrice(storeService.bakestTotalAmount()) }}</span>
-                    </div>
-                </div>
-                <ng-container *ngIf="!storeService.minOrderReached()">
                     <div class="row product">
                         <div class="col-9 bill-col1">
-                            <p class="text-muted warning-msg">(Mínimo de
-                                {{ storeService.formatPrice(storeService.store.minimumOrderAmount) }})</p>
-                            <div class="invalid-msg">
-                                *Adicione mais {{ storeService.formatPrice(storeService.remainToMinimumOrderAmount()) }}
-                                para fechar seu pedido.
-                            </div>
+                            Total
                         </div>
-                    </div>
-                    <div class="row product justify-content-end">
-                        <div class="col-6">
-                            <button type="button" class="btn btn-outline-success addMorItens"
-                                [routerLink]="['/', storeService.store.name]">+
-                                Adicionar itens</button>
-                        </div>
-                    </div>
-                </ng-container>
-                <div class="row product">
-                    <div class="col bill-col1 text-muted warning-msg">
-                        Taxas
-                    </div>
-                </div>
-                <div class="row product text-muted" *ngFor="let t of storeService.store.taxes">
-                    <div class="col-9 bill-col1">
-                        {{ t.name }}
-                    </div>
-                    <div class="col-2 text-center">
-                        {{ storeService.formatPrice(t.value) }}
-                    </div>
-                </div>
-                <div class="row product">
-                    <div class="col-9 bill-col1">
-                        Total
-                    </div>
-                    <div class="col-2 text-center font-weight-bold">
-                        {{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}
-                    </div>
-                </div>
-            </div>
-        </li>
-        <li class="list-group-item bill bg-light">
-            <div class="container">
-                <!-- PAGAMENTO -->
-                <div class="row">
-                    <div class="col-8">
-                        <span class="question-text">Como vai pagar</span>
-                    </div>
-                    <div class="col-2" *ngIf="!storeService.order.paymMethod">
-                        <span class="badge badge-danger">Obrigatório</span>
-                    </div>
-                </div>
-                <div class="row product ">
-                    <div class="col">
-                        <div class="payment-row" role="group">
-                            <div class="btn-group-toggle d-flex justify-content-around" data-toggle="buttons">
-                                <label *ngIf="storeService.store.paym.credit == true"
-                                    [class]="(storeService.order.paymMethod == 'credit') ? 'col btn paymmode active': 'col btn paymmode'">
-                                    <input type="radio" name="options" id="option1" autocomplete="off"
-                                        (click)="setPaymMethod('credit')">
-                                    <i class="ri-bank-card-fill"></i>
-                                    <p class="paymmodename">Cartão</p>
-                                </label>
-                                <label *ngIf="storeService.store.paym.money == true"
-                                    [class]="(storeService.order.paymMethod == 'money') ? 'col btn paymmode active': 'col btn paymmode'">
-                                    <input type="radio" name="options" id="option2" autocomplete="off"
-                                        (click)="setPaymMethod('money')">
-                                    <i class="ri-money-dollar-circle-line"></i>
-                                    <p class="paymmodename">Dinheiro</p>
-                                </label>
-                                <label *ngIf="storeService.store.paym.transfer.enable == true"
-                                    [class]="(storeService.order.paymMethod == 'transfer') ? 'col btn paymmode active': 'col btn paymmode'">
-                                    <input type="radio" name="options" id="option3" autocomplete="off"
-                                        (click)="setPaymMethod('transfer')">
-                                    <i class="ri-exchange-dollar-line"></i>
-                                    <p class="paymmodename">Transferência</p>
-                                </label>
-                            </div>
+                        <div class="col-2 text-center font-weight-bold">
+                            {{ storeService.formatPrice(storeService.basketTotalAmountWithTaxes()) }}
                         </div>
                     </div>
                 </div>
-
-                <!-- ADDRESS -->
-                <ng-container>
-                    <div class="row question">
+            </li>
+            <li class="list-group-item bill bg-light">
+                <div class="container">
+                    <!-- PAGAMENTO -->
+                    <div class="row">
                         <div class="col-8">
-                            <span class="question-text">Qual é o seu endereço?</span>
+                            <span class="question-text">Como vai pagar</span>
                         </div>
-                        <div class="col-2" *ngIf="!storeService.hasValidaAddress()">
+                        <div class="col-2" *ngIf="!storeService.order.paymMethod">
                             <span class="badge badge-danger">Obrigatório</span>
-                        </div>
-                    </div>
-                    <div class="row product" *ngIf="!storeService.hasValidaAddress() else elseAddress">
-                        <div class="col">
-                            <button type="button" class="btn btn-outline-secondary action d-flex"
-                                [routerLink]="['/', storeService.store.name, 'address']">
-                                <div class="col-2">
-                                    <i class="ri-map-pin-line"></i>
-                                </div>
-                                <div class="col-10 text-left">
-                                    <span class="question-text ">Selecionar endereço</span>
-                                </div>
-                            </button>
-                        </div>
-                    </div>
-                    <ng-template #elseAddress>
-                        <div class="row product ">
-                            <div class="col">
-                                <button type="button " class="btn btn-outline-secondary action d-flex"
-                                    [routerLink]="[ '/', storeService.store.name, 'address']">
-                                    <div class="col-2">
-                                        <i class="ri-map-pin-line"></i>
-                                    </div>
-                                    <div class="col-10 text-left">
-                                        <span class="question-text">{{ this.storeService.formatAddressLine1() }}
-                                            <br> {{ this.storeService.formatAddressLine2() }}</span>
-                                    </div>
-                                </button>
-                            </div>
-                        </div>
-                    </ng-template>
-                </ng-container>
-
-                <!-- USER NAME -->
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Seu nome</span>
-                    </div>
-                </div>
-                <div class="row product ">
-                    <div class="col">
-                        <input type="text" name="userName" class="form-control" minLength="3" maxLength="80"
-                            [(ngModel)]="storeService.order.userName" required>
-                    </div>
-                </div>
-
-                <!-- USER phone -->
-                <ng-container>
-                    <div class="row question">
-                        <div class="col">
-                            <span class="question-text">Seu telefone</span>
                         </div>
                     </div>
                     <div class="row product ">
                         <div class="col">
-                            <input type="phone" name="userPhone" inputmode="numeric" class="form-control"
-                                placeholder="(00) 9 0000 0000" required mask="(00) 0 0000-0000"
-                                [dropSpecialCharacters]="false" [(ngModel)]="storeService.order.userPhone">
+                            <div class="payment-row" role="group">
+                                <div class="btn-group-toggle d-flex justify-content-around" data-toggle="buttons">
+                                    <label *ngIf="storeService.store.paym.credit == true"
+                                        [class]="(storeService.order.paymMethod == 'credit') ? 'col btn paymmode active': 'col btn paymmode'">
+                                        <input type="radio" name="options" id="option1" autocomplete="off"
+                                            (click)="setPaymMethod('credit')">
+                                        <i class="ri-bank-card-fill"></i>
+                                        <p class="paymmodename">Cartão</p>
+                                    </label>
+                                    <label *ngIf="storeService.store.paym.money == true"
+                                        [class]="(storeService.order.paymMethod == 'money') ? 'col btn paymmode active': 'col btn paymmode'">
+                                        <input type="radio" name="options" id="option2" autocomplete="off"
+                                            (click)="setPaymMethod('money')">
+                                        <i class="ri-money-dollar-circle-line"></i>
+                                        <p class="paymmodename">Dinheiro</p>
+                                    </label>
+                                    <label *ngIf="storeService.store.paym.transfer.enable == true"
+                                        [class]="(storeService.order.paymMethod == 'transfer') ? 'col btn paymmode active': 'col btn paymmode'">
+                                        <input type="radio" name="options" id="option3" autocomplete="off"
+                                            (click)="setPaymMethod('transfer')">
+                                        <i class="ri-exchange-dollar-line"></i>
+                                        <p class="paymmodename">Transferência</p>
+                                    </label>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </ng-container>
-            </div>
-        </li>
-        <li class="list-group-item bill" *ngIf="commandNow == 'share'">
-            <div class="container">
-                <div class="row">
-                    <div class="col text-center">
-                        <span class="question-text ">Pedido recebido =)</span>
-                        <p class="text-muted font-weight-bold">
-                            {{ formatSalesId() }}
-                        </p>
+
+                    <!-- ADDRESS -->
+                    <ng-container>
+                        <div class="row question">
+                            <div class="col-8">
+                                <span class="question-text">Qual é o seu endereço?</span>
+                            </div>
+                            <div class="col-2" *ngIf="!storeService.hasValidaAddress()">
+                                <span class="badge badge-danger">Obrigatório</span>
+                            </div>
+                        </div>
+                        <div class="row product" *ngIf="!storeService.hasValidaAddress() else elseAddress">
+                            <div class="col">
+                                <button type="button" class="btn btn-outline-secondary action d-flex"
+                                    [routerLink]="['/', storeService.store.name, 'address']">
+                                    <div class="col-2">
+                                        <i class="ri-map-pin-line"></i>
+                                    </div>
+                                    <div class="col-10 text-left">
+                                        <span class="question-text ">Selecionar endereço</span>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+                        <ng-template #elseAddress>
+                            <div class="row product ">
+                                <div class="col">
+                                    <button type="button " class="btn btn-outline-secondary action d-flex"
+                                        [routerLink]="[ '/', storeService.store.name, 'address']">
+                                        <div class="col-2">
+                                            <i class="ri-map-pin-line"></i>
+                                        </div>
+                                        <div class="col-10 text-left">
+                                            <span class="question-text">{{ this.storeService.formatAddressLine1() }}
+                                                <br> {{ this.storeService.formatAddressLine2() }}</span>
+                                        </div>
+                                    </button>
+                                </div>
+                            </div>
+                        </ng-template>
+                    </ng-container>
+
+                    <!-- USER NAME -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Seu nome</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="userName" class="form-control" minLength="3" maxLength="80"
+                                [(ngModel)]="storeService.order.userName" required>
+                        </div>
+                    </div>
+
+                    <!-- USER phone -->
+                    <ng-container>
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-text">Seu telefone</span>
+                            </div>
+                        </div>
+                        <div class="row product ">
+                            <div class="col">
+                                <input type="phone" name="userPhone" inputmode="numeric" class="form-control"
+                                    placeholder="(00) 9 0000 0000" required mask="(00) 0 0000-0000"
+                                    [dropSpecialCharacters]="false" [(ngModel)]="storeService.order.userPhone">
+                            </div>
+                        </div>
+                    </ng-container>
+                </div>
+            </li>
+            <li class="list-group-item bill" *ngIf="commandNow == 'share'">
+                <div class="container">
+                    <div class="row">
+                        <div class="col text-center">
+                            <span class="question-text ">Pedido recebido =)</span>
+                            <p class="text-muted font-weight-bold">
+                                {{ formatSalesId() }}
+                            </p>
+                        </div>
+                    </div>
+                    <div class="row" *ngIf="storeService.order.paymMethod == 'transfer'">
+                        <div class="col">
+                            <span class="question-text ">Dados para trnsferência</span>
+                            <p class="text-muted">
+                                <span class="question-text ">Banco:</span>
+                                {{ storeService.store.paym.transfer.bank }} <br>
+                                <span class="question-text ">Conta:</span>
+                                {{ storeService.store.paym.transfer.account }} <br>
+                                <span class="question-text ">Documento:</span>
+                                {{ storeService.store.paym.transfer.document }}
+                            </p>
+                        </div>
                     </div>
                 </div>
-                <div class="row" *ngIf="storeService.order.paymMethod == 'transfer'">
+            </li>
+        </ul>
+
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+            <div class="container justify-content-center">
+                <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+                <button *ngIf="commandNow == 'share'" class="btn btn-success btn-lg btn-confirm d-flex"
+                    (click)="sendViaWhats()">
+                    <div class="col-2">
+                        <i class="ri-whatsapp-line"></i>
+                    </div>
                     <div class="col">
-                        <span class="question-text ">Dados para trnsferência</span>
-                        <p class="text-muted">
-                            <span class="question-text ">Banco:</span>
-                            {{ storeService.store.paym.transfer.bank }} <br>
-                            <span class="question-text ">Conta:</span>
-                            {{ storeService.store.paym.transfer.account }} <br>
-                            <span class="question-text ">Documento:</span>
-                            {{ storeService.store.paym.transfer.document }}
-                        </p>
+                        Compartihar {{ formatSalesId() }}
                     </div>
-                </div>
+                </button>
+                <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
+                    [disabled]="!form.valid || !storeService.canSubmitOrder()">
+                    Enviar pedido
+                </button>
             </div>
-        </li>
-    </ul>
-
-
-    <br>
-    <br>
-    <br>
-    <br>
-    <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
-        <div class="container justify-content-center">
-            <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-            <button *ngIf="commandNow == 'share'" class="btn btn-success btn-lg btn-confirm d-flex"
-                (click)="sendViaWhats()">
-                <div class="col-2">
-                    <i class="ri-whatsapp-line"></i>
-                </div>
-                <div class="col">
-                    Compartihar {{ formatSalesId() }}
-                </div>
-            </button>
-            <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
-                [disabled]="!form.valid || !storeService.canSubmitOrder()">
-                Enviar pedido
-            </button>
-        </div>
-    </nav>
-</form>
+        </nav>
+    </form>
+</div>
