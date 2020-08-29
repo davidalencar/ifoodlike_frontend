@@ -3,10 +3,10 @@
     <div class="row">
         <div class="col">
             <ul class="list-group">
+                <li class="list-group-item bg-light">
+                    <span class="title">Separar</span>
+                </li>
                 <ng-container *ngIf="groupItems.simple != undefined">
-                    <li class="list-group-item bg-light">
-                        <span class="title">Separar</span>
-                    </li>
                     <li class="list-group-item"
                         *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.compose)">
                         <div class="row">
@@ -16,8 +16,12 @@
                             <div class="col">
                                 {{ p.product }}
                             </div>
-                            <div class="col-3">
-                                <input  *ngIf="p.productId != undefined" type="text" class="form-control" name="composePCostPrice"
+                            <div class="col-3 form-cost bg-light">
+                                <input  *ngIf="p.productId != undefined" type="text" class="form-control" name="composePVend"
+                                        [(ngModel)]="p.productId.vend">
+                            </div>
+                            <div class="col-3 form-cost bg-light">
+                                <input  *ngIf="p.productId != undefined" type="number"  inputmode="numeric" class="form-control" name="composePCostPrice"
                                         [(ngModel)]="p.productId.cost">
                             </div>
                         </div>
@@ -39,33 +43,52 @@
                         *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.simple)">
 
                         <div class="row">
-                            <div class="col-3">
+                            <div class="col-2">
                                 <span class="font-weight-bold">{{ p.qty }}X</span>
                             </div>
                             <div class="col">
                                 {{ p.product }}
                             </div>
-                            <div class="col-3">
-                                <input  *ngIf="p.productId != undefined" type="text" class="form-control" name="composePCostPrice"
-                                        [(ngModel)]="p.productId.cost">
+                            <div class="col-3 form-cost bg-light">
+                                <input  *ngIf="p.productId != undefined" type="text" class="form-control" name="simplePVend"
+                                        [(ngModel)]="p.productId.vend">
                             </div>
+                            <div class="col-3 form-cost bg-light">
+                                <input  *ngIf="p.productId != undefined" type="number"  inputmode="numeric" class="form-control" name="simplePCostPrice"
+                                        [(ngModel)]="p.productId.cost">
+                            </div>                            
                         </div>
-
                     </li>
                 </ng-container>
+                <li class="list-group-item bg-light">
+                    <div class="row">
+                        <div class="col">
+                            <span>Controle de custos:</span>
+                        </div>       
+                    </div>
+                    <div class="row" *ngFor="let v of sumItemsCost()">
+                        <div class="col">
+                            <span>{{ v.vend }}</span>
+                        </div>       
+                        <div class="col-3">
+                            <span>{{ storeService.formatPrice(v.amount) }}</span>
+                        </div>       
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span>Total</span>
+                        </div>       
+                        <div class="col-3">
+                            {{ storeService.formatPrice(totalItemsCost()) }}
+                        </div>
+                    </div>
+                    
+                </li>
             </ul>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-8">
-            <span>Total do custo:</span>
-        </div>
-        <div class="col-2">
-            <span>{{ storeService.formatPrice(sumItemsCost()) }}</span>
-        </div>
-    </div>
-
+   
     <div class="row">
         <div class="col">
             <div class="page-brack">

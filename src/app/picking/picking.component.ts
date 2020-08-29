@@ -8,25 +8,41 @@ import { StoreService } from '../services/store.service';
   selector: 'app-picking',
   templateUrl: './picking.component.html',
   styleUrls: ['../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
-  '../../../node_modules/remixicon/fonts/remixicon.css',
-  './picking.component.css']
+    '../../../node_modules/remixicon/fonts/remixicon.css',
+    './picking.component.css']
 })
 export class PickingComponent implements OnInit {
   groupItems: { compose: any[], simple: any[] } = { compose: [], simple: [] };
 
+
   constructor(public dashBoardService: DashBoardService, public storeService: StoreService) {
     this.fill();
-   }
+  }
 
   ngOnInit(): void {
   }
 
-  reduceItemsCost(list: any[]) {    
-    return list.map(p => (p.productId != undefined) ? p.productId.cost * p.qty : 0).reduce((p1, p2) => p1 + p2, 0);
+  mapItemsCostbyVend(list: any[]) {
+    return list.map(p => (p.productId != undefined) ? { vend: p.productId.vend, amount: p.productId.cost * p.qty } : { vend: '', amount: 0 })
   }
 
-  sumItemsCost() {    
-    return  this.reduceItemsCost(this.groupItems.compose) + this.reduceItemsCost(this.groupItems.simple);
+  sumItemsCost() {
+    const vendAmount = [... this.mapItemsCostbyVend(this.groupItems.compose), ... this.mapItemsCostbyVend(this.groupItems.simple)]
+    var vendCost: { vend: string, amount: number }[] = [];
+    vendAmount.forEach(v => {
+      const vendIndex = vendCost.findIndex(va => va.vend == v.vend)
+      if (vendIndex > -1) {
+        vendCost[vendIndex].amount += v.amount;
+      } else {
+        vendCost.push(v)
+      }
+
+    })
+    return vendCost;
+  }
+
+  totalItemsCost() {
+    return this.sumItemsCost().map(i => i.amount) .reduce((i1, i2) => i1 + i2, 0)
   }
 
   sumSalesPickingList() {
@@ -50,10 +66,10 @@ export class PickingComponent implements OnInit {
     const lines = this.getAllSalesLine(selectedSales);
     const linesGroupedByProduct = _.groupBy(lines, 'product');
 
-    Object.keys(linesGroupedByProduct).forEach(pg => {      
+    Object.keys(linesGroupedByProduct).forEach(pg => {
 
       if (linesGroupedByProduct[pg][0].items.length > 0) {
-        this.groupItems.compose = [...linesGroupedByProduct[pg], ...this.groupItems.compose]        
+        this.groupItems.compose = [...linesGroupedByProduct[pg], ...this.groupItems.compose]
       }
       else {
         const p = linesGroupedByProduct[pg].reduce((a, b) => { a.qty += b.qty; return a; })
@@ -64,7 +80,7 @@ export class PickingComponent implements OnInit {
   }
 
   onOrderSales() {
-    this.dashBoardService.salesPickingList =  this.dashBoardService.salesPickingList.sort((a, b) => a.deliveryOrder - b.deliveryOrder);
+    this.dashBoardService.salesPickingList = this.dashBoardService.salesPickingList.sort((a, b) => a.deliveryOrder - b.deliveryOrder);
   }
 
   onSendPickingList() {

@@ -18,3 +18,7 @@
     width: 100%;
     border-bottom-style: dashed;
 }
+
+.form-cost {
+    padding: 10px;
+}

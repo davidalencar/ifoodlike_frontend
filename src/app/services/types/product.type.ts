@@ -8,6 +8,7 @@ export class ProductType {
     unit: string;
     price: number;
     cost: number;
+    vend: string;
     category: string;
     enable: boolean;
     img?: string;
