@@ -29,4 +29,11 @@
     border-radius: 20px;
     color: #6c757d;
     border-color: #6c757d;
+    right: 10px;
+    position: absolute;
+}
+
+.menuitem {
+    color: #6c757d;
+    font-size: 16px;
 }

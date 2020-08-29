@@ -1,193 +1,232 @@
 <app-nav-back title="Lista de separação" [route]="['/', dashBoardService.currentStore, 'sales']"></app-nav-back>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <ul class="list-group">
+                <ng-container *ngIf="groupItems.simple != undefined">
+                    <li class="list-group-item bg-light">
+                        <span class="title">Separar</span>
+                    </li>
+                    <li class="list-group-item"
+                        *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.compose)">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-2">
+                                    <span class="font-weight-bold">{{ p.qty }} X</span>
+                                </div>
+                                <div class="col">
+                                    {{ p.product }}
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group mb-3" *ngIf="p.productId != undefined">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">R$</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="composePCostPrice" [(ngModel)]="p.productId.cost">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" *ngFor="let c of p.items">
+                                <div class="col text-muted">
+                                    {{c.category}}
+                                    <ul>
+                                        <li *ngFor="let i of c.items">
+                                            <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
+                                            {{i.item}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ng-container>
+                <ng-container *ngIf="groupItems.simple != undefined">
+                    <li class="list-group-item"
+                        *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.simple)">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3">
+                                    <span class="font-weight-bold">{{ p.qty }} X</span>
+                                </div>
+                                <div class="col">
+                                    {{ p.product }}
+                                </div>
+                                <div class="col-2">
+                                    <div class="input-group mb-3">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">R$</span>
+                                        </div>
+                                        <input type="text" class="form-control" name="pCostPrice"   [(ngModel)]="p.productId.cost">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
 
+    <div class="row">
+        <div class="col">
+            <span>Total do custo:</span>
+        </div>
+        <div class="col-2">
+            <span>{{ storeService.formatPrice(sumItemsCost()) }}</span>
+        </div>
+    </div>
 
-<ul class="list-group">
-    <ng-container *ngIf="groupItems.simple != undefined">
-        <li class="list-group-item bg-light">
-            <span class="title">Separar</span>
-        </li>
-        <li class="list-group-item" *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.compose)">
-            <div class="container">
-                <div class="row">
-                    <div class="col-3">
-                        <span class="font-weight-bold">{{ p.qty }} X</span>
-                    </div>
-                    <div class="col">
-                        {{ p.product }}
-                    </div>
-                </div>
-                <div class="row" *ngFor="let c of p.items">
-                    <div class="col text-muted">
-                        {{c.category}}
-                        <ul>
-                            <li *ngFor="let i of c.items">
-                                <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
-                                {{i.item}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ng-container>
-    <ng-container *ngIf="groupItems.simple != undefined">
-        <li class="list-group-item" *ngFor="let p of dashBoardService.ordeLineProductByName(groupItems.simple)">
-            <div class="container">
-                <div class="row">
-                    <div class="col-3">
-                        <span class="font-weight-bold">{{ p.qty }} X</span>
-                    </div>
-                    <div class="col">
-                        {{ p.product }}
-                    </div>
-                </div>
-            </div>
-        </li>
+    <div class="row">
+        <div class="col">
+            <div class="page-brack">
 
-    </ng-container>
-</ul>
-
-<div class="page-brack">
-
-</div>
-
-<ul class="list-group">
-    <li class="list-group-item bg-light">
-        <span class="title">Entregar</span>
-    </li>
-    <li class="list-group-item" *ngFor="let s of dashBoardService.salesPickingList">
-        <div class="container">
-            <div class="row">
-                <div class="col-4">
-                    <span class="font-weight-bold">Ordem:</span>
-                </div>
-                <div class="col-4">
-                    <input type="number" inputmode="numeric" name="deliveryOrder" class="form-control"
-                        [(ngModel)]="s.deliveryOrder" required pattern="[0-9]">
-                </div>
-
-            </div>
-            <div class="row question">
-                <div class="col-2">
-                    {{storeService.formatSalesId(s.salesId)}}
-                </div>
-                <div class="col-8">
-                    <span>
-                        Cliente: {{ s.cust.name}}
-                    </span>
-                </div>
-            </div>
-            <div class="row question">
-                <div class="col">
-                    <span class="question-title">
-                        Endereço:
-                    </span>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col">
-                    {{ dashBoardService.formatDeliveryAddressL1(s)}}<br>
-                    {{ dashBoardService.formatDeliveryAddressL2(s)}}<br>
-                    Telefone: {{ s.cust.phone}}
-                </div>
-            </div>
-            <div class="row question">
-                <div class="col">
-                    <span class="question-title">
-                        Items
-                    </span>
-                </div>
-            </div>
-            <ng-container *ngFor="let l of s.lines">
-                <div class="row">
-                    <div class="col-2">
-                        <span class="text-success">{{ l.qty }}X</span>
-                    </div>
-                    <div class="col">
-                        <span class="font-weight-normal"> {{ l.product }} </span>
-                    </div>
-                </div>
-                <div class="row" *ngFor="let c of l.items">
-                    <div class="col text-muted">
-                        {{c.category}}
-                        <ul>
-                            <li *ngFor="let i of c.items">
-                                <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
-                                {{i.item}}
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </ng-container>
-            <div class="row question" *ngIf="s.instruction">
-                <div class="col-2">
-                    <span class="question-title">
-                        Obs.:
-                    </span>
-                </div>
-                <div class="col">
-                    {{ s. instruction }}
-                </div>
-            </div>
-            <div class="row question">
-                <div class="col-3">
-                    <span class="question-title">
-                        Taxas:
-                    </span>
-                </div>
-            </div>
-            <div class="row text-muted" *ngFor="let t of s.taxes">
-                <div class="col">
-                    {{ t.name }}
-                </div>
-                <div class="col-3">
-                    {{ storeService.formatPrice(t.value)}}
-                </div>
-            </div>
-            <div class="row question">
-                <div class="col">
-                    <span class="question-title">
-                        Total:
-                    </span>
-                </div>
-                <div class="col-3">
-                    <span class="text-success font-weight-bold">
-                        {{ storeService.formatPrice(s.totalAmount) }}
-                    </span>
-                </div>
-            </div>
-            <div class="row question">
-                <div class="col">
-                    Custo:
-                </div>
-                <div class="col-3">
-                    <span class="text-danger font-weight-bold">
-                        {{ storeService.formatPrice(dashBoardService.calcSalesCost(s)) }}
-                    </span>
-                </div>
-            </div>
-            <div class="row question">
-                <div class="col-3">
-                    <span class="question-title">
-                        Pagamento:
-                    </span>
-                </div>
-                <div class="col">
-                    <label *ngIf="s.paymMethod == 'credit'" class="text-center">
-                        <p class="paymmodename">Cartão</p>
-                    </label>
-                    <label *ngIf="s.paymMethod == 'money'" class="text-center">
-                        <p class="paymmodename">Dinheiro</p>
-                    </label>
-                    <label *ngIf="s.paymMethod == 'transfer'" class="text-center">
-
-                        <p class="paymmodename">Transferência</p>
-                    </label>
-                </div>
             </div>
         </div>
-    </li>
-</ul>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul class="list-group">
+                <li class="list-group-item bg-light">
+                    <span class="title">Entregar</span>
+                </li>
+                <li class="list-group-item" *ngFor="let s of dashBoardService.salesPickingList">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-4">
+                                <span class="font-weight-bold">Ordem:</span>
+                            </div>
+                            <div class="col-4">
+                                <input type="number" inputmode="numeric" name="deliveryOrder" class="form-control"
+                                    [(ngModel)]="s.deliveryOrder" required pattern="[0-9]">
+                            </div>
+
+                        </div>
+                        <div class="row question">
+                            <div class="col-2">
+                                {{storeService.formatSalesId(s.salesId)}}
+                            </div>
+                            <div class="col-8">
+                                <span>
+                                    Cliente: {{ s.cust.name}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-title">
+                                    Endereço:
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ dashBoardService.formatDeliveryAddressL1(s)}}<br>
+                                {{ dashBoardService.formatDeliveryAddressL2(s)}}<br>
+                                Telefone: {{ s.cust.phone}}
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-title">
+                                    Items
+                                </span>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let l of s.lines">
+                            <div class="row">
+                                <div class="col-2">
+                                    <span class="text-success">{{ l.qty }}X</span>
+                                </div>
+                                <div class="col">
+                                    <span class="font-weight-normal"> {{ l.product }} </span>
+                                </div>
+                            </div>
+                            <div class="row" *ngFor="let c of l.items">
+                                <div class="col text-muted">
+                                    {{c.category}}
+                                    <ul>
+                                        <li *ngFor="let i of c.items">
+                                            <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
+                                            {{i.item}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="row question" *ngIf="s.instruction">
+                            <div class="col-2">
+                                <span class="question-title">
+                                    Obs.:
+                                </span>
+                            </div>
+                            <div class="col">
+                                {{ s. instruction }}
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col-3">
+                                <span class="question-title">
+                                    Taxas:
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row text-muted" *ngFor="let t of s.taxes">
+                            <div class="col">
+                                {{ t.name }}
+                            </div>
+                            <div class="col-3">
+                                {{ storeService.formatPrice(t.value)}}
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-title">
+                                    Total:
+                                </span>
+                            </div>
+                            <div class="col-3">
+                                <span class="text-success font-weight-bold">
+                                    {{ storeService.formatPrice(s.totalAmount) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col-3">
+                                <span class="question-title">
+                                    Pagamento:
+                                </span>
+                            </div>
+                            <div class="col">
+                                <label *ngIf="s.paymMethod == 'credit'" class="text-center">
+                                    <p class="paymmodename">Cartão</p>
+                                </label>
+                                <label *ngIf="s.paymMethod == 'money'" class="text-center">
+                                    <p class="paymmodename">Dinheiro</p>
+                                </label>
+                                <label *ngIf="s.paymMethod == 'transfer'" class="text-center">
+
+                                    <p class="paymmodename">Transferência</p>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <span>Total do vendas:</span>
+        </div>
+        <div class="col-2">
+            <span>{{ storeService.formatPrice(sumSalesPickingList()) }}</span>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+<br>
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light ">
     <div class="container justify-content-between">
         <button class="btn btn-lg btn-success btn-confirm" (click)="onSendPickingList()">

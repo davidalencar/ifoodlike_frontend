@@ -21,6 +21,18 @@ export class PickingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  reduceItemsCost(list: any[]) {    
+    return list.map(p => (p.productId != undefined) ? p.productId.cost * p.qty : 0).reduce((p1, p2) => p1 + p2, 0);
+  }
+
+  sumItemsCost() {    
+    return  this.reduceItemsCost(this.groupItems.compose) + this.reduceItemsCost(this.groupItems.simple);
+  }
+
+  sumSalesPickingList() {
+    return this.dashBoardService.salesPickingList.map(s => s.totalAmount).reduce((s1, s2) => s1 + s2, 0)
+  }
+
   getAllSalesLine(sales: SalesType[]) {
     return sales.map(s => s.lines).reduce((a, b) => {
       a.push(...b);
