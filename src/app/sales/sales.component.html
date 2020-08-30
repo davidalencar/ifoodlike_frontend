@@ -11,20 +11,16 @@
             <div class="dropdown-menu">
                 <a class="dropdown-item" (click)="onSetSelect(true)">Todos</a>
                 <a class="dropdown-item" (click)="onSetSelect(false)">Nenhum</a>
-                <a class="dropdown-item" (click)="onSetSelectStatus(true, 'received')">Recebidos</a>
-                <a class="dropdown-item" (click)="onSetSelectStatus(true, 'picked')">Separados</a>
-                <ng-container *ngIf="labels.length > 0">
+                <a class="dropdown-item" (click)="onSetSelectStatus('received')">Recebidos</a>
+                <a class="dropdown-item" (click)="onSetSelectStatus('picked')">Separados</a>
+                <ng-container *ngIf="dashBoardService.labels.length > 0">
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" *ngFor="let l of labels" (click)="onSetSelectLabel(true, l.name)" [style]="labelStyle(l.name)">
+                    <a class="dropdown-item" *ngFor="let l of dashBoardService.labels" (click)="onSetSelectLabel(l.name)"
+                        [style]="labelStyle(l.name)">
                         {{ l.name }}
                         <i class="ri-price-tag-3-fill"></i>
                     </a>
-                </ng-container>
-
-                <!-- <div class="d-flex label" [style]="custLabelStyle(s.cust)">
-                    <span> {{ showLabel(s.cust) }} </span>
-                    <i class="ri-price-tag-3-fill"></i>
-                </div> -->
+                </ng-container>              
             </div>
         </div>
         <a class="nav-link " (click)="generatePickingList()"> <span>Entregar </span> <i class="ri-truck-line"></i></a>
@@ -107,25 +103,31 @@
                         </div>
                     </div>
                 </div>
-                <a class="row question" (click)="showSales(s.salesId)">
-                    <div class="col-1">
+                <div class="row question">
+
+                    <div class="col-1 ">
                         <input type="checkbox" class="form-check-input" [(ngModel)]="s.selected">
                     </div>
-                    <div class="col-3">
-                        {{storeService.formatSalesId(s.salesId)}}
-                    </div>
                     <div class="col">
-                        <span> {{dashBoardService.formatDate(s.time)}} </span>
+
+                        <a class="d-flex" (click)="showSales(s.salesId)">
+                            <div class="col-3 col-check">
+                                {{storeService.formatSalesId(s.salesId)}}
+                            </div>
+                            <div class="col">
+                                <span> {{dashBoardService.formatDate(s.time)}} </span>
+                            </div>
+                            <div class="col-3">
+                                <label *ngIf="s.status == 'received'" class="text-center">
+                                    Recebido
+                                </label>
+                                <label *ngIf="s.status == 'picked'" class="text-center">
+                                    Separado
+                                </label>
+                            </div>
+                        </a>
                     </div>
-                    <div class="col-3">
-                        <label *ngIf="s.status == 'received'" class="text-center">
-                            Recebido
-                        </label>
-                        <label *ngIf="s.status == 'picked'" class="text-center">
-                            Separado
-                        </label>
-                    </div>
-                </a>
+                </div>
                 <ng-container *ngIf="salesToShow.includes(s.salesId)">
                     <div class="row question">
                         <div class="col">

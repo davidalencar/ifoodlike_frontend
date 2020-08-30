@@ -19,6 +19,7 @@ import { RegisterInterface } from './interfaces/register.interface';
 export class DashBoardService {
 
     userToken: TokenType = { access_token: '', userName: '', stores: [] }
+    labels: { name: string, color: string }[] = [];
     sales: SalesType[] = [];
     salesDeleted: SalesType[] = [];
     salesPickingList: SalesType[] = [];

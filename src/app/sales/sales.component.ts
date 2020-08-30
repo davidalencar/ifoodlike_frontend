@@ -24,7 +24,6 @@ export class SalesComponent implements OnInit {
   noSales = false;
   viewNow: string = 'sales'
   salesToShow = []
-  labels: { name: string, color: string }[] = [];
 
   items: { qty: number, products: string }[] = [];
 
@@ -42,14 +41,16 @@ export class SalesComponent implements OnInit {
     const id: Observable<string> = this.route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
       this.storeName = id;
+      this.dashBoardService.currentStore = id;
       this.dashBoardService.sales = [];
+      this.dashBoardService.labels = [];
       this.dashBoardService.salesDeleted = [];
       this.dashBoardService.salesPickingList = [];
 
       this.dashBoardService.getStoreSalesData(id)
         .subscribe(data => {
           this.dashBoardService.sales = data.sales;
-          this.labels = data.labels;
+          this.dashBoardService.labels = data.labels;
 
           if (this.dashBoardService.sales.length == 0) {
             this.noSales = true;
@@ -97,10 +98,10 @@ export class SalesComponent implements OnInit {
     return msg;
   }
 
-  onSetSelectStatus(value: boolean, status: string) {
+  onSetSelectStatus( status: string) {
     this.dashBoardService.sales.forEach(s => {
       if (s.status == status) {
-        s.selected = value
+        s.selected = true;
       }
     })
   }
@@ -111,7 +112,8 @@ export class SalesComponent implements OnInit {
 
   onSetSelectLabel(label: string) {
     this.dashBoardService.sales.forEach(s => {
-      if (s.cust.stores.findIndex(s => s.name == this.storeName && s.label == label) > -1) {
+      
+      if (this.showLabel(s.cust) == label) {
         s.selected = true;
       }
     })
@@ -137,18 +139,18 @@ export class SalesComponent implements OnInit {
   }
 
   labelStyle(name) {
-    const l = this.labels.find(l => l.name == name);
+    const l = this.dashBoardService.labels.find(l => l.name == name);
 
     return (l == undefined) ? '' : 'color: ' + l.color;
   }
 
   custLabelStyle(cust: CustomerType) {
-
+    
     return this.labelStyle(this.showLabel(cust));
   }
 
   showLabel(cust: CustomerType) {
-    const s = cust.stores.find(s => s.name == this.storeName);
+    const s = cust.stores.find(s => s.name == this.dashBoardService.currentStore);
 
     return s.label;
   }

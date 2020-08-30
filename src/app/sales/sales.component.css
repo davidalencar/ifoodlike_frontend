@@ -9,7 +9,7 @@
 }
 
 .row.question {
-    margin-top: 10px;
+    margin-top: 15px;
 }
 
 .question-title {
@@ -42,3 +42,8 @@
     position: absolute;
     right: 0;
   }
+
+.col-check {
+    padding-left: 5px;
+    padding-right: 5px;
+}
