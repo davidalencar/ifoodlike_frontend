@@ -16,10 +16,12 @@ import { CustomerType } from '../services/types/customer.type';
 })
 export class CustomerComponent implements OnInit {
 
+  commandNow: string = 'confirm';
   storeName = '';
   custs: CustomerType[] = [];
   custToShow: string[] = [];
   labels:{name: string, color: string}[] = [];
+  changedLabels: {custId: string, label: string}[] = [];
 
   constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
@@ -40,11 +42,17 @@ export class CustomerComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  labelStyle(cust: CustomerType) {
-    const l = this.labels.find(l => l.name == this.showLabel(cust));
+  labelStyle(name) {
+    const l = this.labels.find(l => l.name == name);
     
     return (l == undefined) ? '' : 'color: ' + l.color;
   }
+
+  custLabelStyle(cust: CustomerType) {
+    
+    return this.labelStyle(this.showLabel(cust));
+  }
+
   showLabel(cust: CustomerType) {
     const s = cust.stores.find(s => s.name == this.storeName);
 
@@ -70,4 +78,24 @@ export class CustomerComponent implements OnInit {
     }
   }
 
-}
+  onChangeCustLabel(newLabel: string, c: CustomerType) {
+    const curLabel = c.stores[c.stores.findIndex(s => s.name == this.storeName)].label;
+
+    if (curLabel != newLabel) {
+      c.stores[c.stores.findIndex(s => s.name == this.storeName)].label = newLabel;
+      c.changed = true;
+    }
+  }
+  
+  saveCustomer() {
+    this.commandNow = 'spinner';
+    this.dashBoardService.putStoreCustomerData(this.custs, this.storeName)
+      .subscribe(data => {
+        if (data.status == 'OK') {
+          this.commandNow = 'confirm';
+          this.custs.forEach(c => c.changed = false);
+        }
+      })
+  }
+
+ }

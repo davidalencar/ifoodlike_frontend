@@ -11,6 +11,7 @@ import { SalesType } from './types/sales.type';
 import { ProductType } from './types/product.type';
 import { StoreType } from './types/store.type';
 import { CustomerType } from './types/customer.type';
+import { RegisterInterface } from './interfaces/register.interface';
 
 
 
@@ -78,6 +79,21 @@ export class DashBoardService {
         return list.filter(p => p.changed);
     }
 
+    filterChangedCustomer(list: CustomerType[]) {
+        return list.filter(c => c.changed);
+    }
+
+    putStoreCustomerData(list: CustomerType[], storeName: string) {
+        const url = `${environment.loja_api}custs/${storeName}`;
+        const data = this.filterChangedCustomer(list).map(c => {
+            return { custId: c._id, label: c.stores[c.stores.findIndex(s => s.name == storeName)].label };
+        })
+
+        return this.http.put<{ status: string }>(url, { labes: data }, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
+    }
+  
     putStoreProductsData(list: ProductType[], storeName: string) {
 
         const url = `${environment.loja_api}products/control/${storeName}`;

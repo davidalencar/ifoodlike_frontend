@@ -1,7 +1,8 @@
 import { ItemType } from './item.type'
 import { ItemCategoryType } from './item.category.type'
+import { RegisterInterface } from '../interfaces/register.interface';
 
-export class ProductType {
+export class ProductType implements RegisterInterface {
     _id: string;
     name: string;
     description?: string;
@@ -12,11 +13,8 @@ export class ProductType {
     category: string;
     enable: boolean;
     img?: string;
-    qty?: number;
+    qty?: number = 0;
     maxQty?: number;
     items: ItemCategoryType [];
     changed: boolean = false;
-    constructor(){
-        this.qty = 0;
-    }
 }

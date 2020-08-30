@@ -1,5 +1,8 @@
-export class CustomerType {
+import { RegisterInterface } from '../interfaces/register.interface';
+
+export class CustomerType implements RegisterInterface {
     _id: string;
+    changed: boolean = false;
     address: {
         zipCode: string;
         street: string;
