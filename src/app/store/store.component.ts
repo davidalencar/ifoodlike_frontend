@@ -61,7 +61,7 @@ export class StoreComponent implements OnInit {
   }
 
   delTaxe(taxe: string) {
-    this.store.taxes = this.store.taxes.filter(t => t.name != taxe)
+    this.store.taxes = this.store.taxes.filter(t => t.name != taxe);
   }
 
   onAddTaxe(name: string, value: number) {
@@ -69,6 +69,25 @@ export class StoreComponent implements OnInit {
     if (value <= 0) return;
 
     this.store.taxes.push({ name, value });
+  }
+
+  onDelLabel(name: string) {
+    this.store.labels = this.store.labels.filter(l => l.name != name);
+  }
+
+  onAddLabel(name: string) {
+    if (name.trim().length < 3) return;
+    
+    this.store.labels.push({ name, color: this.getRandomColor() });
+  }
+
+  getRandomColor() {
+    var letters = '0123456789ABCDEF';
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
   }
 
   onAddCategory(name: string) {

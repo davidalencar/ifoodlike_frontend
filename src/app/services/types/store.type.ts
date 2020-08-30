@@ -8,6 +8,7 @@ export class StoreType {
     phone: string;
     taxes:{name: string, value:number}[];
     categories:{name: string, enable: boolean, order: number}[];
+    labels:{name: string, color: string}[];
     questions: {
         address: boolean;
         phone: boolean;

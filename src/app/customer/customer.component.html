@@ -1,3 +1,66 @@
 <app-nav-back title="Clientes" [route]="['/', 'user', 'board']"></app-nav-back>
 
-<h1>Em breve!</h1>
+<div class="container">
+
+    <div *ngIf="custs.length == 0" class="spinner-border" role="status">
+        <span class="sr-only">Carregando...</span>
+    </div>
+
+    <ul class="list-group" *ngIf="custs.length > 0">
+        <li class="list-group-item" *ngFor="let c of custs">
+            <a (click)="onShowCust(c._id)">
+                <div class="row">
+                    <div class="col-6">
+                        {{ c.name}}
+                    </div>
+                    <div class="col">
+                        <div class="d-flex" [style]="labelStyle(c)">
+                            <span> {{ showLabel(c) }} </span>
+                            <i class="ri-price-tag-3-fill"></i>
+                        </div>
+                    </div>
+                </div>
+            </a>
+
+            <ng-container *ngIf="custToShow.includes(c._id)">
+                <div class="row question">
+                    <div class="col">
+                        <span class="question-title">
+                            Endereço:
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ dashBoardService.formatDeliveryAddressL1(c)}}<br>
+                        {{ dashBoardService.formatDeliveryAddressL2(c)}}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col question">
+                        <span class="question-title">
+                            Telefone:
+                        </span>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ c.phone}}
+                    </div>
+                </div>
+                <div class="row question">
+                    <div class="col">
+                        <a class="btn btn-outline-secondary  d-flex" target="_blank" [href]="talkViaWhats(c.phone)">
+                            <div class="col-2">
+                                <i class="ri-whatsapp-line"></i>
+                            </div>
+                            <div class="col">
+                                Chamar no whats
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </ng-container>
+        </li>
+    </ul>
+</div>

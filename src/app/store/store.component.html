@@ -1,381 +1,439 @@
 <app-nav-back title="Configurações" [route]="['/', 'user', 'board']"></app-nav-back>
 
-<div *ngIf="store.name == undefined" class="spinner-border" role="status">
-    <span class="sr-only">Carregando...</span>
-</div>
-
-<ul class="list-group" *ngIf="store.name != undefined">
-    <li class="list-group-item bg-light">
-        <div class="container">
-            <a (click)="onShowSection('aparencia')">
-                <div class="row">
-                    <div class="col">
-                        Aparência
-                    </div>
-                </div>
-            </a>
-        </div>
-    </li>
-    <ng-container *ngIf="sectionsToShow.includes('aparencia')">
-        <li class="list-group-item">
+<div class="container">
+    <div *ngIf="store.name == undefined" class="spinner-border" role="status">
+        <span class="sr-only">Carregando...</span>
+    </div>
+    <ul class="list-group" *ngIf="store.name != undefined">
+        <li class="list-group-item bg-light">
             <div class="container">
-                <!-- TITULO -->
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Título da loja</span>
-                    </div>
-                </div>
-                <div class="row product ">
-                    <div class="col">
-                        <input type="text" name="title" class="form-control" minLength="3" maxLength="60"
-                            [(ngModel)]="store.title" required>
-                    </div>
-                </div>
-                <!-- SUB-TITULO -->
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Subtítulo</span>
-                    </div>
-                </div>
-                <div class="row product ">
-                    <div class="col">
-                        <input type="text" name="complement" class="form-control" minLength="3" maxLength="255"
-                            [(ngModel)]="store.complement" required>
-                    </div>
-                </div>
-                <!-- TITULO DA LISTA -->
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Como vc chama a sua lista?</span>
-                    </div>
-                </div>
-                <div class="row product ">
-                    <div class="col">
-                        <input type="text" name="shelfTitle" class="form-control" minLength="3" maxLength="255"
-                            [(ngModel)]="store.shelfTitle" required>
-                    </div>
-                </div>
-                <!-- TITULO DO PRODUTO -->
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Como quer chamar o seu produto?</span>
-                    </div>
-                </div>
-                <div class="row product ">
-                    <div class="col">
-                        <input type="text" name="productTitle" class="form-control" minLength="3" maxLength="255"
-                            [(ngModel)]="store.productTitle" required>
-                    </div>
-                </div>
-
-            </div>
-        </li>
-    </ng-container>
-
-    <!-- COMUNICACAO -->
-    <li class="list-group-item bg-light">
-        <div class="container">
-            <a (click)="onShowSection('comunicacao')">
-                <div class="row">
-                    <div class="col">
-                        Comunicação
-                    </div>
-                </div>
-            </a>
-        </div>
-    </li>
-    <ng-container *ngIf="sectionsToShow.includes('comunicacao')">
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Qual é seu whats?</span>
-                    </div>
-                </div>
-                <div class="row question ">
-                    <div class="col">
-                        <input type="phone" name="phone" inputmode="numeric" class="form-control"
-                            placeholder="(00) 9 0000 0000" required mask="(00) 0 0000-0000"
-                            [dropSpecialCharacters]="false" [(ngModel)]="store.phone">
-                    </div>
-                </div>
-                <!-- TITULO -->
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Quer ver no na mensagem do whats:</span>
-                    </div>
-                </div>
-                <div class="row question ">
-                    <div class="col-8">
-                        Número do cliente
-                    </div>
-                    <div class="col">
-                        <label class="switch ">
-                            <input type="checkbox" [(ngModel)]="store.questions.phone" class="default">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row question ">
-                    <div class="col-8">
-                        Endereço do cliente
-                    </div>
-                    <div class="col">
-                        <label class="switch ">
-                            <input type="checkbox" [(ngModel)]="store.questions.address" class="default">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-            </div>
-        </li>
-    </ng-container>
-
-    <!-- REGRAS -->
-    <li class="list-group-item bg-light">
-        <div class="container">
-            <a (click)="onShowSection('regras')">
-                <div class="row">
-                    <div class="col">
-                        Regras
-                    </div>
-                </div>
-            </a>
-        </div>
-    </li>
-    <ng-container *ngIf="sectionsToShow.includes('regras')">
-        <li class="list-group-item">
-            <div class="container">
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Valor mínimo para o pedido:</span>
-                    </div>
-                </div>
-                <div class="row question ">
-                    <div class="col">
-                        <div class="input-group mb-3">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text">R$</span>
-                            </div>
-                            <input type="minimumOrderAmount" name="minimumOrderAmount" inputmode="numeric"
-                                class="form-control" required mask="00,00" [(ngModel)]="store.minimumOrderAmount">
+                <a (click)="onShowSection('aparencia')">
+                    <div class="row">
+                        <div class="col">
+                            Aparência
                         </div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <ng-container *ngIf="sectionsToShow.includes('aparencia')">
+            <li class="list-group-item">
+                <div class="container">
+                    <!-- TITULO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Título da loja</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="title" class="form-control" minLength="3" maxLength="60"
+                                [(ngModel)]="store.title" required>
+                        </div>
+                    </div>
+                    <!-- SUB-TITULO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Subtítulo</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="complement" class="form-control" minLength="3" maxLength="255"
+                                [(ngModel)]="store.complement" required>
+                        </div>
+                    </div>
+                    <!-- TITULO DA LISTA -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Como vc chama a sua lista?</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="shelfTitle" class="form-control" minLength="3" maxLength="255"
+                                [(ngModel)]="store.shelfTitle" required>
+                        </div>
+                    </div>
+                    <!-- TITULO DO PRODUTO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Como quer chamar o seu produto?</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="productTitle" class="form-control" minLength="3" maxLength="255"
+                                [(ngModel)]="store.productTitle" required>
+                        </div>
+                    </div>
 
-                    </div>
                 </div>
-                <!-- PAGAMENTO -->
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Como vc recebe pagamento?</span>
+            </li>
+        </ng-container>
+
+        <!-- COMUNICACAO -->
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <a (click)="onShowSection('comunicacao')">
+                    <div class="row">
+                        <div class="col">
+                            Comunicação
+                        </div>
                     </div>
-                </div>
-                <div class="row question ">
-                    <div class="col-8">
-                        Dinheiro
+                </a>
+            </div>
+        </li>
+        <ng-container *ngIf="sectionsToShow.includes('comunicacao')">
+            <li class="list-group-item">
+                <div class="container">
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Qual é seu whats?</span>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label class="switch ">
-                            <input type="checkbox" [(ngModel)]="store.paym.money" class="default">
-                            <span class="slider round"></span>
-                        </label>
+                    <div class="row question ">
+                        <div class="col">
+                            <input type="phone" name="phone" inputmode="numeric" class="form-control"
+                                placeholder="(00) 9 0000 0000" required mask="(00) 0 0000-0000"
+                                [dropSpecialCharacters]="false" [(ngModel)]="store.phone">
+                        </div>
                     </div>
-                </div>
-                <div class="row question ">
-                    <div class="col-8">
-                        Cartão de crédito
+                    <!-- TITULO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Quer ver no na mensagem do whats:</span>
+                        </div>
                     </div>
-                    <div class="col">
-                        <label class="switch ">
-                            <input type="checkbox" [(ngModel)]="store.paym.credit" class="default">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-                <div class="row question ">
-                    <div class="col-8">
-                        Transferência
-                    </div>
-                    <div class="col">
-                        <label class="switch ">
-                            <!-- [checked]="store.paym.transfer.enable"  -->
-                            <input type="checkbox" [(ngModel)]="store.paym.transfer.enable" class="default">
-                            <span class="slider round"></span>
-                        </label>
-                    </div>
-                </div>
-                <ng-container *ngIf="store.paym.transfer.enable">
                     <div class="row question ">
                         <div class="col-8">
-                            Em qual conta vc recebe os pagamentos?
+                            Número do cliente
                         </div>
-                    </div>
-                    <!-- BANCO -->
-                    <div class="row question">
                         <div class="col">
-                            <span class="question-text">Banco:</span>
+                            <label class="switch ">
+                                <input type="checkbox" [(ngModel)]="store.questions.phone" class="default">
+                                <span class="slider round"></span>
+                            </label>
                         </div>
                     </div>
-                    <div class="row product ">
+                    <div class="row question ">
+                        <div class="col-8">
+                            Endereço do cliente
+                        </div>
                         <div class="col">
-                            <input type="text" name="bank" class="form-control" minLength="3" maxLength="30"
-                                placeholder="Itaú, Bradesco, Santander,etc..." [(ngModel)]="store.paym.transfer.bank"
-                                required>
+                            <label class="switch ">
+                                <input type="checkbox" [(ngModel)]="store.questions.address" class="default">
+                                <span class="slider round"></span>
+                            </label>
                         </div>
                     </div>
-                    <!-- CONTA -->
-                    <div class="row question">
+                </div>
+            </li>
+        </ng-container>
+
+        <!-- REGRAS -->
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <a (click)="onShowSection('regras')">
+                    <div class="row">
                         <div class="col">
-                            <span class="question-text">Agência e Conta Corrente</span>
+                            Regras
                         </div>
                     </div>
-                    <div class="row product ">
-                        <div class="col">
-                            <input type="text" name="account" class="form-control" minLength="3" maxLength="255"
-                                placeholder="Ag.: 0001 Cc.: 000001-1" [(ngModel)]="store.paym.transfer.account"
-                                required>
-                        </div>
-                    </div>
-                    <!-- DOCUMENTO -->
-                    <div class="row question">
-                        <div class="col">
-                            <span class="question-text">Documento do titular:</span>
-                        </div>
-                    </div>
-                    <div class="row product ">
-                        <div class="col">
-                            <input type="text" name="document" class="form-control" minLength="3" maxLength="255"
-                                placeholder="CPF ou CNPJ" [(ngModel)]="store.paym.transfer.document" required>
-                        </div>
-                    </div>
-                </ng-container>
+                </a>
             </div>
         </li>
-    </ng-container>
-
-    <!-- TAXAS -->
-    <li class="list-group-item bg-light">
-        <div class="container">
-            <a (click)="onShowSection('taxas')">
-                <div class="row">
-                    <div class="col">
-                        Taxas
+        <ng-container *ngIf="sectionsToShow.includes('regras')">
+            <li class="list-group-item">
+                <div class="container">
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Valor mínimo para o pedido:</span>
+                        </div>
                     </div>
+                    <div class="row question ">
+                        <div class="col">
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text">R$</span>
+                                </div>
+                                <input type="minimumOrderAmount" name="minimumOrderAmount" inputmode="numeric"
+                                    class="form-control" required mask="00,00" [(ngModel)]="store.minimumOrderAmount">
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- PAGAMENTO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Como vc recebe pagamento?</span>
+                        </div>
+                    </div>
+                    <div class="row question ">
+                        <div class="col-8">
+                            Dinheiro
+                        </div>
+                        <div class="col">
+                            <label class="switch ">
+                                <input type="checkbox" [(ngModel)]="store.paym.money" class="default">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row question ">
+                        <div class="col-8">
+                            Cartão de crédito
+                        </div>
+                        <div class="col">
+                            <label class="switch ">
+                                <input type="checkbox" [(ngModel)]="store.paym.credit" class="default">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <div class="row question ">
+                        <div class="col-8">
+                            Transferência
+                        </div>
+                        <div class="col">
+                            <label class="switch ">
+                                <!-- [checked]="store.paym.transfer.enable"  -->
+                                <input type="checkbox" [(ngModel)]="store.paym.transfer.enable" class="default">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
+                    <ng-container *ngIf="store.paym.transfer.enable">
+                        <div class="row question ">
+                            <div class="col-8">
+                                Em qual conta vc recebe os pagamentos?
+                            </div>
+                        </div>
+                        <!-- BANCO -->
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-text">Banco:</span>
+                            </div>
+                        </div>
+                        <div class="row product ">
+                            <div class="col">
+                                <input type="text" name="bank" class="form-control" minLength="3" maxLength="30"
+                                    placeholder="Itaú, Bradesco, Santander,etc..."
+                                    [(ngModel)]="store.paym.transfer.bank" required>
+                            </div>
+                        </div>
+                        <!-- CONTA -->
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-text">Agência e Conta Corrente</span>
+                            </div>
+                        </div>
+                        <div class="row product ">
+                            <div class="col">
+                                <input type="text" name="account" class="form-control" minLength="3" maxLength="255"
+                                    placeholder="Ag.: 0001 Cc.: 000001-1" [(ngModel)]="store.paym.transfer.account"
+                                    required>
+                            </div>
+                        </div>
+                        <!-- DOCUMENTO -->
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-text">Documento do titular:</span>
+                            </div>
+                        </div>
+                        <div class="row product ">
+                            <div class="col">
+                                <input type="text" name="document" class="form-control" minLength="3" maxLength="255"
+                                    placeholder="CPF ou CNPJ" [(ngModel)]="store.paym.transfer.document" required>
+                            </div>
+                        </div>
+                    </ng-container>
                 </div>
-            </a>
-        </div>
-    </li>
-    <!-- TAXAS  -->
-    <ng-container *ngIf="sectionsToShow.includes('taxas')">
-        <li class="list-group-item">
+            </li>
+        </ng-container>
+
+        <!-- TAXAS -->
+        <li class="list-group-item bg-light">
             <div class="container">
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Quais taxas vc cobra?</span>
+                <a (click)="onShowSection('taxas')">
+                    <div class="row">
+                        <div class="col">
+                            Taxas
+                        </div>
                     </div>
-                </div>
-
-                <div class="row question ">
-                    <div class="col">
-                        <ul class="list-group ">
-                            <li class="list-group-item bg-light">
-                                <div class="form-inline">
-                                    <input type="text" class="form-control mb-2 mr-sm-2" name="taxeName" ngModel
-                                        #taxeName="ngModel" placeholder="Nome">
-                                    <div class="input-group mb-2 mr-sm-2">
-                                        <div class="input-group-prepend">
-                                            <div class="input-group-text">R$</div>
-                                        </div>
-                                        <input type="text" inputmode="numeric" name="taxeValue" ngModel
-                                            #taxeValue="ngModel" class="form-control" placeholder="00,00">
-                                    </div>
-                                    <button type="submit" class="btn btn-primary mb-2"
-                                        (click)="onAddTaxe(taxeName.value, taxeValue.value)">Criar</button>
-                                </div>
-                            </li>
-                            <li class="list-group-item" *ngFor="let t of store.taxes">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-6">
-                                            {{ t.name }}
-                                        </div>
-                                        <div class="col-4">
-                                            {{ storeService.formatPrice(t.value)}}
-                                        </div>
-                                        <div class="col">
-                                            <a (click)="delTaxe(t.name)">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                </a>
             </div>
         </li>
-    </ng-container>
+        <!-- TAXAS  -->
+        <ng-container *ngIf="sectionsToShow.includes('taxas')">
+            <li class="list-group-item">
+                <div class="container">
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Quais taxas vc cobra?</span>
+                        </div>
+                    </div>
 
-    <!-- CATEGORIAS  -->
-    <li class="list-group-item bg-light">
-        <div class="container">
-            <a (click)="onShowSection('categorias')">
-                <div class="row">
-                    <div class="col">
-                        Organização
-                    </div>
-                </div>
-            </a>
-        </div>
-    </li>
-    <ng-container>
-        <li class="list-group-item" *ngIf="sectionsToShow.includes('categorias')">
-            <div class="container">
-                <div class="row question">
-                    <div class="col">
-                        <span class="question-text">Dividir prateleira:</span>
-                    </div>
-                </div>
-                <div class="row question ">
-                    <div class="col">
-                        <ul class="list-group ">
-                            <li class="list-group-item bg-light">
-                                <div class="form-inline">
-                                    <input type="text" class="form-control mb-2 mr-sm-2" name="categoryName" ngModel
-                                        #categoryName="ngModel" placeholder="Nome">
-                                    <button type="submit" class="btn btn-primary mb-2"
-                                        (click)="onAddCategory(categoryName.value)">Criar</button>
-                                </div>
-                            </li>
-                            <li class="list-group-item" *ngFor="let c of sortCategories()">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-8">
-                                            {{ c.name }}
+                    <div class="row question ">
+                        <div class="col">
+                            <ul class="list-group ">
+                                <li class="list-group-item bg-light">
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control mb-2 mr-sm-2" name="taxeName" ngModel
+                                            #taxeName="ngModel" placeholder="Nome">
+                                        <div class="input-group mb-2 mr-sm-2">
+                                            <div class="input-group-prepend">
+                                                <div class="input-group-text">R$</div>
+                                            </div>
+                                            <input type="text" inputmode="numeric" name="taxeValue" ngModel
+                                                #taxeValue="ngModel" class="form-control" placeholder="00,00">
                                         </div>
-                                        <div class="col">
-                                            <div class="btn-group-vertical">
-                                                <button type="button" class="btn" (click)="orderCategory(-1, c.name)"><i
-                                                        class="ri-arrow-up-fill"></i></button>
-                                                <button type="button" class="btn" (click)="orderCategory(1, c.name)"><i
-                                                        class="ri-arrow-down-fill"></i></button>
+                                        <button type="submit" class="btn btn-primary mb-2"
+                                            (click)="onAddTaxe(taxeName.value, taxeValue.value)">Criar</button>
+                                    </div>
+                                </li>
+                                <li class="list-group-item" *ngFor="let t of store.taxes">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-6">
+                                                {{ t.name }}
+                                            </div>
+                                            <div class="col-4">
+                                                {{ storeService.formatPrice(t.value)}}
+                                            </div>
+                                            <div class="col">
+                                                <a (click)="delTaxe(t.name)">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </a>
                                             </div>
                                         </div>
-                                        <div class="col">
-                                            <a (click)="delCategory(c.name)">
-                                                <i class="ri-delete-bin-line"></i>
-                                            </a>
-                                        </div>
                                     </div>
-                                </div>
-                            </li>
-                        </ul>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
+            </li>
+        </ng-container>
+
+        <!-- CATEGORIAS  -->
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <a (click)="onShowSection('categorias')">
+                    <div class="row">
+                        <div class="col">
+                            Organizar Produtos
+                        </div>
+                    </div>
+                </a>
             </div>
         </li>
-    </ng-container>
-</ul>
+        <ng-container>
+            <li class="list-group-item" *ngIf="sectionsToShow.includes('categorias')">
+                <div class="container">
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Dividir prateleira:</span>
+                        </div>
+                    </div>
+                    <div class="row question ">
+                        <div class="col">
+                            <ul class="list-group ">
+                                <li class="list-group-item bg-light">
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control mb-2 mr-sm-2" name="categoryName" ngModel
+                                            #categoryName="ngModel" placeholder="Nome">
+                                        <button type="submit" class="btn btn-primary mb-2"
+                                            (click)="onAddCategory(categoryName.value)">Criar</button>
+                                    </div>
+                                </li>
+                                <li class="list-group-item" *ngFor="let c of sortCategories()">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-8">
+                                                {{ c.name }}
+                                            </div>
+                                            <div class="col">
+                                                <div class="btn-group-vertical">
+                                                    <button type="button" class="btn"
+                                                        (click)="orderCategory(-1, c.name)"><i
+                                                            class="ri-arrow-up-fill"></i></button>
+                                                    <button type="button" class="btn"
+                                                        (click)="orderCategory(1, c.name)"><i
+                                                            class="ri-arrow-down-fill"></i></button>
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <a (click)="delCategory(c.name)">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ng-container>
+
+        <!-- ETIQUETAS  -->
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <a (click)="onShowSection('labels')">
+                    <div class="row">
+                        <div class="col">
+                            Organizar Clientes
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <ng-container>
+            <li class="list-group-item" *ngIf="sectionsToShow.includes('labels')">
+                <div class="container">
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Crie etiquetas e controle seus clientes e pedidos:</span>
+                        </div>
+                    </div>
+                    <div class="row question ">
+                        <div class="col">
+                            <ul class="list-group ">
+                                <li class="list-group-item bg-light">
+                                    <div class="form-inline">
+                                        <input type="text" class="form-control mb-2 mr-sm-2" name="labelName" ngModel
+                                            #labelName="ngModel" placeholder="Nome">
+                                        <button type="submit" class="btn btn-primary mb-2"
+                                            (click)="onAddLabel(labelName.value)">Criar</button>
+                                    </div>
+                                </li>
+                                <li class="list-group-item" *ngFor="let l of store.labels">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-1">
+                                                <i class="ri-price-tag-3-fill" [style]="'color: ' + l.color"></i>
+                                            </div>
+                                            <div class="col-8">
+                                                {{ l.name }}
+                                            </div>
+                                            <div class="col">
+                                                <a (click)="onDelLabel(l.name)">
+                                                    <i class="ri-delete-bin-line"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+</div>
 <br>
 <br>
 <br>

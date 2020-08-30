@@ -10,6 +10,7 @@ import { TokenType } from './types/token.type'
 import { SalesType } from './types/sales.type';
 import { ProductType } from './types/product.type';
 import { StoreType } from './types/store.type';
+import { CustomerType } from './types/customer.type';
 
 
 
@@ -52,6 +53,15 @@ export class DashBoardService {
         const url = `${environment.loja_api}sales/${storeName}`;
 
         return this.http.get<{ sales: SalesType[] }>(url, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
+    }
+
+    getStoreCustData(storeName: string) {
+        this.currentStore = storeName;
+        const url = `${environment.loja_api}custs/${storeName}`;
+
+        return this.http.get<{ custs: CustomerType[], labels:{name: string, color: string}[] }>(url, {
             headers: { 'Authorization': this.userToken.access_token }
         })
     }
@@ -144,13 +154,13 @@ export class DashBoardService {
         return moment(date).format('DD/MM/YYYY HH:mm')
     }
 
-    formatDeliveryAddressL1(s: SalesType) {
-        const ad = s.cust.address;
+    formatDeliveryAddressL1(cust: CustomerType) {
+        const ad = cust.address;
         return `${ad.street}, ${ad.number}${(ad.complement) ? ' - ' + ad.complement : ''}`
     }
 
-    formatDeliveryAddressL2(s: SalesType) {
-        const ad = s.cust.address;
+    formatDeliveryAddressL2(cust: CustomerType) {
+        const ad = cust.address;
         return `CEP: ${ad.zipCode} - ${ad.district} - ${ad.city}/${ad.state}`
     }
 

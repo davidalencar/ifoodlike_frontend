@@ -1,4 +1,5 @@
 import { ProductType } from './product.type';
+import { CustomerType } from './customer.type';
 
 export class SalesType {
     status: string;
@@ -7,20 +8,7 @@ export class SalesType {
     salesId: string;
     store: string;
     time: Date;    
-    cust: {
-        address: {
-            zipCode: string;
-            street: string;
-            number: string;
-            district: string;
-            city: string;
-            state: string;
-            complement: string;
-        };
-        phone: string;
-        name: string;
-        custId: string;
-    };
+    cust: CustomerType;
     paymMethod: string;
     totalAmount: number;
     instruction: string;
