@@ -8,6 +8,7 @@ import { map } from 'rxjs/operators';
 import { DashBoardService } from '../services/dashboard.service';
 import { StoreService } from '../services/store.service';
 import { SalesType } from '../services/types/sales.type'
+import { CustomerType } from '../services/types/customer.type';
 
 @Component({
   selector: 'app-sales',
@@ -18,10 +19,12 @@ import { SalesType } from '../services/types/sales.type'
 })
 export class SalesComponent implements OnInit {
 
+  storeName = '';
   viewTotal = false;
   noSales = false;
   viewNow: string = 'sales'
   salesToShow = []
+  labels: { name: string, color: string }[] = [];
 
   items: { qty: number, products: string }[] = [];
 
@@ -38,6 +41,7 @@ export class SalesComponent implements OnInit {
   onRefresh() {
     const id: Observable<string> = this.route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
+      this.storeName = id;
       this.dashBoardService.sales = [];
       this.dashBoardService.salesDeleted = [];
       this.dashBoardService.salesPickingList = [];
@@ -45,6 +49,7 @@ export class SalesComponent implements OnInit {
       this.dashBoardService.getStoreSalesData(id)
         .subscribe(data => {
           this.dashBoardService.sales = data.sales;
+          this.labels = data.labels;
 
           if (this.dashBoardService.sales.length == 0) {
             this.noSales = true;
@@ -104,14 +109,22 @@ export class SalesComponent implements OnInit {
     this.dashBoardService.sales.forEach(s => s.selected = value)
   }
 
+  onSetSelectLabel(label: string) {
+    this.dashBoardService.sales.forEach(s => {
+      if (s.cust.stores.findIndex(s => s.name == this.storeName && s.label == label) > -1) {
+        s.selected = true;
+      }
+    })
+  }
+
   generatePickingList() {
     this.dashBoardService.salesPickingList = this.getSelectedSales();
     this.router.navigate([this.dashBoardService.currentStore, 'picking'])
   }
 
   onDeleteSelected() {
-    this.dashBoardService.salesDeleted = this.getSelectedSales();    
-    
+    this.dashBoardService.salesDeleted = this.getSelectedSales();
+
   }
 
 
@@ -121,6 +134,23 @@ export class SalesComponent implements OnInit {
 
   sendDelete() {
     this.dashBoardService.deleteStoreSalesData();
+  }
+
+  labelStyle(name) {
+    const l = this.labels.find(l => l.name == name);
+
+    return (l == undefined) ? '' : 'color: ' + l.color;
+  }
+
+  custLabelStyle(cust: CustomerType) {
+
+    return this.labelStyle(this.showLabel(cust));
+  }
+
+  showLabel(cust: CustomerType) {
+    const s = cust.stores.find(s => s.name == this.storeName);
+
+    return s.label;
   }
 
 }

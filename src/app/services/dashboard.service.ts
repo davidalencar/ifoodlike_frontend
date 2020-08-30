@@ -53,7 +53,7 @@ export class DashBoardService {
         this.currentStore = storeName;
         const url = `${environment.loja_api}sales/${storeName}`;
 
-        return this.http.get<{ sales: SalesType[] }>(url, {
+        return this.http.get<{ sales: SalesType[], labels:{name: string, color: string}[]  }>(url, {
             headers: { 'Authorization': this.userToken.access_token }
         })
     }
@@ -167,6 +167,10 @@ export class DashBoardService {
     }
 
     formatDate(date: Date) {
+        return moment(date).format('DD/MM/YYYY')
+    }
+
+    formatDateTime(date: Date) {
         return moment(date).format('DD/MM/YYYY HH:mm')
     }
 
