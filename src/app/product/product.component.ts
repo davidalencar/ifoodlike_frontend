@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { DashBoardService } from '../services/dashboard.service';
 import { Observable } from 'rxjs';
@@ -24,7 +24,10 @@ export class ProductComponent implements OnInit {
   categories:{name: string, enable: boolean, order: number}[] = [];
   noProducts = false;
 
-  constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService) {
+  constructor(private route: ActivatedRoute, 
+    public storeService: StoreService, 
+    public dashBoardService: DashBoardService, 
+    private router: Router) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
       this.storeName = id;
@@ -93,5 +96,8 @@ export class ProductComponent implements OnInit {
       })
   }
 
-  
+  onEditProduct(p) {
+    this.dashBoardService.editProduct = p;
+    this.router.navigate(['/', this.storeName, 'product'])
+  }
 }

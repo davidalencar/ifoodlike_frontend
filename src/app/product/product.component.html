@@ -1,6 +1,7 @@
 <app-nav-back title="Produtos" [route]="['/', 'user', 'board']"></app-nav-back>
 
 <div class="container">
+    <h3>Disponibilidade e organização</h3>
     <div *ngIf="products.length == 0 && noProducts == false" class="spinner-border" role="status">
         <span class="sr-only">Carregando...</span>
     </div>
@@ -60,7 +61,7 @@
                             <div class="row row-form">
                                 <div class="col">
                                     <button type="button" class="btn btn-outline-secondary"
-                                        [routerLink]="['/', storeName, 'product']">Editar detalhes</button>
+                                        (click)="onEditProduct(p)">Editar detalhes</button>
                                 </div>
                             </div>
                         </ng-container>

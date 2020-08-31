@@ -12,6 +12,7 @@ import { ProductType } from './types/product.type';
 import { StoreType } from './types/store.type';
 import { CustomerType } from './types/customer.type';
 import { RegisterInterface } from './interfaces/register.interface';
+import { isObject } from 'lodash';
 
 
 
@@ -24,6 +25,7 @@ export class DashBoardService {
     salesDeleted: SalesType[] = [];
     salesPickingList: SalesType[] = [];
     currentStore: string = '';
+    editProduct: ProductType;
 
     constructor(private http: HttpClient) { }
 
@@ -126,6 +128,16 @@ export class DashBoardService {
         }, e => console.log(e))
     }
 
+    putStoreProduct() {
+        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;
+       
+
+        return this.http.put<ProductType>(url, this.editProduct, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
+    }
+
+
     putStoreSalesStaus(list: SalesType[], newStatus: string) {
         const url = `${environment.loja_api}sales/status/${this.currentStore}`;
         const data = list.map(s => {
@@ -139,7 +151,7 @@ export class DashBoardService {
 
     getStoreProductsData(storeName: string) {
         const url = `${environment.loja_api}products/${storeName}`;
-
+        this.currentStore = storeName;
         return this.http.get<{
             categories: {
                 name: string,
@@ -197,4 +209,27 @@ export class DashBoardService {
     calcSalesCost(sale: SalesType) {
         return sale.lines.map(l => (l.productId != undefined) ? l.productId.cost * l.qty : 0).reduce((a, b) => a + b, 0);
     }
+
+    deepEqual(object1, object2) {
+        const keys1 = Object.keys(object1);
+        const keys2 = Object.keys(object2);
+    
+        if (keys1.length !== keys2.length) {
+          return false;
+        }
+    
+        for (const key of keys1) {
+          const val1 = object1[key];
+          const val2 = object2[key];
+          const areObjects = isObject(val1) && isObject(val2);
+          if (
+            areObjects && !this.deepEqual(val1, val2) ||
+            !areObjects && val1 !== val2
+          ) {
+            return false;
+          }
+        }
+    
+        return true;
+      }
 }

@@ -1,1 +1,140 @@
-<p>products works!</p>
+<app-nav-back title="Produto" [route]="['/', dashBoardService.currentStore, 'products']"></app-nav-back>
+<div class="container">
+    <ul class="list-group">
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <a (click)="onShowSection('geral')">
+                    <div class="row">
+                        <div class="col">
+                            Geral
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <ng-container *ngIf="sectionsToShow.includes('geral')">
+            <li class="list-group-item">
+                <div class="container">
+                    <!-- TITULO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Nome</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="name" class="form-control" minLength="3" maxLength="60"
+                                [(ngModel)]="dashBoardService.editProduct.name" required>
+                        </div>
+                    </div>
+                    <!-- SUB-TITULO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Descrição</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <textarea name="description" class="form-control" minLength="3" maxLength="255"
+                                [(ngModel)]="dashBoardService.editProduct.description" required></textarea>
+                        </div>
+                    </div>
+                    <!-- TITULO DA LISTA -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Unidade</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="unit" class="form-control" minLength="3" maxLength="255"
+                                [(ngModel)]="dashBoardService.editProduct.unit" required>
+                        </div>
+                    </div>
+                    <!-- TITULO DO PRODUTO -->
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Preço</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">R$</div>
+                                </div>
+                                <input type="number" name="price" class="form-control" inputmode="numeric" 
+                                    placeholder="00,00" [(ngModel)]="dashBoardService.editProduct.price" required>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+        </ng-container>
+
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <a (click)="onShowSection('custo')">
+                    <div class="row">
+                        <div class="col">
+                            Controle de custo
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <ng-container *ngIf="sectionsToShow.includes('custo')">
+            <li class="list-group-item">
+                <div class="container">
+                   
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Fornecedor</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <input type="text" name="name" class="form-control" minLength="3" maxLength="60"
+                                [(ngModel)]="dashBoardService.editProduct.vend" required>
+                        </div>
+                    </div>
+                   
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Preço de custo</span>
+                        </div>
+                    </div>
+                    <div class="row product ">
+                        <div class="col">
+                            <div class="input-group mb-2 mr-sm-2">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text">R$</div>
+                                </div>
+                                <input type="number" name="price" class="form-control" inputmode="numeric" 
+                                    placeholder="00,00" [(ngModel)]="dashBoardService.editProduct.cost" required>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </li>
+        </ng-container>
+    </ul>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light" *ngIf="canSave()">
+    <div class="container justify-content-center">
+        <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
+            (click)="saveProduct()">
+            Salvar
+        </button>
+    </div>
+</nav>
