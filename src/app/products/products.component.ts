@@ -50,4 +50,13 @@ export class ProductsComponent implements OnInit {
     }
   }
 
+  onDelProduct() {
+    this.dashBoardService.deleteStoreProduct()
+      .subscribe(data =>  {
+        if (data.status == 'OK') {
+          this.router.navigate(['/', this.dashBoardService.currentStore, 'products'])
+        }
+      })
+  }
+
 }

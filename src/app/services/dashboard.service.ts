@@ -137,6 +137,14 @@ export class DashBoardService {
         })
     }
 
+    deleteStoreProduct() {
+        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;       
+
+        return this.http.delete<{status: string}>(url,{
+            headers: { 'Authorization': this.userToken.access_token }
+        });
+    }
+
 
     putStoreSalesStaus(list: SalesType[], newStatus: string) {
         const url = `${environment.loja_api}sales/status/${this.currentStore}`;
