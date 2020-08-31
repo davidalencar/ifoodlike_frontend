@@ -29,8 +29,8 @@ export class StoreComponent implements OnInit {
       this.storeName = id;
       this.dashBoardService.getStoreData(id)
         .subscribe(data => {
-          this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');     
           this.store = data.store;     
+          this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');     
           this.storeCompare = JSON.parse(JSON.stringify(data.store));
         })
 
@@ -58,8 +58,13 @@ export class StoreComponent implements OnInit {
     }).filter(c => c.enable == true)
   }
 
-  orderCategory(plus: number, category:string) {
-    this.store.categories.find(c => c.name == category).order+= plus;
+  orderCategory(plus: number, category:string) {    
+    this.store.categories.find(c => c.name == category).order+= plus * 2;
+    this.store.categories = this.sortCategories();
+    for (let index = 0; index < this.store.categories.length; index++) {
+      const element = this.store.categories[index].order = index;      
+    }
+    
   }
 
   delTaxe(taxe: string) {

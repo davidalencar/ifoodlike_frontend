@@ -285,7 +285,7 @@
                                             <div class="input-group-prepend">
                                                 <div class="input-group-text">R$</div>
                                             </div>
-                                            <input type="text" inputmode="numeric" name="taxeValue" ngModel
+                                            <input type="number" inputmode="numeric" name="taxeValue" ngModel
                                                 #taxeValue="ngModel" class="form-control" placeholder="00,00">
                                         </div>
                                         <button type="submit" class="btn btn-primary mb-2"
@@ -350,7 +350,7 @@
                                 <li class="list-group-item" *ngFor="let c of sortCategories()">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-8">
+                                            <div class="col-6">
                                                 {{ c.name }}
                                             </div>
                                             <div class="col">
