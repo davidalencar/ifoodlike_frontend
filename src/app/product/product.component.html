@@ -1,9 +1,10 @@
 <app-nav-back title="Produtos" [route]="['/', 'user', 'board']"></app-nav-back>
 
 <div class="container">
-    <div *ngIf="products.length == 0" class="spinner-border" role="status">
+    <div *ngIf="products.length == 0 && noProducts == false" class="spinner-border" role="status">
         <span class="sr-only">Carregando...</span>
     </div>
+    <h2 *ngIf="noProducts == true">Nenhum produto</h2>
 
     <ul class="list-group" *ngIf="products.length > 0">
 
@@ -112,6 +113,9 @@
         </ng-container>
     </ul>
 </div>
+<br>
+<br>
+<br>
 <br>
 
 <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light"

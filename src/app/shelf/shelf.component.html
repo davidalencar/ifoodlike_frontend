@@ -16,30 +16,36 @@
 </div>
 
 
-    <div class="nav sticky-top bg-white">
-        <div class="menu-title">
-            {{ storeService.store.shelfTitle }}
-        </div>
-        <nav class='vertical-align-middle scroll sticky-top'>
-            <a class="nav-item  menu-item" *ngFor="let category of storeService.categories "
+<div class="nav sticky-top bg-white">
+
+    <div class="menu-title">
+        {{ storeService.store.shelfTitle }}
+    </div>
+    <nav class='vertical-align-middle scroll sticky-top'>
+        <a class="nav-item  menu-item" *ngFor="let category of storeService.categories "
             [href]="storeService.store.name + '#' + category.name">
-                <div class="menu-name">{{ category.name }}</div>
-            </a>
-        </nav>
-    </div>
+            <div class="menu-name">{{ category.name }}</div>
+        </a>
+    </nav>
+
+</div>
 
 
-    <div class="list-group list-group-flush " *ngFor="let category of storeService.categories ">
-        <div class="list-group-item bg-light ">
+<div class="bg-light">
+    <div class="container">
+        <div class="list-group list-group-flush " *ngFor="let category of storeService.categories ">
+            <div class="list-group-item bg-light ">
                 <h4 [id]="category.name">{{ category.name }} </h4>
-        </div>
-        <div [id]="p._id " *ngFor="let p of storeService.productsByCategory(category.name) ">
-            <app-shelfitem [productId]="p._id "></app-shelfitem>
+            </div>
+            <div [id]="p._id " *ngFor="let p of storeService.productsByCategory(category.name) ">
+                <app-shelfitem [productId]="p._id "></app-shelfitem>
+            </div>
         </div>
     </div>
-    <br>
-    <br>
-    <br>
+</div>
+<br>
+<br>
+<br>
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light ">
     <div class="container justify-content-end ">
         <button class="btn btn-lg btn-success btn-confirm" [routerLink]="[nextRouterLink()] "

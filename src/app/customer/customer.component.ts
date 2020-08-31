@@ -18,6 +18,7 @@ export class CustomerComponent implements OnInit {
 
   commandNow: string = 'confirm';
   storeName = '';
+  noCust = false;
   custs: CustomerType[] = [];
   custToShow: string[] = [];
   labels:{name: string, color: string}[] = [];
@@ -32,6 +33,7 @@ export class CustomerComponent implements OnInit {
             
             this.custs = data.custs;
             this.labels = data.labels;
+            this.noCust = this.custs.length == 0;
           }, (e: any) =>{
             console.log(e);
           })

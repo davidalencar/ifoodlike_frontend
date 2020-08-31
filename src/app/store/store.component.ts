@@ -29,7 +29,8 @@ export class StoreComponent implements OnInit {
       this.storeName = id;
       this.dashBoardService.getStoreData(id)
         .subscribe(data => {
-          this.store = data.store;          
+          this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');     
+          this.store = data.store;     
           this.storeCompare = JSON.parse(JSON.stringify(data.store));
         })
 
@@ -41,9 +42,10 @@ export class StoreComponent implements OnInit {
 
   saveStore() {
     this.commandNow = 'spinner';
+    this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');
     this.dashBoardService.storeUpdate(this.store)
       .subscribe((saved: StoreType) => {
-        this.commandNow = 'confirm';
+        this.commandNow = 'confirm';        
         this.store = saved;
         this.storeCompare = JSON.parse(JSON.stringify(saved));
       })

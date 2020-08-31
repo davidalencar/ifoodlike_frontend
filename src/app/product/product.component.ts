@@ -22,6 +22,7 @@ export class ProductComponent implements OnInit {
   categoriesToShow:string[] = [];
   products: ProductType[] = [];
   categories:{name: string, enable: boolean, order: number}[] = [];
+  noProducts = false;
 
   constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
@@ -31,6 +32,7 @@ export class ProductComponent implements OnInit {
           .subscribe(data => {
             this.categories = this.dashBoardService.sortCategories(data.categories);
             this.products = data.products;
+            this.noProducts = this.products.length == 0;
           }, (e: any) =>{
             console.log(e);
           })
