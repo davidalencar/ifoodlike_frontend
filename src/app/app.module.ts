@@ -21,7 +21,8 @@ import { NavBackComponent } from './nav-back/nav-back.component';
 import { ProductComponent } from './product/product.component';
 import { StoreComponent } from './store/store.component';
 import { PickingComponent } from './picking/picking.component';
-import { ProductsComponent } from './products/products.component'
+import { ProductsComponent } from './products/products.component';
+import { SubItemComponent } from './sub-item/sub-item.component'
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ProductsComponent } from './products/products.component'
     ProductComponent,
     StoreComponent,
     PickingComponent,
-    ProductsComponent
+    ProductsComponent,
+    SubItemComponent
   ],
   imports: [
     BrowserModule,

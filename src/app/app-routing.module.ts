@@ -12,6 +12,7 @@ import { ProductComponent } from './product/product.component'
 import { ProductsComponent } from './products/products.component'
 import { StoreComponent } from './store/store.component'
 import { PickingComponent } from './picking/picking.component';
+import { SubItemComponent } from './sub-item/sub-item.component';
 
 
 import { StoreLoadedGuard } from './guards/storeLoaded.guard'
@@ -31,7 +32,8 @@ const routes: Routes = [
   { path: ':id/products', component: ProductComponent, canActivate: [AuthGuard]},
   { path: ':id/product', component: ProductsComponent, canActivate: [AuthGuard]},
   { path: ':id/store', component: StoreComponent, canActivate: [AuthGuard]},
-  { path: ':id/picking', component: PickingComponent, canActivate: [AuthGuard]}
+  { path: ':id/picking', component: PickingComponent, canActivate: [AuthGuard]},
+  { path: ':id/subitem', component: SubItemComponent, canActivate: [AuthGuard]}
   
   
 ];
