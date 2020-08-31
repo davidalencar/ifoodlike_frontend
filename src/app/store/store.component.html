@@ -353,20 +353,16 @@
                                             <div class="col-6">
                                                 {{ c.name }}
                                             </div>
+                                           
                                             <div class="col">
-                                                <div class="btn-group-vertical">
-                                                    <button type="button" class="btn"
-                                                        (click)="orderCategory(-1, c.name)"><i
-                                                            class="ri-arrow-up-fill"></i></button>
-                                                    <button type="button" class="btn"
-                                                        (click)="orderCategory(1, c.name)"><i
-                                                            class="ri-arrow-down-fill"></i></button>
+                                                <div class="d-flex command-group">
+                                                    <a class="command" (click)="orderCategory(-1, c.name)"><i
+                                                            class="ri-arrow-up-fill"></i></a>
+                                                    <a class="command" (click)="orderCategory(1, c.name)"><i
+                                                            class="ri-arrow-down-fill"></i></a>
+                                                    <a class="command" (click)="delCategory(c.name)"><i
+                                                            class="ri-delete-bin-line"></i></a>
                                                 </div>
-                                            </div>
-                                            <div class="col">
-                                                <a (click)="delCategory(c.name)">
-                                                    <i class="ri-delete-bin-line"></i>
-                                                </a>
                                             </div>
                                         </div>
                                     </div>

@@ -1,1 +1,134 @@
-<p>sub-item works!</p>
+<app-nav-back title="Subitens" [route]="['/', dashBoardService.currentStore, 'product']"></app-nav-back>
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <span class="question-text">Crie divisões para organizar melhor seus subitens.</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="form-row">
+                <div class="col">
+                    <input type="text" class="form-control mb-2 mr-sm-2" name="subCategoryName" ngModel
+                        #subCategoryName="ngModel" placeholder="Nome">
+                </div>
+                <div class="col">
+
+                    <select class="form-control" name="subCategoryType" ngModel #subCategoryType="ngModel" required>
+                        <option value=""> - Livre - </option>
+                        <option value="choice"> - Múltipla escolha - </option>
+
+                    </select>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-primary mb-2" (click)="onCategoryCreate(subCategoryName.value, subCategoryType.value)">Criar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span class="question-text">Divisões</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <ul class="list-group" *ngFor="let c of sortCategories()">
+                <li class="list-group-item bg-light">
+                    <div class="container">
+                        <div class="row">
+                            <a (click)="onShowCategory(c.name)" class="col">
+                                <span> {{c.name}}</span><br>
+                                <span class="text-muted">{{ (c.type == 'choice') ? '(Escolha)' : '(Livre)' }} </span>
+                            </a>
+                            <div class="col-2">
+                                <div class="d-flex command-group">
+                                    <a class="command" (click)="orderCategory(-1, c.name)"><i
+                                            class="ri-arrow-up-fill"></i></a>
+                                    <a class="command" (click)="orderCategory(1, c.name)"><i
+                                            class="ri-arrow-down-fill"></i></a>
+                                    <a class="command" (click)="onDeleteCategory(c.name)"><i
+                                            class="ri-delete-bin-line"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <ng-container *ngIf="categoriesToShow.includes(c.name)">
+                    <li class="list-group-item">
+                        <div class="container">
+                            <div class="row question">
+                                <div class="col">
+                                    <span class="question-text"> Criar novos itens</span>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="text" class="form-control mb-2 mr-sm-2" name="subCategoryName" ngModel
+                                        #subItemName="ngModel" placeholder="Nome">
+                                </div>
+                                <div class="col">
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">R$</div>
+                                        </div>
+                                        <input type="number" inputmode="numeric" name="subItemPrice" ngModel
+                                            #subItemPrice="ngModel" class="form-control" placeholder="Preço">
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <input type="number" inputmode="numeric" name="subItemQtyDf" ngModel
+                                        #subItemQtyDf="ngModel" class="form-control" placeholder="Qtde. Padrão">
+                                </div>
+                                <div class="col">
+                                    <input type="number" inputmode="numeric" name="subItemQtyMx" ngModel
+                                        #subItemQtyMx="ngModel" class="form-control" placeholder="Qtde. Máxima">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col">
+                                    <button type="submit" class="btn btn-primary mb-2" (click)="onItemCreate(c.name, subItemName.value, subItemPrice.value, subItemQtyDf.value, subItemQtyMx.value)">Criar</button>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item" *ngFor="let p of c.products">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-8">
+                                    {{p.name}} <br>
+                                    {{storeService.formatPrice(p.price)}} <br>
+                                    <span class="question-text">Qtde. Padrão: </span> {{p.qty}}<br>
+                                    <span class="question-text">Qtde. Máxima: </span>{{p.maxQty}}<br>
+                                </div>
+                                <div class="col">
+                                    <a class="command" (click)="onDeleteProduct(c.name, p._id)"><i
+                                        class="ri-delete-bin-line"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<br>
+<br>
+<br>
+<br>
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light" *ngIf="canSave()">
+    <div class="container justify-content-center">
+        <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
+            (click)="saveSubItems()">
+            Salvar
+        </button>
+    </div>
+</nav>
