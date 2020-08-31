@@ -128,9 +128,17 @@ export class DashBoardService {
         }, e => console.log(e))
     }
 
+  
+    postStoreProduct() {
+        const url = `${environment.loja_api}products/${this.currentStore}`;          
+
+        return this.http.post<ProductType>(url, this.editProduct, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
+    }
+
     putStoreProduct() {
-        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;
-       
+        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;          
 
         return this.http.put<ProductType>(url, this.editProduct, {
             headers: { 'Authorization': this.userToken.access_token }

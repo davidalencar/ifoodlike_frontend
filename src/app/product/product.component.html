@@ -27,20 +27,43 @@
                 </div>
             </li>
             <ng-container *ngIf="categoriesToShow.includes(c.name)">
+                <li class="list-group-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col">
+                                <span class="question-text"> Criar novo item</span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <input type="text" class="form-control mb-2 mr-sm-2" name="itemName" ngModel
+                                    #itemName="ngModel" placeholder="Nome">
+                            </div>
+                            <div class="col">
+                                <div class="input-group mb-2 mr-sm-2">
+                                    <div class="input-group-prepend">
+                                        <div class="input-group-text">R$</div>
+                                    </div>
+                                    <input type="number" inputmode="numeric" name="itemPrice" ngModel
+                                        #itemPrice="ngModel" class="form-control" placeholder="Preço">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="form-row">
+                            <div class="col">
+                                <button type="submit" class="btn btn-primary mb-2" (click)="onItemCreate(c.name, itemName.value, itemPrice.value)">Criar</button>
+                            </div>
+                        </div>
+                    </div>
+                </li>
                 <li class="list-group-item"
                     *ngFor="let p of dashBoardService.filterProductsByCategory(products, c.name)">
                     <div class="container">
                         <div class="row">
-                            <div class="col-1">
-                                <a (click)="showProduct(p._id)">
-                                    <i class="ri-pencil-line"></i>
-                                </a>
-                            </div>
-                            <div class="col-8">
-                                <a (click)="showProduct(p._id)">
-                                    {{ p.name }}
-                                </a>
-                            </div>
+                            <a class="col-8" (click)="showProduct(p._id)">
+                                {{ p.name }}
+                            </a>
                             <div class="col">
                                 <label class="switch ">
                                     <input type="checkbox" [checked]="p.enable" (click)="changeItem(p)" class="default">
@@ -49,7 +72,7 @@
                             </div>
                         </div>
                         <ng-container *ngIf="productsToShow.includes(p._id)">
-                            <div class="row row-form">
+                            <div class="row-form">
                                 <div class="col">
                                     <select class="form-control" name=""
                                         (change)="onChangeCategory($event.target.value, p)" required>
@@ -90,9 +113,6 @@
                 <div class="container">
                     <a (click)="showProduct(p._id)">
                         <div class="row">
-                            <div class="col-1">
-                                <i class="ri-pencil-line"></i>
-                            </div>
                             <div class="col-8">
                                 {{ p.name }}
                             </div>

@@ -65,7 +65,19 @@ export class ProductComponent implements OnInit {
       this.categoriesToShow.push(name)
     }
   }
-  
+
+  onItemCreate(category: string, name: string, price: number) {
+    this.dashBoardService.editProduct = {
+      name,
+      category,
+      price,
+      items: [],
+      enable: true,
+      changed: false,
+      store: this.storeName
+    };
+    this.router.navigate(['/', this.storeName, 'product'])
+  }
 
   changeItem(p: ProductType) {
     p.enable = !p.enable;

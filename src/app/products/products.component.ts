@@ -16,14 +16,14 @@ export class ProductsComponent implements OnInit {
   commandNow = "confirm";
 
 
-  constructor(public storeService: StoreService, 
-    public dashBoardService: DashBoardService, 
+  constructor(public storeService: StoreService,
+    public dashBoardService: DashBoardService,
     private router: Router) {
-      this.productCompare = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+    this.productCompare = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
   }
 
   ngOnInit(): void {
-    
+
   }
 
   canSave() {
@@ -31,16 +31,29 @@ export class ProductsComponent implements OnInit {
   }
 
   saveProduct() {
-    
+
     this.commandNow = 'spinner';
-    
-    this.dashBoardService.putStoreProduct()
-      .subscribe((saved: ProductType) => {
-        this.commandNow = 'confirm';        
-        this.dashBoardService.editProduct = saved;
-        this.productCompare = JSON.parse(JSON.stringify(saved));
-      })
+
+    const refreshProduct = (saved: ProductType) => {
+      this.commandNow = 'confirm';
+      this.dashBoardService.editProduct = saved;
+      this.productCompare = JSON.parse(JSON.stringify(saved));
+    }
+
+    if(this.dashBoardService.editProduct._id == undefined || this.dashBoardService.editProduct._id == '') {
+      this.dashBoardService.postStoreProduct()
+      .subscribe(refreshProduct)
+    } else {
+
+      this.dashBoardService.putStoreProduct()
+        .subscribe(refreshProduct)
+    }
+
+
   }
+  
+  
+
 
   onShowSection(name: string) {
     if (this.sectionsToShow.includes(name)) {
@@ -52,7 +65,7 @@ export class ProductsComponent implements OnInit {
 
   onDelProduct() {
     this.dashBoardService.deleteStoreProduct()
-      .subscribe(data =>  {
+      .subscribe(data => {
         if (data.status == 'OK') {
           this.router.navigate(['/', this.dashBoardService.currentStore, 'products'])
         }
