@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { DashBoardService } from '../services/dashboard.service';
 import { Observable } from 'rxjs';
@@ -23,8 +23,12 @@ export class CustomerComponent implements OnInit {
   custToShow: string[] = [];
   labels:{name: string, color: string}[] = [];
   changedLabels: {custId: string, label: string}[] = [];
+  routerId = '';
 
-  constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService) {
+  constructor(private route: ActivatedRoute,
+    public storeService: StoreService, 
+    public dashBoardService: DashBoardService, 
+    private router: Router) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
       this.storeName = id;
@@ -38,10 +42,29 @@ export class CustomerComponent implements OnInit {
             console.log(e);
           })
       
+    });
+    router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const tree = router.parseUrl(router.url);
+        if (tree.fragment) {
+          this.routerId = tree.fragment;         
+        }
+      }
     });    
   }
 
   ngOnInit(): void {
+  }
+
+  ngAfterViewInit(): void {
+    if (this.routerId.length > 0) {
+      const element = document.getElementById(this.routerId);
+
+      if (element) { 
+        element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});         
+      }
+
+    }
   }
 
   labelStyle(name) {

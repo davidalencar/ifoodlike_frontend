@@ -243,7 +243,9 @@
                     </div>
                     <div class="row">
                         <div class="col">
-                            {{ s.cust.name}}
+                            <a [routerLink]="['/', dashBoardService.currentStore, 'cust']" [fragment]="s.cust._id">
+                                {{ s.cust.name}}
+                            </a>
                         </div>
                     </div>
                     <div class="row">
