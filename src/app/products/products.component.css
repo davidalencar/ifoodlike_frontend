@@ -9,6 +9,21 @@
     font-family: poppins, sans-serif;
 }
 
+.command {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.command-group {
+  
+  border-style: solid;
+  border-width: 1px;
+  border-radius: 20px;
+  color: #6c757d;
+  border-color: #6c757d;
+  right: 10px;
+  position: absolute;
+}
 
 
 /* The switch - the box around the slider */

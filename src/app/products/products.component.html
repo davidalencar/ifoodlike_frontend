@@ -2,11 +2,28 @@
 <div class="container">
     <div class="jumbotron jumbotron-fluid bg-white">
         <div class="container">
-            <h1 class="display-4">{{dashBoardService.editProduct.name}}</h1>            
+            <h1 class="display-4">{{dashBoardService.editProduct.name}}</h1>
         </div>
     </div>
-    
+
+
     <ul class="list-group">
+        <li class="list-group-item bg-light">
+            <div class="container ">
+                <div class="row">
+                    <div class="col">
+                        Controle
+                    </div>
+
+                    <div class="col-2">
+                        <div class="d-flex command-group">
+                            <a class="command" (click)="onCopyProduct()"><i class="ri-file-copy-2-line"></i></a>
+                            <a class="command" (click)="onDelProduct()"><i class="ri-delete-bin-line"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
         <li class="list-group-item bg-light">
             <div class="container">
                 <a (click)="onShowSection('geral')">
@@ -69,7 +86,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">R$</div>
                                 </div>
-                                <input type="number" name="price" class="form-control" inputmode="numeric" 
+                                <input type="number" name="price" class="form-control" inputmode="numeric"
                                     placeholder="00,00" [(ngModel)]="dashBoardService.editProduct.price" required>
                             </div>
                         </div>
@@ -93,7 +110,7 @@
         <ng-container *ngIf="sectionsToShow.includes('custo')">
             <li class="list-group-item">
                 <div class="container">
-                   
+
                     <div class="row question">
                         <div class="col">
                             <span class="question-text">Fornecedor</span>
@@ -105,7 +122,7 @@
                                 [(ngModel)]="dashBoardService.editProduct.vend" required>
                         </div>
                     </div>
-                   
+
                     <div class="row question">
                         <div class="col">
                             <span class="question-text">Preço de custo</span>
@@ -117,7 +134,7 @@
                                 <div class="input-group-prepend">
                                     <div class="input-group-text">R$</div>
                                 </div>
-                                <input type="number" name="price" class="form-control" inputmode="numeric" 
+                                <input type="number" name="price" class="form-control" inputmode="numeric"
                                     placeholder="00,00" [(ngModel)]="dashBoardService.editProduct.cost" required>
                             </div>
                         </div>
@@ -125,7 +142,7 @@
 
                 </div>
             </li>
-        </ng-container>  
+        </ng-container>
         <li class="list-group-item bg-light">
             <div class="container">
                 <a (click)="onShowSection('subItems')">
@@ -158,28 +175,20 @@
                 <div class="container">
                     <div class="row">
                         <div class="col">
-                            <button type="button" class="btn btn-outline-secondary d-flex actionMenu" [routerLink]="['/', dashBoardService.currentStore , 'subitem']">
+                            <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                                [routerLink]="['/', dashBoardService.currentStore , 'subitem']">
                                 <div class="col-2">
                                     <i class="ri-bill-line"></i>
                                 </div>
                                 <div class="col-10 text-left">
                                     <span class="">Editar Subitens</span>
                                 </div>
-                            </button>                            
+                            </button>
                         </div>
-                    </div>  
-                </div>
-            </li> 
-        </ng-container>
-        <li class="list-group-item bg-light">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <button type="button" class="btn btn-danger" (click)="onDelProduct()">Excluir</button>
                     </div>
                 </div>
-            </div>
-        </li>
+            </li>
+        </ng-container>
     </ul>
 </div>
 

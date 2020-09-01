@@ -7,7 +7,7 @@ import { DashBoardService } from '../services/dashboard.service';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.css']
+  styleUrls: ['../../../node_modules/remixicon/fonts/remixicon.css', './products.component.css']
 })
 export class ProductsComponent implements OnInit {
 
@@ -41,6 +41,12 @@ export class ProductsComponent implements OnInit {
     return true;
   }
 
+  onCopyProduct() {
+    this.dashBoardService.editProduct = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+    this.dashBoardService.editProduct._id = undefined;
+    this.productCompare = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+    this.dashBoardService.editProduct.name = `Cópia - ${this.dashBoardService.editProduct.name}` 
+  }
 
 
   canSave() {
