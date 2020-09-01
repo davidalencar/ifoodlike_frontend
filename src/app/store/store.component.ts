@@ -83,7 +83,7 @@ export class StoreComponent implements OnInit {
   }
 
   onAddLabel(name: string) {
-    if (name.trim().length < 3) return;
+    if (name.trim().length < 0) return;
     
     this.store.labels.push({ name, color: this.getRandomColor() });
   }
@@ -98,7 +98,7 @@ export class StoreComponent implements OnInit {
   }
 
   onAddCategory(name: string) {
-    if (name.trim().length < 3) return;
+    if (name.trim().length < 0) return;
 
     this.store.categories.push({
       name,

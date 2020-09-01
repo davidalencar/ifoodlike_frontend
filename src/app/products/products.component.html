@@ -1,5 +1,11 @@
 <app-nav-back title="Produto" [route]="['/', dashBoardService.currentStore, 'products']"></app-nav-back>
 <div class="container">
+    <div class="jumbotron jumbotron-fluid bg-white">
+        <div class="container">
+            <h1 class="display-4">{{dashBoardService.editProduct.name}}</h1>            
+        </div>
+    </div>
+    
     <ul class="list-group">
         <li class="list-group-item bg-light">
             <div class="container">

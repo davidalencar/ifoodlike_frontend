@@ -47,6 +47,8 @@ export class SubItemComponent implements OnInit {
   }
 
   onCategoryCreate(name: string, type: string) {
+    if(name.length < 0) return;
+
     const category: ItemCategoryType = {
       name,
       type,
@@ -59,6 +61,9 @@ export class SubItemComponent implements OnInit {
   }
 
   onItemCreate(category, name: string, price: number, qty: number, maxQty: number) {
+
+    if(name.length < 0) return;
+
     var cat = this.product.items.find(c => c.name == category);
     cat.products.push({      
       name,
@@ -69,14 +74,24 @@ export class SubItemComponent implements OnInit {
   }
 
   saveSubItems() {
+
     this.commandNow = 'spinner';
     this.dashBoardService.editProduct = this.product;
-    this.dashBoardService.putStoreProduct()
-      .subscribe((saved: ProductType) => {
-        this.commandNow = 'confirm';        
-        this.dashBoardService.editProduct = saved;
-        this.product = JSON.parse(JSON.stringify(saved));
-      })
+
+    const refreshProduct = (saved: ProductType) => {
+      this.commandNow = 'confirm';        
+      this.dashBoardService.editProduct = saved;
+      this.product = JSON.parse(JSON.stringify(saved));
+    }
+
+    if (this.dashBoardService.editProduct._id == undefined || this.dashBoardService.editProduct._id == '') {
+      this.dashBoardService.postStoreProduct()
+        .subscribe(refreshProduct)
+    } else {
+
+      this.dashBoardService.putStoreProduct()
+        .subscribe(refreshProduct)
+    }
   }
 
   sortCategories() {

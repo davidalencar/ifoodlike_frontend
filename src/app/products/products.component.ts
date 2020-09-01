@@ -26,12 +26,28 @@ export class ProductsComponent implements OnInit {
 
   }
 
-  canSave() {
+
+  isNewProduct() {
+    return this.dashBoardService.editProduct._id == undefined;
+  }
+
+  isChangedProduct() {
     return this.dashBoardService.deepEqual(this.dashBoardService.editProduct, this.productCompare) == false;
   }
 
-  saveProduct() {
+  isValidProduct() {
+    if (this.dashBoardService.editProduct.name.length < 0) return false;
 
+    return true;
+  }
+
+
+
+  canSave() {
+    return  this.isValidProduct() && (this.isChangedProduct() || this.isNewProduct());
+  }
+
+  saveProduct() {
     this.commandNow = 'spinner';
 
     const refreshProduct = (saved: ProductType) => {
@@ -40,19 +56,17 @@ export class ProductsComponent implements OnInit {
       this.productCompare = JSON.parse(JSON.stringify(saved));
     }
 
-    if(this.dashBoardService.editProduct._id == undefined || this.dashBoardService.editProduct._id == '') {
+    if (this.dashBoardService.editProduct._id == undefined || this.dashBoardService.editProduct._id == '') {
       this.dashBoardService.postStoreProduct()
-      .subscribe(refreshProduct)
+        .subscribe(refreshProduct)
     } else {
 
       this.dashBoardService.putStoreProduct()
         .subscribe(refreshProduct)
     }
-
-
   }
-  
-  
+
+
 
 
   onShowSection(name: string) {
