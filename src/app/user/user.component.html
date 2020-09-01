@@ -4,45 +4,65 @@
             <h1>{{ storename }}</h1>
         </div>
         <div class="col-3">
-            <a class="btn" [routerLink]="['/', storename, 'store']" >
-                <i class="ri-settings-4-fill ri-2x"  height="32" width="32"></i>
-            </a>
+            <div class="command-group">
+                <a class="command text-reset" [href]="storename" target="_blank">
+                    <i class="ri-eye-line"></i>
+                </a>
+                <a class="command text-reset" [routerLink]="['/', storename, 'store']">
+                    <i class="ri-settings-4-fill ri-2x" height="32" width="32"></i>
+                </a>
+            </div>
         </div>
     </div>
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-outline-secondary d-flex actionMenu" [routerLink]="['/', storename, 'sales']">
+            <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                [routerLink]="['/', storename, 'sales']">
                 <div class="col-2">
                     <i class="ri-bill-line"></i>
                 </div>
                 <div class="col-10 text-left">
                     <span class="">Pedidos</span>
                 </div>
-            </button>                            
+            </button>
         </div>
-    </div>  
+    </div>
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-outline-secondary d-flex actionMenu" [routerLink]="['/', storename, 'cust']">
+            <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                [routerLink]="['/', storename, 'cust']">
                 <div class="col-2">
                     <i class="ri-user-search-line"></i>
                 </div>
                 <div class="col-10 text-left">
                     <span class="">Clientes</span>
                 </div>
-            </button>                            
+            </button>
         </div>
-    </div>  
+    </div>
     <div class="row">
         <div class="col">
-            <button type="button" class="btn btn-outline-secondary d-flex actionMenu" [routerLink]="['/', storename, 'products']">
+            <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                [routerLink]="['/', storename, 'products']">
                 <div class="col-2">
                     <i class="ri-grid-fill"></i>
                 </div>
                 <div class="col-10 text-left">
                     <span class="">Produtos</span>
                 </div>
-            </button>                            
+            </button>
         </div>
-    </div>  
+    </div>
+    <div class="row">
+        <div class="col">
+            <a class="btn btn-outline-secondary d-flex actionMenu" [href]="storename" target="_blank">
+                <div class="col-2">
+                    <i class="ri-eye-line"></i>
+                </div>
+                <div class="col-10 text-left">
+                    <span class="">Abrir</span>
+                </div>
+            </a>
+        </div>
+    </div>
 </div>

@@ -3,7 +3,13 @@
     margin-top: 10px;
 }
 
-.settings{
-    height: 100%;
-    width: 100%;
+
+.command {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+  
+.command-group {    
+    right: 10px;
+    position: absolute;
 }
