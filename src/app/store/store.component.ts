@@ -82,8 +82,14 @@ export class StoreComponent implements OnInit {
     this.store.labels = this.store.labels.filter(l => l.name != name);
   }
 
+  onLabelChangeColor(name: string) {
+    var label =  this.store.labels.find(l => l.name == name);
+    label.color = this.getRandomColor();
+  }
+
+
   onAddLabel(name: string) {
-    if (name.trim().length < 0) return;
+    if(name.trim().length == 0) return
     
     this.store.labels.push({ name, color: this.getRandomColor() });
   }
@@ -98,7 +104,7 @@ export class StoreComponent implements OnInit {
   }
 
   onAddCategory(name: string) {
-    if (name.trim().length < 0) return;
+    if(name.trim().length == 0) return
 
     this.store.categories.push({
       name,
@@ -123,8 +129,16 @@ export class StoreComponent implements OnInit {
     this.reOrderCategories()
   }
 
+  isValid() {
+    if (this.store.title == undefined) return false;
+    if(this.store.title.trim().length == 0) return false;
+    if(this.store.shelfTitle.trim().length == 0) return false;
+
+    return true;
+  }
+
   canSave() {
-    return this.dashBoardService.deepEqual(this.store, this.storeCompare) == false;
+    return this.isValid() &&  this.dashBoardService.deepEqual(this.store, this.storeCompare) == false;
   }
 
   onShowSection(name: string) {

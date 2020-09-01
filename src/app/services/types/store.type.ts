@@ -3,7 +3,6 @@ export class StoreType {
     title: string;
     complement: string;
     shelfTitle: string;
-    productTitle: string;
     minimumOrderAmount?: number;
     phone: string;
     taxes:{name: string, value:number}[];

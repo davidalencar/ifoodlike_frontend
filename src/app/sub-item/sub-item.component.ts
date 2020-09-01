@@ -47,7 +47,7 @@ export class SubItemComponent implements OnInit {
   }
 
   onCategoryCreate(name: string, type: string) {
-    if(name.length < 0) return;
+    if(name.trim().length == 0) return;
 
     const category: ItemCategoryType = {
       name,
@@ -62,7 +62,7 @@ export class SubItemComponent implements OnInit {
 
   onItemCreate(category, name: string, price: number, qty: number, maxQty: number) {
 
-    if(name.length < 0) return;
+    if(name.trim().length == 0) return;
 
     var cat = this.product.items.find(c => c.name == category);
     cat.products.push({      

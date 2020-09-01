@@ -36,7 +36,7 @@ export class ProductsComponent implements OnInit {
   }
 
   isValidProduct() {
-    if (this.dashBoardService.editProduct.name.length < 0) return false;
+    if (this.dashBoardService.editProduct.name.trim().length == 0) return false;
 
     return true;
   }

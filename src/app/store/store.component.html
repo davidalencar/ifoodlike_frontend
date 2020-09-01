@@ -55,19 +55,6 @@
                                 [(ngModel)]="store.shelfTitle" required>
                         </div>
                     </div>
-                    <!-- TITULO DO PRODUTO -->
-                    <div class="row question">
-                        <div class="col">
-                            <span class="question-text">Como quer chamar o seu produto?</span>
-                        </div>
-                    </div>
-                    <div class="row product ">
-                        <div class="col">
-                            <input type="text" name="productTitle" class="form-control" minLength="3" maxLength="255"
-                                [(ngModel)]="store.productTitle" required>
-                        </div>
-                    </div>
-
                 </div>
             </li>
         </ng-container>
@@ -333,7 +320,8 @@
                 <div class="container">
                     <div class="row question">
                         <div class="col">
-                            <span class="question-text">Crie divisões para mostrar seus produtos de forma organizada:</span>
+                            <span class="question-text">Crie divisões para mostrar seus produtos de forma
+                                organizada:</span>
                         </div>
                     </div>
                     <div class="row question ">
@@ -350,10 +338,6 @@
                                 <li class="list-group-item" *ngFor="let c of sortCategories()">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-6">
-                                                {{ c.name }}
-                                            </div>
-                                           
                                             <div class="col">
                                                 <div class="d-flex command-group">
                                                     <a class="command" (click)="orderCategory(-1, c.name)"><i
@@ -363,6 +347,11 @@
                                                     <a class="command" (click)="delCategory(c.name)"><i
                                                             class="ri-delete-bin-line"></i></a>
                                                 </div>
+                                            </div>
+                                        </div>
+                                        <div class="row category">
+                                            <div class="col">
+                                                {{ c.name }}
                                             </div>
                                         </div>
                                     </div>
@@ -408,16 +397,23 @@
                                 <li class="list-group-item" *ngFor="let l of store.labels">
                                     <div class="container">
                                         <div class="row">
+                                            <div class="col">
+                                                <div class="d-flex command-group">
+                                                    <a class="command" (click)="onLabelChangeColor(l.name)">
+                                                        <i class="ri-brush-line"></i>
+                                                    </a>
+                                                    <a class="command" (click)="onDelLabel(l.name)">
+                                                        <i class="ri-delete-bin-line"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row category">
                                             <div class="col-1">
                                                 <i class="ri-price-tag-3-fill" [style]="'color: ' + l.color"></i>
                                             </div>
-                                            <div class="col-8">
-                                                {{ l.name }}
-                                            </div>
                                             <div class="col">
-                                                <a (click)="onDelLabel(l.name)">
-                                                    <i class="ri-delete-bin-line"></i>
-                                                </a>
+                                                {{ l.name }}
                                             </div>
                                         </div>
                                     </div>

@@ -1,6 +1,10 @@
 .question {
     margin-top: 10px;
 }
+
+.category {
+  margin-top: 30px;
+}
 .question-text {
     font-size: 12px;
     line-height: 1;
