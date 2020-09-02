@@ -2,13 +2,15 @@
     <nav class="navbar navbar-light bg-light">
         <a class="navbar-brand">
             <img src="../assets/img/bslista-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-            {{ storename }}
+            /{{ storename }}
         </a>
         <div class="command-group">
             
             <a class="command text-reset" [routerLink]="['/', storename, 'store']">
                 <i class="ri-settings-4-fill ri-2x" height="32" width="32"></i>
+                <!-- <i class="ri-more-2-line"></i> -->
             </a>
+
         </div>
     </nav>
     <div class="container">
