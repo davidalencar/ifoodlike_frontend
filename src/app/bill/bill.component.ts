@@ -33,11 +33,11 @@ export class BillComponent implements OnInit {
       this.storeService.order.userPhone = this.cookieService.get('user-phone');
     }
 
-    if (this.cookieService.check('user-address') && this.storeService.order.address.cep == undefined) {      
+    if (this.cookieService.check('user-address') && this.storeService.order.address.cep == undefined) {
       this.storeService.order.address = JSON.parse(this.cookieService.get('user-address'));
     }
     if (this.cookieService.check('user-paym') && this.storeService.order.paymMethod == undefined) {
-      
+
       this.storeService.order.paymMethod = this.cookieService.get('user-paym');
     }
 
@@ -56,7 +56,7 @@ export class BillComponent implements OnInit {
       this.cookieService.set('user-address', JSON.stringify(this.storeService.order.address), expires);
     }
     if (this.storeService.order.paymMethod != undefined) {
-      
+
       this.cookieService.set('user-paym', this.storeService.order.paymMethod, expires);
     }
 
@@ -108,7 +108,7 @@ export class BillComponent implements OnInit {
       data += this.breakLine();
       data += `*Endereço:* \n${this.formatAddress()}`
     }
-    
+
     if (this.storeService.order.instruction != undefined && this.storeService.order.instruction.trim().length > 0) {
       data += this.breakLine();
       data += `*Instruções:* \n${this.formatOrderInstructions()}`
@@ -150,14 +150,14 @@ export class BillComponent implements OnInit {
 
   formatHeader() {
     var header = `*${this.formatSalesId()}*`;
-    header+= `\n _${this.formatUserInfo()}_`;
+    header += `\n _${this.formatUserInfo()}_`;
 
     return header;
   }
 
   formatUserInfo() {
     var userInfo: string = `${this.storeService.order.userName.trim()}`
-    if (this.storeService.store.questions.phone == true) {      
+    if (this.storeService.store.questions.phone == true) {
       userInfo += ` - ${this.storeService.order.userPhone}`
     }
     return userInfo;
@@ -171,7 +171,7 @@ export class BillComponent implements OnInit {
     var order: string = '';
 
     this.storeService.basketProducts().forEach(p => {
-      order += `    \n *${p.qty}X*  _${p.unit}_  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
+      order += `    \n *${p.qty}X*  ${(p.unit == undefined) ? '' : '_' + p.unit + '_'}  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
 
       this.storeService.orderProductItemsCategory(p.items).forEach(category => {
         order += `\n  _${category.name}_`

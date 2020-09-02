@@ -38,7 +38,8 @@ export class StoreService {
         } else if (bp.items.length > 0) {
             this.basket.push(JSON.parse(JSON.stringify(p)));            
             p.qty ++;
-            this.basket[this.basket.length -1].name = `${p.name} - ${p.qty}`
+            this.basket[this.basket.length -1].name = `${p.name} ( ${p.qty} )`
+            this.basket[this.basket.length -1].qty = 1;
         } else {
             p.qty++;
             bp.qty++;
