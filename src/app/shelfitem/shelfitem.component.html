@@ -35,36 +35,12 @@
                 </div>
                 <div class="expand">
                     <div class="btn-group itemcontrol" role="group">
-                        <button type="button" class="btn" (click)="onSubtract()"><i class="ri-indeterminate-circle-fill ri-lg"></i></button>
-                        <button type="button" class="btn"><span>{{ product.qty }} </span></button>
-                        <button type="button" class="btn" (click)="onAdd()"><i class="ri-add-circle-fill ri-lg"></i></button>
+                        <a class="control-btn" (click)="onSubtract()"><i class="ri-indeterminate-circle-fill ri-lg"></i></a>
+                        <a class="control-btn"><span>{{ product.qty }} </span></a>
+                        <a class="control-btn" (click)="onAdd()"><i class="ri-add-circle-fill ri-lg"></i></a>
                     </div>  
                 </div>
             </div>
         </div>
     </div>
-    <!-- <div class="row">
-        <div class="col">
-            <span class="productName"> {{ product.name }} </span> <br>
-            <span class="productDesc text-muted"> {{ product.description }} </span> <br>
-            <span class="productUnit"> {{ product.unit }} </span> <br>
-
-            <img *ngIf="!product.img else elseBlockImg" src="../../assets/empimg.png" class="product-img">
-            <ng-template #elseBlockImg>
-                <img [src]="product.img" class="product-img" [alt]="product.name">
-            </ng-template>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <span class="productPrice">{{ storeService.formatPrice(product.price) }}</span>
-        </div>
-        <div class="col">
-            <div class="btn-group itemcontrol" role="group">
-                <button type="button" class="btn" (click)="onSubtract()"><i class="ri-indeterminate-circle-fill ri-lg"></i></button>
-                <button type="button" class="btn"><span>{{ product.qty }} </span></button>
-                <button type="button" class="btn" (click)="onAdd()"><i class="ri-add-circle-fill ri-lg"></i></button>
-            </div>  
-        </div>
-    </div> -->
 </div>
