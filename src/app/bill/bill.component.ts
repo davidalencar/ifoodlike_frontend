@@ -171,7 +171,7 @@ export class BillComponent implements OnInit {
     var order: string = '';
 
     this.storeService.basketProducts().forEach(p => {
-      order += `    \n *${p.qty}X*  _${p.unit.trim()}_  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
+      order += `    \n *${p.qty}X*  _${p.unit}_  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
 
       this.storeService.orderProductItemsCategory(p.items).forEach(category => {
         order += `\n  _${category.name}_`
