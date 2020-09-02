@@ -1,7 +1,6 @@
 <app-nav-back title="Produtos" [route]="['/', 'user', 'board']"></app-nav-back>
 
 <div class="container">
-    <h3>Disponibilidade e organização</h3>
     <div *ngIf="products.length == 0 && noProducts == false" class="spinner-border" role="status">
         <span class="sr-only">Carregando...</span>
     </div>
@@ -26,35 +25,10 @@
             </li>
             <ng-container *ngIf="categoriesToShow.includes(c.name)">
                 <li class="list-group-item">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col">
-                                <span class="question-text"> Criar novo item</span>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <input type="text" class="form-control mb-2 mr-sm-2" name="itemName" ngModel
-                                    #itemName="ngModel" placeholder="Nome">
-                            </div>
-                            <div class="col">
-                                <div class="input-group mb-2 mr-sm-2">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">R$</div>
-                                    </div>
-                                    <input type="number" inputmode="numeric" name="itemPrice" ngModel
-                                        #itemPrice="ngModel" class="form-control" placeholder="Preço">
-                                </div>
-                            </div>
-
-                        </div>
-                        <div class="form-row">
-                            <div class="col">
-                                <button type="submit" class="btn btn-primary mb-2"
-                                    (click)="onItemCreate(c.name, itemName.value, itemPrice.value)">Criar</button>
-                            </div>
-                        </div>
-                    </div>
+                    <button type="submit" class="btn btn-outline-secondary" (click)="onItemCreate(c.name, '', '')">
+                        <i class="ri-file-add-line"></i>
+                        <smal> Criar produto </smal>
+                    </button>                   
                 </li>
                 <li class="list-group-item"
                     *ngFor="let p of dashBoardService.filterProductsByCategory(products, c.name)">
@@ -73,7 +47,7 @@
                                 </label>
                             </div>
                         </div>
-                        <ng-container *ngIf="productsToShow.includes(p._id)">
+                        <!-- <ng-container *ngIf="productsToShow.includes(p._id)">
                             <div class="row-form">
                                 <div class="col">
                                     <select class="form-control" name=""
@@ -83,7 +57,7 @@
                                     </select>
                                 </div>
                             </div>
-                        </ng-container>
+                        </ng-container> -->
                     </div>
                 </li>
             </ng-container>
