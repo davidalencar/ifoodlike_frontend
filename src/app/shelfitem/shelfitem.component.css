@@ -1,8 +1,9 @@
-img{
+.product-img{
     max-height:120px;
     max-width:129px;
-    height:auto;
-    width:auto;
+    float: right!important;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
     margin-bottom: 10px;
 }
 div.list-group-item {
@@ -10,11 +11,32 @@ div.list-group-item {
 }
 
 .itemcontrol {
-    position: fixed;
-    bottom: 0;
-    right: 0;
+    float: right!important;
+}
+
+.expand {
+    width: 100%;
 }
 
 .dable-item {
     font-size: 14px;
+}
+
+.productName {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.productUnit {
+    
+    font-weight: 600;
+}
+
+.productDesc {
+    font-size: 0.9rem;
+}
+
+.productPrice {    
+    font-size: 80%;
+    font-weight: 400;
 }

@@ -18,7 +18,7 @@
             </form>
             <div class="singup d-flex justify-content-center">
                 <div class="signup">
-                    <span>Novo por aqui? <a (click)="changeView('signup')" class="text-primary">Crie sua loja</a></span>
+                    <span>Novo por aqui? <a (click)="changeView('signup')" class="text-primary">Crie sua lista</a></span>
                 </div>
             </div>
         </ng-container>
@@ -70,7 +70,7 @@
                 Quase lá!!!
             </h1>
             <p>
-                Você poderá acessar sua loja pelo link <a [href]="'http://' + newStore"> {{ newStore }} </a>
+                Você poderá acessar sua lista pelo link <a [href]="'http://' + newStore"> {{ newStore }} </a>
             </p>
             <a href="http://www.bslista.com">
                 <h2>bslista.com</h2>
@@ -78,108 +78,3 @@
         </ng-container>
     </div>
 </div>
-<!-- 
-
-
-<div class="container">
-
-    <ng-container *ngIf="currentView == 'login'">
-        <div class="row">
-            <div class="col">
-                <div class="d-flex justify-content-center">
-                   
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="title d-flex justify-content-center">
-                    <h1> Entrar na BS.Lista </h1>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-               
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <div class="d-flex justify-content-center">
-                   
-                </div>
-            </div>
-        </div>
-
-    </ng-container>
-
-    <ng-container *ngIf="currentView == 'signup'">
-
-        <h1 class="h3 mb-3 font-weight-normal">Crie sua loja</h1>
-
-        <div class="form-group">
-            <input type="text" class="form-control" name="userName" required ngModel minLength="3" maxLength="60"
-                placeholder="Seu nome">
-        </div>
-
-        <div class="form-group">
-            <input type="phone" class="form-control" placeholder="(00) 9 0000 0000" name="userPhone" required ngModel
-                mask="(00) 0 0000-0000" [dropSpecialCharacters]="false">
-        </div>
-
-        <div class="form-group">
-            <input type="email" class="form-control" placeholder="E-mail" name="userEmail" required ngModel
-                pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
-        </div>
-
-        <div class="form-group">
-            <div class="input-group">
-                <div class="input-group-prepend">
-                    <div class="input-group-text" id="btnGroupAddon2">@</div>
-                </div>
-                <input type="text" class="form-control" placeholder="Sua loja" ngModel name="storeName"
-                    pattern="^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$">
-            </div>
-        </div>
-
-        <div class="form-group">
-            <select class="form-control" ngModel name="storePlan">
-                <option>Escolha um plano</option>
-                <option>Básico</option>
-                <option>Pró</option>
-                <option>Pró Anual</option>
-            </select>
-
-        </div>
-
-        <div class="form-group">
-            <input type="password"  class="form-control" placeholder="Senha" name="userPwd" required ngModel>
-        </div>
-        <div class="form-group">
-            <input type="password"  class="form-control" placeholder="Confirmar senha" name="userPwdConfirm" required ngModel>
-        </div> -->
-<!-- 
-<div class="form-group">
-    <span class="text-muted">Não compartilhamos seus dados.</span>
-</div>
-
-
-</ng-container>
-</div>
- -->
-
-<!-- 
-
-<div class="text-center" *ngIf="showMsg == false else elseMsgBlock">
-
-    
-    
-</div>
-<ng-template #elseMsgBlock>
-    <h1>
-        Entraremos em contato =)
-    </h1>
-    <a href="http://www.bslista.com">
-        <h2>bslista.com</h2>
-    </a>
-</ng-template> -->

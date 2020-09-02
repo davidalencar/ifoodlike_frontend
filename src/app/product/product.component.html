@@ -5,10 +5,8 @@
     <div *ngIf="products.length == 0 && noProducts == false" class="spinner-border" role="status">
         <span class="sr-only">Carregando...</span>
     </div>
-    <h2 *ngIf="noProducts == true">Nenhum produto</h2>
 
-    <ul class="list-group" *ngIf="products.length > 0">
-
+    <ul class="list-group">
         <ng-container *ngFor="let c of categories">
             <li class="list-group-item bg-light">
                 <div class="container">
@@ -52,7 +50,8 @@
                         </div>
                         <div class="form-row">
                             <div class="col">
-                                <button type="submit" class="btn btn-primary mb-2" (click)="onItemCreate(c.name, itemName.value, itemPrice.value)">Criar</button>
+                                <button type="submit" class="btn btn-primary mb-2"
+                                    (click)="onItemCreate(c.name, itemName.value, itemPrice.value)">Criar</button>
                             </div>
                         </div>
                     </div>

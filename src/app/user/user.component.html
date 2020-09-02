@@ -1,68 +1,67 @@
-<div class="container" *ngFor="let storename of dashBoardService.userToken.stores">
-    <div class="row">
-        <div class="col">
-            <h1>{{ storename }}</h1>
+<div *ngFor="let storename of dashBoardService.userToken.stores">
+    <nav class="navbar navbar-light bg-light">
+        <a class="navbar-brand">
+            <img src="../assets/img/bslista-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+            {{ storename }}
+        </a>
+        <div class="command-group">
+            
+            <a class="command text-reset" [routerLink]="['/', storename, 'store']">
+                <i class="ri-settings-4-fill ri-2x" height="32" width="32"></i>
+            </a>
         </div>
-        <div class="col-3">
-            <div class="command-group">
-                <a class="command text-reset" [href]="storename" target="_blank">
-                    <i class="ri-eye-line"></i>
-                </a>
-                <a class="command text-reset" [routerLink]="['/', storename, 'store']">
-                    <i class="ri-settings-4-fill ri-2x" height="32" width="32"></i>
-                </a>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                    [routerLink]="['/', storename, 'sales']">
+                    <div class="col-2">
+                        <i class="ri-bill-line"></i>
+                    </div>
+                    <div class="col-10 text-left">
+                        <span class="">Pedidos</span>
+                    </div>
+                </button>
             </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
-                [routerLink]="['/', storename, 'sales']">
-                <div class="col-2">
-                    <i class="ri-bill-line"></i>
-                </div>
-                <div class="col-10 text-left">
-                    <span class="">Pedidos</span>
-                </div>
-            </button>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                    [routerLink]="['/', storename, 'cust']">
+                    <div class="col-2">
+                        <i class="ri-user-search-line"></i>
+                    </div>
+                    <div class="col-10 text-left">
+                        <span class="">Clientes</span>
+                    </div>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
-                [routerLink]="['/', storename, 'cust']">
-                <div class="col-2">
-                    <i class="ri-user-search-line"></i>
-                </div>
-                <div class="col-10 text-left">
-                    <span class="">Clientes</span>
-                </div>
-            </button>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                    [routerLink]="['/', storename, 'products']">
+                    <div class="col-2">
+                        <i class="ri-grid-fill"></i>
+                    </div>
+                    <div class="col-10 text-left">
+                        <span class="">Produtos</span>
+                    </div>
+                </button>
+            </div>
         </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
-                [routerLink]="['/', storename, 'products']">
-                <div class="col-2">
-                    <i class="ri-grid-fill"></i>
-                </div>
-                <div class="col-10 text-left">
-                    <span class="">Produtos</span>
-                </div>
-            </button>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col">
-            <a class="btn btn-outline-secondary d-flex actionMenu" [href]="storename" target="_blank">
-                <div class="col-2">
-                    <i class="ri-eye-line"></i>
-                </div>
-                <div class="col-10 text-left">
-                    <span class="">Abrir</span>
-                </div>
-            </a>
+        <div class="row">
+            <div class="col">
+                <a class="btn btn-outline-secondary d-flex actionMenu" [href]="storename" target="_blank">
+                    <div class="col-2">
+                        <i class="ri-eye-line"></i>
+                    </div>
+                    <div class="col-10 text-left">
+                        <span class="">Abrir</span>
+                    </div>
+                </a>
+            </div>
         </div>
     </div>
 </div>
