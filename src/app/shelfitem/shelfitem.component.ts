@@ -11,9 +11,9 @@ import { ProductType } from '../services/types/product.type'
 })
 export class ShelfitemComponent implements OnInit {
 
-  @Input() productId :string; 
-  
-  product: ProductType; 
+  @Input() productId: string;
+
+  product: ProductType;
 
   constructor(public storeService: StoreService) { }
 
@@ -22,15 +22,12 @@ export class ShelfitemComponent implements OnInit {
       .find(p => p._id == this.productId);
   }
 
-  
-  onSubtract()
-  {
-    if (this.product.qty > 0)
-      this.product.qty-=1;
+
+  onSubtract() {
+    this.storeService.basketProductsSubtract(this.product);
   }
 
-  onAdd()
-  {
-    this.product.qty+=1;
+  onAdd() {
+    this.storeService.basketProductsAdd(this.product);
   }
 }

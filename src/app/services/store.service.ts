@@ -18,6 +18,7 @@ export class StoreService {
 
     salesId: string = '';
     store: StoreType;
+    basket: ProductType[] = [];
     products: ProductType[];
     categories = [];
     order: OrderType;
@@ -28,8 +29,42 @@ export class StoreService {
         }).filter(c => c.enable == true)
     }
 
+    basketProductsAdd(p: ProductType) {
+        var bp = this.basket.find(i => i._id == p._id);
+
+        if (bp == undefined) {
+            p.qty = 1;
+            this.basket.push(JSON.parse(JSON.stringify(p)));
+        } else if (bp.items.length > 0) {
+            this.basket.push(JSON.parse(JSON.stringify(p)));            
+            p.qty ++;
+            this.basket[this.basket.length -1].name = `${p.name} - ${p.qty}`
+        } else {
+            p.qty++;
+            bp.qty++;
+        }
+
+    }
+
+    basketProductsSubtract(p: ProductType) {
+        var bp = this.basket.find(i => i._id == p._id);
+
+        if(bp == undefined) return;
+        if (p.qty == 0) return;
+
+        if (bp.items.length > 0) {
+            this.basket = this.basket.filter(i => i._id != p._id);
+            p.qty = 0;
+        } else {
+            bp.qty --;
+            p.qty --;
+        }
+        
+
+    }
+
     basketProducts() {
-        return this.orderProductsByName(this.products.filter(p => p.qty > 0))
+        return this.orderProductsByName(this.basket)
     }
 
     basketProductsWithItems() {
@@ -101,7 +136,7 @@ export class StoreService {
         return this.bakestTotalAmount() >= this.store.minimumOrderAmount
     }
 
-    hasValidaAddress() {        
+    hasValidaAddress() {
 
         if (this.order.address == undefined) return false;
         if (this.order.address.cep == undefined) return false;
@@ -220,8 +255,8 @@ export class StoreService {
         }
 
         this.basketProducts().forEach(p => {
-            var line = { qty: p.qty,productId: p, product: p.name, amount: this.totalLineAmount(p), items: [] }
-            
+            var line = { qty: p.qty, productId: p, product: p.name, amount: this.totalLineAmount(p), items: [] }
+
             this.orderProductItemsCategory(p.items).forEach(c => {
                 var citem = { category: c.name, items: [] }
 
@@ -230,7 +265,7 @@ export class StoreService {
                         citem.items.push({ qty: i.qty, item: i.name })
                     }
                 })
-                if(citem.items.length > 0) {
+                if (citem.items.length > 0) {
                     line.items.push(citem)
                 }
             })
