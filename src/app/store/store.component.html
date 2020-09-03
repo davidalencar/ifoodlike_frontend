@@ -239,6 +239,92 @@
             </li>
         </ng-container>
 
+        <!-- HORÁRIOS -->
+        <li class="list-group-item bg-light">
+            <div class="container">
+                <a (click)="onShowSection('horarios')">
+                    <div class="row">
+                        <div class="col">
+                            Horários
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </li>
+        <ng-container *ngIf="sectionsToShow.includes('horarios')">
+            <li class="list-group-item">
+                <div class="container">
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">Informa seus horários</span>
+                        </div>
+                    </div>
+
+                    <div class="row question ">
+                        <div class="col">
+                            <ul class="list-group ">
+                                <li class="list-group-item bg-light">
+                                    <div class="form-group">
+                                        <select class="form-control" name="weekday" ngModel #weekday="ngModel" value="0"
+                                            required>
+                                            <option value="0">Segunda</option>
+                                            <option value="1">Terça</option>
+                                            <option value="2">Quarta</option>
+                                            <option value="3">Quinta</option>
+                                            <option value="4">Sexta</option>
+                                            <option value="5">Sábado</option>
+                                            <option value="6">Domingo</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group d-flex">
+                                        <input type="number" class="form-control" inputmode="numeric" ngModel
+                                            #fromH="ngModel" max="23" min="0" required placeholder="De">
+                                        <select class="form-control" name="fromM" ngModel #fromM="ngModel" required>
+                                            <option *ngFor="let m of minutes()" [value]="m">{{ m }}</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group d-flex">
+                                        <input type="number" class="form-control" inputmode="numeric" ngModel
+                                            #toH="ngModel" max="23" min="0" required placeholder="Até">
+                                        <select class="form-control" name="toM" ngModel #toM="ngModel" required>
+                                            <option *ngFor="let m of minutes()" [value]="m">{{ m }}</option>
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary mb-2"
+                                        [disabled]="!canAddHours(weekday.value, fromH.value, fromM.value, toH.value, toM.value)"
+                                        (click)="onCreateWorkday(weekday.value, fromH.value, fromM.value, toH.value, toM.value)">Criar</button>
+
+
+                                </li>
+                                <li class="list-group-item" *ngFor="let w of store.workday">                                   
+                                    <div class="row">
+                                        <div class="col">
+                                            {{ weekDay(w.day) }}
+                                        </div>         
+                                        <div class="col-2">
+                                            <a (click)="onDelDay(w.day)">
+                                                <i class="ri-delete-bin-line"></i>
+                                            </a>
+                                        </div>                               
+                                    </div>
+                                    <div class="row" *ngFor="let h of w.hours">
+                                        <div class="col">
+                                            {{ formatHour(h.from) }}
+                                        </div>
+                                        <div class="col">
+                                            {{ formatHour(h.to) }}
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ng-container>
+
         <!-- TAXAS -->
         <li class="list-group-item bg-light">
             <div class="container">

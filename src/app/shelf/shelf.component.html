@@ -13,6 +13,11 @@
         <h1 class="display-4">{{storeService.store.title}}</h1>
         <p class="lead">{{ storeService.store.complement }}</p>
     </div>
+    <div class="container">
+        <div class="">
+            <i class="ri-time-line"></i>  {{ storeService.getStoreStatus()}}                    
+        </div>
+    </div>
 </div>
 
 <!-- <div class="card" style="width: 18rem;">

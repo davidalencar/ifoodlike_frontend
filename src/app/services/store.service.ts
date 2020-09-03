@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
@@ -22,6 +23,21 @@ export class StoreService {
     products: ProductType[];
     categories = [];
     order: OrderType;
+
+    getStoreStatus() {
+        const day = moment().day();
+        const time = Number.parseFloat(moment().hour() + '.' + moment().minute());        
+        
+        if (this.store.workday == undefined) return 'fechado';
+
+        const workDay = this.store.workday.find(d => d.day == day);
+
+        if (workDay == undefined) return 'fechado';
+
+        if (workDay.hours.findIndex(h => time >= h.from && time <= h.to) < 0) return 'fechado';
+        
+        return 'aberto';
+    }    
 
     getCategories() {
         this.categories = [...this.store.categories].sort((c1, c2) => {
@@ -213,8 +229,16 @@ export class StoreService {
         this.storeDataRequest(storeName)
             .subscribe((data: StoreServiceResponseType) => {
                 this.store = data.store;
+                this.store.workday = [{
+                    day: 4,
+                    hours: [{from: 9, to: 10}]
+                }, 
+                {
+                    day: 5,
+                    hours: [{from: 9, to: 11}, {from: 18, to: 22}]
+                }];
                 this.products = data.products;
-                this.titleService.setTitle(this.store.title)
+                this.titleService.setTitle(this.store.title)                
                 this.getCategories();
             })
     }

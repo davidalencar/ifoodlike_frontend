@@ -11,7 +11,7 @@ export class StoreType {
     questions: {
         address: boolean;
         phone: boolean;
-    }
+    };
     paym: {
         money: boolean;
         credit: boolean;
@@ -21,6 +21,9 @@ export class StoreType {
             account: string;
             document: string;
         }
-    }
-
+    };
+    workday: {
+        day: number;
+        hours: {from: number, to: number}[];
+    }[];
 }

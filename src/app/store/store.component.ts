@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { map } from 'rxjs/operators';
 import { StoreType } from '../services/types/store.type';
-import { isObject } from 'lodash';
+
 
 @Component({
   selector: 'app-store',
@@ -20,6 +20,7 @@ export class StoreComponent implements OnInit {
   storeCompare: StoreType = new StoreType();
   storeName: string;
 
+
   sectionsToShow: string[] = [];
 
 
@@ -29,8 +30,8 @@ export class StoreComponent implements OnInit {
       this.storeName = id;
       this.dashBoardService.getStoreData(id)
         .subscribe(data => {
-          this.store = data.store;     
-          this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');     
+          this.store = data.store;
+          this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');
           this.storeCompare = JSON.parse(JSON.stringify(data.store));
         })
 
@@ -45,7 +46,7 @@ export class StoreComponent implements OnInit {
     this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');
     this.dashBoardService.storeUpdate(this.store)
       .subscribe((saved: StoreType) => {
-        this.commandNow = 'confirm';        
+        this.commandNow = 'confirm';
         this.store = saved;
         this.storeCompare = JSON.parse(JSON.stringify(saved));
       })
@@ -58,13 +59,13 @@ export class StoreComponent implements OnInit {
     }).filter(c => c.enable == true)
   }
 
-  orderCategory(plus: number, category:string) {    
-    this.store.categories.find(c => c.name == category).order+= plus * 2;
+  orderCategory(plus: number, category: string) {
+    this.store.categories.find(c => c.name == category).order += plus * 2;
     this.store.categories = this.sortCategories();
     for (let index = 0; index < this.store.categories.length; index++) {
-      const element = this.store.categories[index].order = index;      
+      const element = this.store.categories[index].order = index;
     }
-    
+
   }
 
   delTaxe(taxe: string) {
@@ -83,14 +84,14 @@ export class StoreComponent implements OnInit {
   }
 
   onLabelChangeColor(name: string) {
-    var label =  this.store.labels.find(l => l.name == name);
+    var label = this.store.labels.find(l => l.name == name);
     label.color = this.getRandomColor();
   }
 
 
   onAddLabel(name: string) {
-    if(name.trim().length == 0) return
-    
+    if (name.trim().length == 0) return
+
     this.store.labels.push({ name, color: this.getRandomColor() });
   }
 
@@ -104,7 +105,7 @@ export class StoreComponent implements OnInit {
   }
 
   onAddCategory(name: string) {
-    if(name.trim().length == 0) return
+    if (name.trim().length == 0) return
 
     this.store.categories.push({
       name,
@@ -118,7 +119,7 @@ export class StoreComponent implements OnInit {
   reOrderCategories() {
     var newOrder = this.sortCategories();
     for (let index = 0; index < newOrder.length; index++) {
-      newOrder[index].order = index;      
+      newOrder[index].order = index;
     }
 
     this.store.categories = newOrder;
@@ -131,14 +132,14 @@ export class StoreComponent implements OnInit {
 
   isValid() {
     if (this.store.title == undefined) return false;
-    if(this.store.title.trim().length == 0) return false;
-    if(this.store.shelfTitle.trim().length == 0) return false;
+    if (this.store.title.trim().length == 0) return false;
+    if (this.store.shelfTitle.trim().length == 0) return false;
 
     return true;
   }
 
   canSave() {
-    return this.isValid() &&  this.dashBoardService.deepEqual(this.store, this.storeCompare) == false;
+    return this.isValid() && this.dashBoardService.deepEqual(this.store, this.storeCompare) == false;
   }
 
   onShowSection(name: string) {
@@ -149,5 +150,51 @@ export class StoreComponent implements OnInit {
     }
   }
 
-  
+  minutes() {
+    return [0, 15, 30];
+  }
+
+  weekDay(day: number) {
+    const days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
+
+    return days[day];
+  }
+
+  canAddHours(wDay: string, fromH: number, fromM: number, toH: number, toM: number) {
+    const day =Number.parseInt(wDay)
+    const from = Number.parseFloat(`${fromH}.${fromM}`);
+    const to = Number.parseFloat(`${toH}.${toM}`);
+    
+    if (isNaN(day) || isNaN(from) || isNaN(to) ) return false;
+    if(from >= 24 || from < 0 && to >= 24 || to < 0) return false;
+    if (from >= to) return false;
+
+    return true;
+  }
+
+  onCreateWorkday(wDay: string, fromH: number, fromM: number, toH: number, toM: number) {
+    const day =Number.parseInt(wDay)
+    const dayIndex = this.store.workday.findIndex(w => w.day == day);
+    const from = Number.parseFloat(`${fromH}.${fromM}`);
+    const to = Number.parseFloat(`${toH}.${toM}`);
+
+    if (dayIndex > -1) {
+      this.store.workday[dayIndex].hours.push({ from, to });
+
+    } else {
+      this.store.workday.push({
+        day,
+        hours: [{ from, to }]
+      });
+    }
+  }
+
+  onDelDay(day: number) {
+    this.store.workday = this.store.workday.filter(w => w.day != day);
+  }
+
+  formatHour(hour: number) {
+    return hour.toFixed(2).padStart(5,"0").replace(".", ":");
+  }  
+
 }
