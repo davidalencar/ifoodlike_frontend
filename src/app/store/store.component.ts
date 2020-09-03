@@ -154,12 +154,7 @@ export class StoreComponent implements OnInit {
     return [0, 15, 30];
   }
 
-  weekDay(day: number) {
-    const days = ['Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'];
-
-    return days[day];
-  }
-
+  
   canAddHours(wDay: string, fromH: number, fromM: number, toH: number, toM: number) {
     const day =Number.parseInt(wDay)
     const from = Number.parseFloat(`${fromH}.${fromM}`);
@@ -193,8 +188,6 @@ export class StoreComponent implements OnInit {
     this.store.workday = this.store.workday.filter(w => w.day != day);
   }
 
-  formatHour(hour: number) {
-    return hour.toFixed(2).padStart(5,"0").replace(".", ":");
-  }  
+   
 
 }

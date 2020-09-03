@@ -18,6 +18,8 @@ export class BillComponent implements OnInit {
 
   commandNow: string = 'confirm';
 
+
+
   constructor(public storeService: StoreService, private cookieService: CookieService) { }
 
   ngOnInit(): void {
@@ -198,5 +200,19 @@ export class BillComponent implements OnInit {
     footer += ` via minha.bslista.com/${this.storeService.store.name}`;
 
     return footer;
+  }
+
+  scheduleOrder() {
+    return this.storeService.getNextTime().workDay;
+  }
+
+  formatScheduleDate() {
+    const date = this.storeService.getNextTime().date;
+
+    if (date.diff(moment(), 'day') == 0) {
+      return 'Hoje'
+    }
+
+    return `date.format('DD/MM')} (${this.storeService.weekDay(date.day()).toLocaleLowerCase()}`
   }
 }

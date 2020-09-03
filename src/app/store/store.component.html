@@ -267,13 +267,13 @@
                                     <div class="form-group">
                                         <select class="form-control" name="weekday" ngModel #weekday="ngModel" value="0"
                                             required>
-                                            <option value="0">Segunda</option>
-                                            <option value="1">Terça</option>
-                                            <option value="2">Quarta</option>
-                                            <option value="3">Quinta</option>
-                                            <option value="4">Sexta</option>
-                                            <option value="5">Sábado</option>
-                                            <option value="6">Domingo</option>
+                                            <option value="0">Domingo</option>
+                                            <option value="1">Segunda</option>
+                                            <option value="2">Terça</option>
+                                            <option value="3">Quarta</option>
+                                            <option value="4">Quinta</option>
+                                            <option value="5">Sexta</option>
+                                            <option value="6">Sábado</option>
                                         </select>
                                     </div>
                                     <div class="form-group d-flex">
@@ -298,23 +298,24 @@
 
 
                                 </li>
-                                <li class="list-group-item" *ngFor="let w of store.workday">                                   
+                                <li class="list-group-item"
+                                    *ngFor="let w of storeService.orderStoreWorkDays(store.workday)">
                                     <div class="row">
                                         <div class="col">
-                                            {{ weekDay(w.day) }}
-                                        </div>         
+                                            {{  storeService.weekDay(w.day) }}
+                                        </div>
                                         <div class="col-2">
                                             <a (click)="onDelDay(w.day)">
                                                 <i class="ri-delete-bin-line"></i>
                                             </a>
-                                        </div>                               
+                                        </div>
                                     </div>
                                     <div class="row" *ngFor="let h of w.hours">
                                         <div class="col">
-                                            {{ formatHour(h.from) }}
+                                            {{ storeService.formatHour(h.from) }}
                                         </div>
                                         <div class="col">
-                                            {{ formatHour(h.to) }}
+                                            {{ storeService.formatHour(h.to) }}
                                         </div>
                                     </div>
                                 </li>

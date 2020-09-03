@@ -13,9 +13,35 @@
         <h1 class="display-4">{{storeService.store.title}}</h1>
         <p class="lead">{{ storeService.store.complement }}</p>
     </div>
-    <div class="container">
-        <div class="">
-            <i class="ri-time-line"></i>  {{ storeService.getStoreStatus()}}                    
+
+</div>
+<div class="container" *ngIf="storeService.storeIsCloed()">
+    
+    <a (click)="showTime = !showTime">
+        <span class="badge badge-pill badge-danger">
+            <i class="ri-time-line"></i>
+            {{ storeService.getStoreStatus()}}
+        </span>
+        
+    </a>
+    
+</div>
+<div class="container" *ngIf="showTime">   
+    <div class="row" *ngFor="let w of storeService.orderStoreWorkDays(storeService.store.workday)">
+        <div class="col time">
+            {{  storeService.weekDay(w.day) }}
+        </div>
+        <div class="col">
+            <div class="row hours" *ngFor="let h of w.hours">
+                <div class="col">
+                    <span> {{ storeService.formatHour(h.from) }} - {{ storeService.formatHour(h.to) }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <span class="hours">{{ formatNextTime() }}</span>
         </div>
     </div>
 </div>

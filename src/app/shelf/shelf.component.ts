@@ -1,3 +1,4 @@
+import * as moment from 'moment';
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../services/store.service'
 import { ActivatedRoute, Router, NavigationEnd } from '@angular/router';
@@ -8,12 +9,13 @@ import { map } from 'rxjs/operators';
 @Component({
   selector: 'app-shelf',
   templateUrl: './shelf.component.html',
-  styleUrls: ['./shelf.component.css', 
-  '../../../node_modules/bootstrap/dist/css/bootstrap.min.css', 
-  '../../../node_modules/remixicon/fonts/remixicon.css']
+  styleUrls: ['./shelf.component.css',
+    '../../../node_modules/bootstrap/dist/css/bootstrap.min.css',
+    '../../../node_modules/remixicon/fonts/remixicon.css']
 })
 export class ShelfComponent implements OnInit {
   routerId: string = '';
+  showTime: boolean = false;
 
   constructor(private route: ActivatedRoute, public storeService: StoreService, private router: Router) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
@@ -25,7 +27,7 @@ export class ShelfComponent implements OnInit {
       if (event instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
-          this.routerId = tree.fragment;         
+          this.routerId = tree.fragment;
         }
       }
     });
@@ -40,8 +42,8 @@ export class ShelfComponent implements OnInit {
   goTo(id: string): void {
     if (id.length > 0) {
       const element = document.getElementById(id);
-      if (element) { 
-        element.scrollIntoView({behavior: "auto", block: "center", inline: "nearest"}); 
+      if (element) {
+        element.scrollIntoView({ behavior: "auto", block: "center", inline: "nearest" });
       }
     }
   }
@@ -61,5 +63,19 @@ export class ShelfComponent implements OnInit {
       return 'Continuar'
 
     return 'Fechar pedido'
+  }
+
+  
+
+
+  formatNextTime() {
+    const nextTime = this.storeService.getNextTime();
+    if (nextTime == undefined) return '';
+
+    if (nextTime.date.diff(moment(), 'day') == 0) {
+      return `Agendar para hoje a partir das ${this.storeService.formatHour(nextTime.workDay.hours[0].from)}.`
+    }
+
+    return `Agende para ${nextTime.date.format('DD/MM')} (${this.storeService.weekDay(nextTime.date.day()).toLocaleLowerCase()}) a partir das ${this.storeService.formatHour(nextTime.workDay.hours[0].from)}.`
   }
 }

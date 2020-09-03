@@ -24,10 +24,56 @@ export class StoreService {
     categories = [];
     order: OrderType;
 
+    storeIsCloed() {
+        return this.store.workday != undefined
+          && this.store.workday.length > 0
+          && this.getStoreStatus() == 'fechado';
+      }
+
+    weekDay(day: number) {
+        const days = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
+
+        return days[day];
+    }
+
+    getNextTime() {
+        
+        if (this.store.workday == undefined || this.store.workday.length == 0) return undefined;
+
+        for (let index = 0; index <= 7; index++) {
+            const date = moment().add(index, 'day'); 
+            const day = date.day();
+            
+
+            const workDay = this.store.workday.find(d => d.day == day);
+
+            if (workDay != undefined) {
+                return {
+                    workDay,
+                    date
+                }
+                
+            }
+        }
+
+        return undefined;
+    }
+
+
+    
+
+    formatHour(hour: number) {
+        return hour.toFixed(2).padStart(5, "0").replace(".", ":");
+    }
+
+    orderStoreWorkDays(wdList: { day: number, hours: { from: number, to: number }[] }[]) {
+        return wdList.sort((wd1, wd2) => wd1.day - wd2.day);
+    }
+
     getStoreStatus() {
         const day = moment().day();
-        const time = Number.parseFloat(moment().hour() + '.' + moment().minute());        
-        
+        const time = Number.parseFloat(moment().hour() + '.' + moment().minute());
+
         if (this.store.workday == undefined) return 'fechado';
 
         const workDay = this.store.workday.find(d => d.day == day);
@@ -35,9 +81,9 @@ export class StoreService {
         if (workDay == undefined) return 'fechado';
 
         if (workDay.hours.findIndex(h => time >= h.from && time <= h.to) < 0) return 'fechado';
-        
+
         return 'aberto';
-    }    
+    }
 
     getCategories() {
         this.categories = [...this.store.categories].sort((c1, c2) => {
@@ -52,10 +98,10 @@ export class StoreService {
             p.qty = 1;
             this.basket.push(JSON.parse(JSON.stringify(p)));
         } else if (bp.items.length > 0) {
-            this.basket.push(JSON.parse(JSON.stringify(p)));            
-            p.qty ++;
-            this.basket[this.basket.length -1].name = `${p.name} ( ${p.qty} )`
-            this.basket[this.basket.length -1].qty = 1;
+            this.basket.push(JSON.parse(JSON.stringify(p)));
+            p.qty++;
+            this.basket[this.basket.length - 1].name = `${p.name} ( ${p.qty} )`
+            this.basket[this.basket.length - 1].qty = 1;
         } else {
             p.qty++;
             bp.qty++;
@@ -66,17 +112,17 @@ export class StoreService {
     basketProductsSubtract(p: ProductType) {
         var bp = this.basket.find(i => i._id == p._id);
 
-        if(bp == undefined) return;
+        if (bp == undefined) return;
         if (p.qty == 0) return;
 
         if (bp.items.length > 0) {
             this.basket = this.basket.filter(i => i._id != p._id);
             p.qty = 0;
         } else {
-            bp.qty --;
-            p.qty --;
+            bp.qty--;
+            p.qty--;
         }
-        
+
 
     }
 
@@ -229,16 +275,8 @@ export class StoreService {
         this.storeDataRequest(storeName)
             .subscribe((data: StoreServiceResponseType) => {
                 this.store = data.store;
-                this.store.workday = [{
-                    day: 4,
-                    hours: [{from: 9, to: 10}]
-                }, 
-                {
-                    day: 5,
-                    hours: [{from: 9, to: 11}, {from: 18, to: 22}]
-                }];
                 this.products = data.products;
-                this.titleService.setTitle(this.store.title)                
+                this.titleService.setTitle(this.store.title)
                 this.getCategories();
             })
     }

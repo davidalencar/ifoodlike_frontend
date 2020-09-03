@@ -213,6 +213,29 @@
                             </div>
                         </div>
                     </ng-container>
+
+                    <!-- AGENDAMENTO -->
+                    <ng-container *ngIf="storeService.storeIsCloed() && scheduleOrder() != undefined">
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-text">Pedido agenda para: {{ formatScheduleDate() }}</span>
+                            </div>
+                        </div>
+                        <div class="row product">
+                            <div class="col">
+                                <span class="question-text">Horário</span>
+                            </div>
+                        </div>
+                        <div class="row product " *ngFor="let h of scheduleOrder().hours">
+                            <div class="col">
+                                <span> {{ storeService.formatHour(h.from) }} - {{ storeService.formatHour(h.to) }}</span>
+                            </div>
+                            <div class="col-2">
+                                <input  class="form-check-input checkbox-lg" type="radio" name="scheduleTime">
+                            </div>
+                        </div>
+
+                    </ng-container>
                 </div>
             </li>
             <li class="list-group-item bill" *ngIf="commandNow == 'share'">
@@ -263,7 +286,11 @@
                 </button>
                 <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
                     [disabled]="!form.valid || !storeService.canSubmitOrder()">
-                    Enviar pedido
+                    <div class="d-flex justify-content-center">
+                        <i class="ri-whatsapp-line whats-btn-confirm"></i>
+                        <span>Enviar Pedido</span>
+                    </div>
+                        
                 </button>
             </div>
         </nav>
