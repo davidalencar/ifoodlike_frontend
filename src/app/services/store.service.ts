@@ -38,17 +38,31 @@ export class StoreService {
     }
 
     getNextTime() {
-        
+        const today =  moment().day();
+
         if (this.store.workday == undefined || this.store.workday.length == 0) return undefined;
 
         for (let index = 0; index <= 7; index++) {
             const date = moment().add(index, 'day'); 
             const day = date.day();
             
+            
 
-            const workDay = this.store.workday.find(d => d.day == day);
+            var workDay = this.store.workday.find(d => d.day == day);
 
             if (workDay != undefined) {
+                
+                if(index ==  0) {
+                    const now = Number.parseFloat(`${date.hour()}.${date.minute()}`);
+                    
+                    workDay.hours = workDay.hours.filter(h => h.from >= now);
+
+                    if (workDay.hours.length == 0){
+                        continue;
+                    }
+
+                }
+                
                 return {
                     workDay,
                     date
