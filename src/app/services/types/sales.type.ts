@@ -8,6 +8,7 @@ export class SalesType {
     salesId: string;
     store: string;
     time: Date;    
+    period: string;
     cust: CustomerType;
     paymMethod: string;
     totalAmount: number;

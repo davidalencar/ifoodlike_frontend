@@ -310,7 +310,7 @@
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="row" *ngFor="let h of w.hours">
+                                    <div class="row" *ngFor="let h of storeService.orderStoreWorkDaysHours(w.hours)">
                                         <div class="col">
                                             {{ storeService.formatHour(h.from) }}
                                         </div>

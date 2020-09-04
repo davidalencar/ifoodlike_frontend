@@ -100,11 +100,25 @@ export class BillComponent implements OnInit {
     return '\n---\n'
   }
 
+  formatSchedule() {
+    var sc = '*AGENDAMENTO*'
+    const mnt = this.storeService.getNextTime().date;
+    const dateFormat = mnt.format('DD/MM');
+    const weekDayName = this.storeService.weekDay(mnt.day()).toLocaleLowerCase();
+    sc+= `\nPara *${dateFormat}* (${weekDayName}) entre ${this.storeService.order.schedule.period}`
+
+    return sc;
+  }
+
   formatData() {
     var data: string = '';
 
     data += this.formatHeader()
     data += this.breakLine();
+    if (this.storeService.storeIsCloed()) {
+      data+= this.formatSchedule();
+      data += this.breakLine();
+    }
     data += `_Itens_ \n${this.formatOrder()}`;
     if (this.storeService.store.questions.address == true) {
       data += this.breakLine();
@@ -207,12 +221,24 @@ export class BillComponent implements OnInit {
   }
 
   formatScheduleDate() {
+    if (this.storeService.getNextTime() == undefined) return '';
+
     const date = this.storeService.getNextTime().date;
 
     if (date.diff(moment(), 'day') == 0) {
       return 'Hoje'
     }
 
-    return `date.format('DD/MM')} (${this.storeService.weekDay(date.day()).toLocaleLowerCase()}`
+    const dateFormat = date.format('DD/MM');
+    const weekDayName = this.storeService.weekDay(date.day()).toLocaleLowerCase();
+
+    return `${dateFormat} (${weekDayName})`
+  }
+
+  onSelectPeriod(h: { from: number, to: number }) {
+    this.storeService.order.schedule = {
+      date: this.storeService.getNextTime().date.toDate(),
+      period: `${this.storeService.formatHour(h.from)} - ${this.storeService.formatHour(h.to)}`
+    }
   }
 }

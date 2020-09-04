@@ -13,6 +13,7 @@ import { ItemCategoryType } from './types/item.category.type';
 import { OrderType } from './types/order.type';
 import { SalesResponseType } from './types/sales.response.type';
 import { SalesType } from './types/sales.type'
+import { stringify } from '@angular/compiler/src/util';
 
 @Injectable()
 export class StoreService {
@@ -59,7 +60,9 @@ export class StoreService {
         return undefined;
     }
 
-
+    mustBeScheduled() {
+        return this.storeIsCloed() && this.order.schedule == undefined;
+    }
     
 
     formatHour(hour: number) {
@@ -68,6 +71,10 @@ export class StoreService {
 
     orderStoreWorkDays(wdList: { day: number, hours: { from: number, to: number }[] }[]) {
         return wdList.sort((wd1, wd2) => wd1.day - wd2.day);
+    }
+
+    orderStoreWorkDaysHours(hours: { from: number, to: number }[]) {
+        return hours.sort((h1, h2) =>h1.from - h2.from);
     }
 
     getStoreStatus() {
@@ -228,7 +235,8 @@ export class StoreService {
         return this.hasProductsOnBasket() &&
             this.wereAllChoicesMade() &&
             this.minOrderReached() &&
-            this.hasPaymMethodBeenSet();
+            this.hasPaymMethodBeenSet() &&
+            !this.mustBeScheduled();
     }
 
     remainToMinimumOrderAmount() {
@@ -309,6 +317,7 @@ export class StoreService {
             },
             order: {
                 store: this.store.name,
+                schedule: undefined,
                 paymMethod: this.order.paymMethod,
                 totalAmount: this.basketTotalAmountWithTaxes(),
                 instruction: this.order.instruction,
@@ -334,6 +343,13 @@ export class StoreService {
             })
             data.order.lines.push(line)
         })
+
+        if(this.storeIsCloed()) {
+            data.order.schedule = {
+                date: this.order.schedule.date,
+                period: this.order.schedule.period
+            }            
+        }
 
         return data;
     }

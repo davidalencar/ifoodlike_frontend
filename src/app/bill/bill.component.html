@@ -218,25 +218,30 @@
                     <ng-container *ngIf="storeService.storeIsCloed() && scheduleOrder() != undefined">
                         <div class="row question">
                             <div class="col">
-                                <span class="question-text">Pedido agenda para: {{ formatScheduleDate() }}</span>
+                                <span class="question-text">Pedido agendado para: {{ formatScheduleDate() }}</span>
                             </div>
                         </div>
                         <div class="row product">
-                            <div class="col">
+                            <div class="col-8">
                                 <span class="question-text">Horário</span>
                             </div>
+                            <div class="col-2" *ngIf="storeService.mustBeScheduled()">
+                                <span class="badge badge-danger">Obrigatório</span>
+                            </div>
                         </div>
+                        
                         <div class="row product " *ngFor="let h of scheduleOrder().hours">
                             <div class="col">
                                 <span> {{ storeService.formatHour(h.from) }} - {{ storeService.formatHour(h.to) }}</span>
                             </div>
                             <div class="col-2">
-                                <input  class="form-check-input checkbox-lg" type="radio" name="scheduleTime">
+                                <input  class="form-check-input checkbox-lg" type="radio" name="scheduleTime" (change)="onSelectPeriod(h)">
                             </div>
                         </div>
 
                     </ng-container>
                 </div>
+                <div class="lastrow"></div>
             </li>
             <li class="list-group-item bill" *ngIf="commandNow == 'share'">
                 <div class="container">

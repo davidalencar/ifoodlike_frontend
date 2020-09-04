@@ -32,7 +32,7 @@
             {{  storeService.weekDay(w.day) }}
         </div>
         <div class="col">
-            <div class="row hours" *ngFor="let h of w.hours">
+            <div class="row hours" *ngFor="let h of storeService.orderStoreWorkDaysHours(w.hours)">
                 <div class="col">
                     <span> {{ storeService.formatHour(h.from) }} - {{ storeService.formatHour(h.to) }}</span>
                 </div>

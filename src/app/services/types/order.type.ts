@@ -6,6 +6,7 @@ export class OrderType {
     userName: string;
     userPhone: string;
     address: AddressType;
+    schedule?: {date: Date, period: string};    
 
     constructor() {
         this.address = new AddressType();

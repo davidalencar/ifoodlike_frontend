@@ -76,6 +76,10 @@ export class ShelfComponent implements OnInit {
       return `Agendar para hoje a partir das ${this.storeService.formatHour(nextTime.workDay.hours[0].from)}.`
     }
 
-    return `Agende para ${nextTime.date.format('DD/MM')} (${this.storeService.weekDay(nextTime.date.day()).toLocaleLowerCase()}) a partir das ${this.storeService.formatHour(nextTime.workDay.hours[0].from)}.`
+    const dateFormat = nextTime.date.format('DD/MM');
+    const weekDayName = this.storeService.weekDay(nextTime.date.day()).toLocaleLowerCase();
+    const firstPeriod = this.storeService.formatHour( this.storeService.orderStoreWorkDaysHours(nextTime.workDay.hours)[0].from);
+    
+    return `Agende para ${dateFormat} (${weekDayName}) a partir das ${firstPeriod}.`
   }
 }
