@@ -15,14 +15,15 @@
     </div>
 
 </div>
-<div class="container" *ngIf="storeService.storeIsCloed()">
-    
-    <a (click)="showTime = !showTime">
+<div class="container  status" *ngIf="storeService.storeIsCloed()">
+        
+    <a (click)="showTime = !showTime" class="d-flex">
         <span class="badge badge-pill badge-danger">
             <i class="ri-time-line"></i>
             {{ storeService.getStoreStatus()}}
-        </span>
+        </span>        
         
+        <span class="time schedule-msg">Diexe agendado!</span>
     </a>
     
 </div>
