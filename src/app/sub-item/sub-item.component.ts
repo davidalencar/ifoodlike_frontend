@@ -68,7 +68,7 @@ export class SubItemComponent implements OnInit {
     cat.products.push({      
       name,
       price,
-      qty,
+      qty: (qty > 0) ? qty : 0,
       maxQty: (cat.type == 'choice') ? 1 : maxQty
     })
   }
