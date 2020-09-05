@@ -141,6 +141,11 @@ export class StoreService {
             p.qty = 0;
         } else {
             bp.qty--;
+
+            if (bp.qty == 0){
+                this.basket = this.basket.filter(i => i._id != p._id);
+            }
+
             p.qty--;
         }
 
