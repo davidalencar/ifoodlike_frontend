@@ -22,6 +22,12 @@ export class PickingComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  listItemsByVend(vendName: string)  {
+    var ret =[...this.groupItems.compose.filter(p=>p.productId!= undefined && p.productId.vend == vendName), ...this.groupItems.simple.filter(p=>p.productId!= undefined && p.productId.vend == vendName)]
+    console.log(ret)
+    return ret;
+  }
+
   mapItemsCostbyVend(list: any[]) {
     return list.map(p => (p.productId != undefined) ? { vend: p.productId.vend, amount: p.productId.cost * p.qty } : { vend: '', amount: 0 })
   }
