@@ -22,10 +22,8 @@ export class PickingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listItemsByVend(vendName: string)  {
-    var ret =[...this.groupItems.compose.filter(p=>p.productId!= undefined && p.productId.vend == vendName), ...this.groupItems.simple.filter(p=>p.productId!= undefined && p.productId.vend == vendName)]
-    console.log(ret)
-    return ret;
+  listItemsByVend(vendName: string) {
+    return [...this.groupItems.compose.filter(p => p.productId != undefined && p.productId.vend == vendName), ...this.groupItems.simple.filter(p => p.productId != undefined && p.productId.vend == vendName)];
   }
 
   mapItemsCostbyVend(list: any[]) {
@@ -48,7 +46,7 @@ export class PickingComponent implements OnInit {
   }
 
   totalItemsCost() {
-    return this.sumItemsCost().map(i => i.amount) .reduce((i1, i2) => i1 + i2, 0)
+    return this.sumItemsCost().map(i => i.amount).reduce((i1, i2) => i1 + i2, 0)
   }
 
   sumSalesPickingList() {
