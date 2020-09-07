@@ -23,12 +23,13 @@
             {{ storeService.getStoreStatus()}}
         </span>        
         
-        <span class="time schedule-msg">Diexe agendado!</span>
+        <span class="time schedule-msg" *ngIf="storeService.store.allowScheduleOrder">Diexe agendado!</span>
+        
     </a>
     
 </div>
 <div class="container" *ngIf="showTime">   
-    <div class="row" *ngFor="let w of storeService.orderStoreWorkDays(storeService.store.workday)">
+    <div class="row workday" *ngFor="let w of storeService.orderStoreWorkDays(storeService.store.workday)">
         <div class="col time">
             {{  storeService.weekDay(w.day) }}
         </div>
@@ -40,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="storeService.store.allowScheduleOrder">
         <div class="col">
             <span class="hours">{{ formatNextTime() }}</span>
         </div>
@@ -86,10 +87,10 @@
 <br>
 <br>
 <br>
-<nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light ">
+<nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light "  *ngIf="storeService.storeCanReciveOrder()">
     <div class="container justify-content-end ">
         <button class="btn btn-lg btn-success btn-confirm" [routerLink]="[nextRouterLink()] "
-            [disabled]="!storeService.hasProductsOnBasket() ">
+            [disabled]="!storeService.hasProductsOnBasket()">
             {{ nextRouterName() }}
         </button>
     </div>

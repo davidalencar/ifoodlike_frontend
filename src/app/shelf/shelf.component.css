@@ -68,9 +68,13 @@
     font-size: 0.8rem;
 }
 
-.hours {
+.hours {   
     font-size: 0.8rem;
     font-weight: 400;
+}
+
+.workday {
+    margin-top: 10px;
 }
 
 .schedule-msg{

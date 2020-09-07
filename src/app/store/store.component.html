@@ -322,6 +322,23 @@
                             </ul>
                         </div>
                     </div>
+
+                    <div class="row question">
+                        <div class="col">
+                            <span class="question-text">O cliente pode deixar pedidos agendados?</span>
+                        </div>
+                    </div>
+                    <div class="row question ">
+                        <div class="col-8">
+                            Aceita agendamento
+                        </div>
+                        <div class="col">
+                            <label class="switch ">
+                                <input type="checkbox" [(ngModel)]="store.allowScheduleOrder" class="default">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                    </div>
                 </div>
             </li>
         </ng-container>

@@ -152,6 +152,10 @@ export class StoreService {
 
     }
 
+    storeCanReciveOrder() {
+        return  this.getStoreStatus()  != 'fechado' || this.store.allowScheduleOrder;
+    }
+
     basketProducts() {
         return this.orderProductsByName(this.basket)
     }

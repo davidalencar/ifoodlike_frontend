@@ -22,6 +22,7 @@ export class StoreType {
             document: string;
         }
     };
+    allowScheduleOrder: boolean;
     workday: {
         day: number;
         hours: {from: number, to: number}[];
