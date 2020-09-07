@@ -153,7 +153,7 @@ export class StoreService {
     }
 
     storeCanReciveOrder() {
-        return  this.getStoreStatus()  != 'fechado' || this.store.allowScheduleOrder;
+        return  this.storeIsCloed() == false  || (this.storeIsCloed() && this.store.allowScheduleOrder);
     }
 
     basketProducts() {
