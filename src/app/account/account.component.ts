@@ -56,12 +56,12 @@ export class AccountComponent implements OnInit {
     this.dashBoardService.createUser(form.value.userName,
       form.value.userPhone,
       form.value.userEmail,
-      form.value.storePlan,
+      'test90',
       form.value.storeName)
       .subscribe(
         (data) => {
           if(data.status == 'OK'){
-            this.newStore = 'minha.bslista.com/' + form.value.storeName;
+            this.newStore = 'bslista.com/' + form.value.storeName;
             this.currentView = 'welcome';
           } else {
             this.msgError = data.status;

@@ -37,7 +37,7 @@
                         <div class="input-group-prepend">
                             <div class="input-group-text" id="btnGroupAddon2">@</div>
                         </div>
-                        <input type="text" class="form-control" placeholder="sualoja (use seu instagran)" ngModel
+                        <input type="text" class="form-control" placeholder="nomedasualoja" ngModel
                             name="storeName" pattern="^(?!.*\.\.)(?!.*\.$)[^\W][\w.]{0,29}$" required>
                     </div>
                 </div>
@@ -45,14 +45,14 @@
                     <input type="email" class="form-control" placeholder="E-mail" name="userEmail" required ngModel
                         pattern="^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$">
                 </div>
-                <div class="form-group">
+                <!-- <div class="form-group">
                     <select class="form-control" ngModel name="storePlan" required>
                         <option value="">Escolha um plano</option>
                         <option value="basic">Básico</option>
                         <option value="pro">Pró</option>
                         <option value="pro2">Pró Anual</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="invalid-msg text-center">
                     <span> {{ msgError }} </span>
                 </div>                
@@ -70,11 +70,11 @@
                 Quase lá!!!
             </h1>
             <p>
-                Você poderá acessar sua lista pelo link <a [href]="'http://' + newStore"> {{ newStore }} </a>
+                Entraremos em contato para criar a sua lista online.
             </p>
-            <a href="http://www.bslista.com">
-                <h2>bslista.com</h2>
-            </a>
+            <p>
+                Você poderá acessar sua lista pelo link <a [href]="'http://' + newStore"> {{ newStore }} </a>
+            </p>            
         </ng-container>
     </div>
 </div>
