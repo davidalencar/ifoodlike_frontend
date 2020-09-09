@@ -33,7 +33,7 @@
                     <span class="productPrice">{{ storeService.formatPrice(product.price) }}</span>
                 </div>
                 <div class="expand">
-                    <div class="btn-group itemcontrol" role="group" *ngIf="storeService.storeCanReciveOrder()">
+                    <div class="btn-group itemcontrol" role="group" >
                         <a class="control-btn" (click)="onSubtract()"><i
                                 class="ri-indeterminate-circle-fill ri-lg"></i></a>
                         <a class="control-btn"><span>{{ product.qty }} </span></a>
