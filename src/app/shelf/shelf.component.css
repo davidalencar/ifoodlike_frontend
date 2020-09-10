@@ -77,10 +77,20 @@
     margin-top: 10px;
 }
 
-.schedule-msg{
-    margin-left: 10px;
-}
-
 .status {
     margin-bottom: 15px;
+}
+
+.iconStatus-Opened {
+    background-color: #3ecf8e !important;    
+    padding: 15px;
+    border-radius: 100%;
+    margin-right: 10px;
+}
+
+.iconStatus-Closed {
+    background-color: #ea5151 !important;    
+    padding: 15px;
+    border-radius: 100%;
+    margin-right: 10px;
 }

@@ -24,12 +24,19 @@ export class StoreService {
     products: ProductType[];
     categories = [];
     order: OrderType;
+    currentTime: {from: number, to: number};
 
     storeIsCloed() {
         return this.store.workday != undefined
-          && this.store.workday.length > 0
-          && this.getStoreStatus() == 'fechado';
-      }
+            && this.store.workday.length > 0
+            && this.getStoreStatus() == 'fechado';
+    }
+
+    storeIsOpen() {
+        return this.store.workday != undefined
+            && this.store.workday.length > 0
+            && this.getStoreStatus() == 'aberto';
+    }
 
     weekDay(day: number) {
         const days = ['Domingo', 'Segunda-Feira', 'Terça-Feira', 'Quarta-Feira', 'Quinta-Feira', 'Sexta-Feira', 'Sábado'];
@@ -38,36 +45,31 @@ export class StoreService {
     }
 
     getNextTime() {
-        const today =  moment().day();
+        const today = moment().day();
 
         if (this.store.workday == undefined || this.store.workday.length == 0) return undefined;
 
         for (let index = 0; index <= 7; index++) {
-            const date = moment().add(index, 'day'); 
+            const date = moment().add(index, 'day');
             const day = date.day();
-            
-            
 
             var workDay = this.store.workday.find(d => d.day == day);
 
             if (workDay != undefined) {
-                
-                if(index ==  0) {
+
+                if (index == 0) {
                     const now = Number.parseFloat(`${date.hour()}.${date.minute()}`);
-                    
+
                     workDay.hours = workDay.hours.filter(h => h.from >= now);
 
-                    if (workDay.hours.length == 0){
+                    if (workDay.hours.length == 0) {
                         continue;
                     }
-
                 }
-                
                 return {
                     workDay,
                     date
                 }
-                
             }
         }
 
@@ -77,7 +79,7 @@ export class StoreService {
     mustBeScheduled() {
         return this.storeIsCloed() && this.order.schedule == undefined;
     }
-    
+
 
     formatHour(hour: number) {
         return hour.toFixed(2).padStart(5, "0").replace(".", ":");
@@ -88,20 +90,27 @@ export class StoreService {
     }
 
     orderStoreWorkDaysHours(hours: { from: number, to: number }[]) {
-        return hours.sort((h1, h2) =>h1.from - h2.from);
+        return hours.sort((h1, h2) => h1.from - h2.from);
     }
 
     getStoreStatus() {
         const day = moment().day();
         const time = Number.parseFloat(moment().hour() + '.' + moment().minute());
 
-        if (this.store.workday == undefined) return 'fechado';
+        if (this.store.workday == undefined) return 'aberto';
+
+        if (this.store.workday.length == 0) return 'aberto';
 
         const workDay = this.store.workday.find(d => d.day == day);
 
         if (workDay == undefined) return 'fechado';
 
-        if (workDay.hours.findIndex(h => time >= h.from && time <= h.to) < 0) return 'fechado';
+        let curTimeIndex = workDay.hours.findIndex(h => time >= h.from && time <= h.to);
+        if (curTimeIndex < 0) {
+            return 'fechado';
+        } else {
+            this.currentTime = workDay.hours[curTimeIndex];
+        }
 
         return 'aberto';
     }
@@ -142,7 +151,7 @@ export class StoreService {
         } else {
             bp.qty--;
 
-            if (bp.qty == 0){
+            if (bp.qty == 0) {
                 this.basket = this.basket.filter(i => i._id != p._id);
             }
 
@@ -153,7 +162,7 @@ export class StoreService {
     }
 
     storeCanReciveOrder() {
-        return  this.storeIsCloed() == false  || (this.storeIsCloed() && this.store.allowScheduleOrder);
+        return this.storeIsCloed() == false || (this.storeIsCloed() && this.store.allowScheduleOrder);
     }
 
     basketProducts() {
@@ -367,11 +376,11 @@ export class StoreService {
             data.order.lines.push(line)
         })
 
-        if(this.storeIsCloed()) {
+        if (this.storeIsCloed()) {
             data.order.schedule = {
                 date: this.order.schedule.date,
                 period: this.order.schedule.period
-            }            
+            }
         }
 
         return data;

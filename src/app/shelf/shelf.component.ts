@@ -65,7 +65,9 @@ export class ShelfComponent implements OnInit {
     return 'Fechar pedido'
   }
 
-  
+  formatTimeToClose() {
+    return ` - aberto até ${this.storeService.formatHour(this.storeService.currentTime.to)}`
+  }
 
 
   formatNextTime() {
@@ -73,13 +75,13 @@ export class ShelfComponent implements OnInit {
     if (nextTime == undefined) return '';
 
     if (nextTime.date.diff(moment(), 'day') == 0) {
-      return `Agendar para hoje a partir das ${this.storeService.formatHour(nextTime.workDay.hours[0].from)}.`
+      return `- Agende para hoje a partir das ${this.storeService.formatHour(nextTime.workDay.hours[0].from)}.`
     }
 
     const dateFormat = nextTime.date.format('DD/MM');
     const weekDayName = this.storeService.weekDay(nextTime.date.day()).toLocaleLowerCase();
     const firstPeriod = this.storeService.formatHour( this.storeService.orderStoreWorkDaysHours(nextTime.workDay.hours)[0].from);
     
-    return `Agende para ${dateFormat} (${weekDayName}) a partir das ${firstPeriod}.`
+    return `- Agende para ${weekDayName} a partir das ${firstPeriod}.`
   }
 }

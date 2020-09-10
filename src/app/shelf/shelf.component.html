@@ -1,34 +1,29 @@
-<nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand" [routerLink]="['']">
-        <img src="../assets/img/bslista-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
-
-    </a>
-    <div class="d-flex justify-content-end">
-        <a class="nav-link active" [routerLink]="['']" [queryParams]="{ 'plan': 'basic' }"><button
-                class="btn get-started-btn">Criar lista</button></a>
-    </div>
-</nav>
 <div class="jumbotron jumbotron-fluid bg-white">
     <div class="container">
         <h1 class="display-4">{{storeService.store.title}}</h1>
         <p class="lead">{{ storeService.store.complement }}</p>
     </div>
-
 </div>
-<div class="container  status" *ngIf="storeService.storeIsCloed()">
-        
+<div class="container status" *ngIf="storeService.storeIsCloed()">
+    <div class="d-flex">
+        <a (click)="showTime = !showTime">
+            <div class="iconStatus-Closed"></div>
+        </a>
+        <span class="" *ngIf="storeService.store.allowScheduleOrder">{{ formatNextTime() }}</span>
+    </div>
+</div>
+<div class="container  status" *ngIf="storeService.storeIsOpen()">
     <a (click)="showTime = !showTime" class="d-flex">
-        <span class="badge badge-pill badge-danger">
-            <i class="ri-time-line"></i>
-            {{ storeService.getStoreStatus()}}
-        </span>        
-        
-        <span class="time schedule-msg" *ngIf="storeService.store.allowScheduleOrder">Diexe agendado!</span>
-        
+        <div class="iconStatus-Opened"></div>
+        <span class="" >{{ formatTimeToClose() }}</span>
     </a>
-    
 </div>
-<div class="container" *ngIf="showTime">   
+<div class="container" *ngIf="showTime">
+    <div class="row workday">
+        <div class="col time">
+            Horários
+        </div>
+    </div>
     <div class="row workday" *ngFor="let w of storeService.orderStoreWorkDays(storeService.store.workday)">
         <div class="col time">
             {{  storeService.weekDay(w.day) }}
@@ -43,35 +38,19 @@
     </div>
     <div class="row" *ngIf="storeService.store.allowScheduleOrder">
         <div class="col">
-            <span class="hours">{{ formatNextTime() }}</span>
+            <span class="hours"></span>
         </div>
     </div>
 </div>
 
-<!-- <div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="..." alt="Card image cap">
-    <div class="card-body">
-      <h5 class="card-title">Pedir de novo</h5>
-      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div> -->
-
 <div class="container nav sticky-top bg-white">
-
-    <div class="menu-title">
-        {{ storeService.store.shelfTitle }}
-    </div>
     <nav class='vertical-align-middle scroll sticky-top'>
         <a class="nav-item  menu-item" *ngFor="let category of storeService.categories "
             [href]="storeService.store.name + '#' + category.name">
             <div class="menu-name">{{ category.name }}</div>
         </a>
     </nav>
-
 </div>
-
-
 <div class="bg-light">
     <div class="container">
         <div class="list-group list-group-flush " *ngFor="let category of storeService.categories ">
@@ -87,7 +66,7 @@
 <br>
 <br>
 <br>
-<nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light "  *ngIf="storeService.storeCanReciveOrder()">
+<nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light " *ngIf="storeService.storeCanReciveOrder()">
     <div class="container justify-content-end ">
         <button class="btn btn-lg btn-success btn-confirm" [routerLink]="[nextRouterLink()] "
             [disabled]="!storeService.hasProductsOnBasket()">

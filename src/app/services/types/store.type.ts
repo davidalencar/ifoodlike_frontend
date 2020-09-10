@@ -1,6 +1,7 @@
 export class StoreType {
     name: string;
     title: string;
+    logo: string;
     complement: string;
     shelfTitle: string;
     minimumOrderAmount?: number;
