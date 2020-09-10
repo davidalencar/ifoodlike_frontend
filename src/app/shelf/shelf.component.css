@@ -98,3 +98,10 @@
 .topnavBar {
     background-color: #343a40!important;
 }
+
+.logo-img{
+    max-height:120px;
+    max-width:129px;
+    float: left!important;    
+    margin-right: 10px;
+}
