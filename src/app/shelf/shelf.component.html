@@ -1,3 +1,10 @@
+<nav class="navbar navbar-light bg-light justify-content-end">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+            <a class="nav-link" [routerLink]="['/']" >entrar</a>
+          </li>
+    </ul>    
+</nav>
 <div class="jumbotron jumbotron-fluid bg-white">
     <div class="container">
         <h1 class="display-4">{{storeService.store.title}}</h1>
@@ -15,7 +22,7 @@
 <div class="container  status" *ngIf="storeService.storeIsOpen()">
     <a (click)="showTime = !showTime" class="d-flex">
         <div class="iconStatus-Opened"></div>
-        <span class="" >{{ formatTimeToClose() }}</span>
+        <span class="">{{ formatTimeToClose() }}</span>
     </a>
 </div>
 <div class="container" *ngIf="showTime">
