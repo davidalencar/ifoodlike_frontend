@@ -39,13 +39,13 @@
 }
 
 .menu-item {
-    background-color: rgb(72, 84, 96);
+    background-color: #343a40!important;
     margin: 10px 4px;
     padding: 6px 16px;
     border-radius: 4px;
     border-width: 1px;
     border-style: solid;
-    border-color: rgb(72, 84, 96);
+    border-color: #343a40!important;
     border-image: initial;
 }
 
@@ -93,4 +93,8 @@
     padding: 15px;
     border-radius: 100%;
     margin-right: 10px;
+}
+
+.topnavBar {
+    background-color: #343a40!important;
 }
