@@ -1,14 +1,4 @@
-<div class="list-group-item text-muted dable-item" *ngIf="product.enable == false">
-    <div class="row">
-        <div class="col-6">
-            <span class="productDesc text-muted"> {{ product.name }} </span>
-        </div>
-        <div class="col-6 text-center">
-            <span class="productDesc text-muted"> (Esgotado) </span>
-        </div>
-    </div>
-</div>
-<div class="list-group-item" *ngIf="product.enable">
+<div class="list-group-item">
     <div class="row">
         <div class="col">
             <div class="d-flex">
@@ -33,7 +23,7 @@
                     <span class="productPrice">{{ storeService.formatPrice(product.price) }}</span>
                 </div>
                 <div class="expand">
-                    <div class="btn-group itemcontrol" role="group" >
+                    <div class="btn-group itemcontrol" role="group">
                         <a class="control-btn" (click)="onSubtract()"><i
                                 class="ri-indeterminate-circle-fill ri-lg"></i></a>
                         <a class="control-btn"><span>{{ product.qty }} </span></a>

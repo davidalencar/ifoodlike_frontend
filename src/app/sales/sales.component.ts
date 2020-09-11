@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { map, single } from 'rxjs/operators';
 
 
 
@@ -22,7 +22,7 @@ export class SalesComponent implements OnInit {
   storeName = '';
   viewTotal = false;
   noSales = false;
-  viewNow: string = 'sales'
+  viewNow: string = 'recived'
   salesToShow = []
 
   items: { qty: number, products: string }[] = [];
@@ -32,12 +32,10 @@ export class SalesComponent implements OnInit {
     public storeService: StoreService,
     public dashBoardService: DashBoardService,
     private router: Router) {
-    if (this.dashBoardService.sales.length == 0) {
-      this.onRefresh();
-    }
+    this.onRefresh();
   }
 
-  onRefresh() {
+  clearContext(callback) {
     const id: Observable<string> = this.route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
       this.storeName = id;
@@ -47,10 +45,24 @@ export class SalesComponent implements OnInit {
       this.dashBoardService.salesDeleted = [];
       this.dashBoardService.salesPickingList = [];
 
+      callback(id);
+
+    });
+  }
+
+  curView() {
+    if (this.viewNow == 'recived') return  'Recebidos';
+
+    return 'Entregues';
+  }
+
+  onRefresh() {
+    this.clearContext(id => {
       this.dashBoardService.getStoreSalesData(id)
         .subscribe(data => {
           this.dashBoardService.sales = data.sales;
           this.dashBoardService.labels = data.labels;
+          this.viewNow = 'recived';
 
           if (this.dashBoardService.sales.length == 0) {
             this.noSales = true;
@@ -59,7 +71,24 @@ export class SalesComponent implements OnInit {
         }, (e: any) => {
           console.log(e)
         })
+    });
+  }
 
+  onGetHistory() {
+    this.clearContext(id => {
+      this.dashBoardService.getStoreSalesData(id, 'picked')
+        .subscribe(data => {
+          this.dashBoardService.sales = data.sales;
+          this.dashBoardService.labels = data.labels;
+          this.viewNow = 'picked';
+
+          if (this.dashBoardService.sales.length == 0) {
+            this.noSales = true;
+          }
+
+        }, (e: any) => {
+          console.log(e)
+        })
     });
   }
 
@@ -80,7 +109,9 @@ export class SalesComponent implements OnInit {
   }
 
   sumSelectedSales() {
-    return this.getSelectedSales().map(s => s.totalAmount).reduce((s1, s2) => s1 + s2, 0)
+    if (this.dashBoardService.sales.length == 0) return 0;
+
+    return this.dashBoardService.sales.map(s => s.totalAmount).reduce((s1, s2) => s1 + s2, 0)
   }
 
 
@@ -98,7 +129,7 @@ export class SalesComponent implements OnInit {
     return msg;
   }
 
-  onSetSelectStatus( status: string) {
+  onSetSelectStatus(status: string) {
     this.dashBoardService.sales.forEach(s => {
       if (s.status == status) {
         s.selected = true;
@@ -112,7 +143,7 @@ export class SalesComponent implements OnInit {
 
   onSetSelectLabel(label: string) {
     this.dashBoardService.sales.forEach(s => {
-      
+
       if (this.showLabel(s.cust) == label) {
         s.selected = true;
       }
@@ -126,7 +157,7 @@ export class SalesComponent implements OnInit {
 
   onDeleteSelected() {
     this.dashBoardService.salesDeleted = this.getSelectedSales();
-    this.dashBoardService.salesDeleted =  this.dashBoardService.salesDeleted.filter(s => s.status == 'picked');
+    this.dashBoardService.salesDeleted = this.dashBoardService.salesDeleted.filter(s => s.status == 'picked');
 
   }
 
@@ -146,7 +177,7 @@ export class SalesComponent implements OnInit {
   }
 
   custLabelStyle(cust: CustomerType) {
-    
+
     return this.labelStyle(this.showLabel(cust));
   }
 

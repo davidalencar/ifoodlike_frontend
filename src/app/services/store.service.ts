@@ -280,7 +280,7 @@ export class StoreService {
     }
 
     productsByCategory(category: string) {
-        return this.orderProductsByName(this.products.filter(p => p.category == category))
+        return this.orderProductsByName(this.products.filter(p => p.category == category && p.enable == true))
 
     }
 

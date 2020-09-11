@@ -82,8 +82,7 @@ export class BillComponent implements OnInit {
     this.storeService.sendOrder()
       .subscribe((data: SalesResponseType) => {
         this.storeService.salesId = data.salesId;
-        //this.commandNow = 'share';
-        this.sendViaWhats()
+        this.commandNow = 'share';        
       })
 
   }

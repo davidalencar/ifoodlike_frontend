@@ -52,9 +52,9 @@ export class DashBoardService {
         })
     }
 
-    getStoreSalesData(storeName: string) {
+    getStoreSalesData(storeName: string,  status: string = 'received') {
         this.currentStore = storeName;
-        const url = `${environment.loja_api}sales/${storeName}`;
+        const url = `${environment.loja_api}sales/${storeName}/${status}`;
 
         return this.http.get<{ sales: SalesType[], labels:{name: string, color: string}[]  }>(url, {
             headers: { 'Authorization': this.userToken.access_token }

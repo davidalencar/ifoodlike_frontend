@@ -1,44 +1,9 @@
 <app-nav-back title="Pedidos" [route]="['/', 'user', 'board']"></app-nav-back>
 
+
 <div class="container">
-
-    <nav class="navbar navbar-light bg-light justify-content-start">
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-reset" data-toggle="dropdown" aria-haspopup="true"
-                aria-expanded="false">
-                <i class="ri-checkbox-blank-line"></i>
-            </a>
-            <div class="dropdown-menu">
-                <a class="dropdown-item" (click)="onSetSelect(true)">Todos</a>
-                <a class="dropdown-item" (click)="onSetSelect(false)">Nenhum</a>
-                <a class="dropdown-item" (click)="onSetSelectStatus('received')">Recebidos</a>
-                <a class="dropdown-item" (click)="onSetSelectStatus('picked')">Separados</a>
-                <ng-container *ngIf="dashBoardService.labels.length > 0">
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" *ngFor="let l of dashBoardService.labels"
-                        (click)="onSetSelectLabel(l.name)" [style]="labelStyle(l.name)">
-                        {{ l.name }}
-                        <i class="ri-price-tag-3-fill"></i>
-                    </a>
-                </ng-container>
-            </div>
-        </div>
-        <a class="nav-link " (click)="generatePickingList()"> <span>Entregar </span> <i class="ri-truck-line"></i></a>
-        <div class="d-flex command-group">
-            <a class="command" (click)="viewTotal = !viewTotal"><i class="ri-calculator-line"></i></a>
-            <a class="command" (click)="onDeleteSelected()"><i class="ri-delete-bin-line"></i></a>
-            <a class="command" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
-        </div>
-    </nav>
-
-    <div *ngIf="dashBoardService.sales.length == 0 && noSales==false" class="spinner-border" role="status">
-        <span class="sr-only">Carregando...</span>
-    </div>
-
-    <h2 *ngIf="noSales == true">Nenhuma venda</h2>
-
-
-    <ul class="list-group" *ngIf="dashBoardService.salesDeleted.length > 0">
+   
+    <!-- <ul class="list-group">
         <li class="list-group-item bg-danger">
             <div class="container">
                 <div class="row">
@@ -74,217 +39,251 @@
                 </div>
             </div>
         </li>
-    </ul>
+    </ul> -->
 
-    <ul class="list-group" *ngIf="dashBoardService.sales.length > 0">
-        <li class="list-group-item" *ngIf="viewTotal">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <span>Quantos: <span
-                                class="text-success font-weight-bold">{{ getSelectedSales().length}}</span></span>
-
-                    </div>
-                    <div class="col">
-                        <span>Total: <span
-                                class="text-success font-weight-bold">{{ storeService.formatPrice(sumSelectedSales())}}</span></span>
+    <ul class="list-group">
+        <li class="list-group-item list-group-item-coomant bg-light  ">
+            <nav class="navbar navbar-light bg-light justify-content-start">
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-reset" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="ri-checkbox-blank-line"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" (click)="onSetSelect(true)">Todos</a>
+                        <a class="dropdown-item" (click)="onSetSelect(false)">Nenhum</a>
+                        <ng-container *ngIf="dashBoardService.labels.length > 0">
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" *ngFor="let l of dashBoardService.labels"
+                                (click)="onSetSelectLabel(l.name)" [style]="labelStyle(l.name)">
+                                {{ l.name }}
+                                <i class="ri-price-tag-3-fill"></i>
+                            </a>
+                        </ng-container>
                     </div>
                 </div>
-            </div>
+                <div class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle text-reset" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <i class="ri-eye-line"></i>
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item" (click)="onRefresh()">Recebidos</a>
+                        <a class="dropdown-item" (click)="onGetHistory()" >Histórico</a>
+                    </div>
+                </div>
+                <a class="nav-link " (click)="generatePickingList()" *ngIf="viewNow == 'recived'"> <span>Entregar</span> <i
+                        class="ri-truck-line"></i></a>
 
+                <div class="d-flex command-group">
+                    <a class="command" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
+                </div>
+            </nav>
         </li>
-        <li class="list-group-item" *ngFor="let s of dashBoardService.sales">
-            <div class="container">
-                <div class="row">
-                    <div class="col">
-                        <div class="d-flex label" [style]="custLabelStyle(s.cust)">
-                            <span> {{ showLabel(s.cust) }} </span>
-                            <i class="ri-price-tag-3-fill"></i>
-                        </div>
+        <div *ngIf="dashBoardService.sales.length == 0 && noSales==false" class="spinner-border" role="status">
+            <span class="sr-only">Carregando...</span>
+        </div>
+        <ng-container *ngIf="dashBoardService.sales.length > 0">
+            <li class="list-group-item">
+                <div class="container">
+                    <div class="row">
+                        <div class="col"> {{ curView()}} </div>
+                    </div>
+                    <div class="row">
+                        <div class="col"><span>Pedidos: {{ dashBoardService.sales.length }}</span></div>
+                        <div class="col"><span>Valor: {{ storeService.formatPrice(sumSelectedSales()) }}</span></div>
                     </div>
                 </div>
-                <div class="row question">
-                    <div class="col-1">
-                        <input type="checkbox"  [(ngModel)]="s.selected">
-                    </div>
-                    <div class="col">                        
-                        <a (click)="showSales(s.salesId)">
-                            <span> {{storeService.formatSalesId(s.salesId)}} </span>
-                            <span> {{ s.cust.name}} </span>
-                        </a>
-                    </div>
-                </div>
-                <div class="row question">
-                    <div class="col-1"></div>
-                    <div class="col" *ngIf="s.schedule == undefined">
-                        <span>{{dashBoardService.formatDateTime(s.time)}} </span>
-                    </div>
-                    <div class="col" *ngIf="s.schedule != undefined">
-                        <span>{{dashBoardService.formatDateDDMM(s.schedule.date)}}  entre {{ s.schedule.period }} </span>                        
-                    </div>
-                    <div class="col">
-                        <label *ngIf="s.status == 'received'" class="text-center">
-                            Recebido
-                        </label>
-                        <label *ngIf="s.status == 'picked'" class="text-center">
-                            Sepeparado
-                        </label>
-                    </div>
-                </div>
-                <ng-container *ngIf="salesToShow.includes(s.salesId)">                   
-                    <div class="row question">
+            </li>
+            <li class="list-group-item" *ngFor="let s of dashBoardService.sales">
+                <div class="container">
+                    <div class="row">
                         <div class="col">
-                            <span class="question-title">
-                                Data e Hora: {{dashBoardService.formatDateTime(s.time)}}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row question" *ngIf="s.schedule != undefined">
-                        <div class="col">
-                            <span class="question-title">
-                                Agendamento: {{ s.schedule.period }}
-                            </span>
+                            <div class="d-flex label" [style]="custLabelStyle(s.cust)">
+                                <span> {{ showLabel(s.cust) }} </span>
+                                <i class="ri-price-tag-3-fill"></i>
+                            </div>
                         </div>
                     </div>
                     <div class="row question">
+                        <div class="col-1">
+                            <input type="checkbox" [(ngModel)]="s.selected">
+                        </div>
                         <div class="col">
-                            <span class="question-title">
-                                Items
-                            </span>
+                            <a (click)="showSales(s.salesId)">
+                                <span> {{storeService.formatSalesId(s.salesId)}} </span>
+                                <span> {{ s.cust.name}} </span>
+                            </a>
                         </div>
                     </div>
-                    <ng-container *ngFor="let l of s.lines">
-                        <div class="row">
+                    <div class="row question">
+                        <div class="col-1"></div>
+                        <div class="col" *ngIf="s.schedule == undefined">
+                            <span>{{dashBoardService.formatDateTime(s.time)}} </span>
+                        </div>
+                        <div class="col" *ngIf="s.schedule != undefined">
+                            <span>{{dashBoardService.formatDateDDMM(s.schedule.date)}} entre {{ s.schedule.period }}
+                            </span>
+                        </div>                      
+                    </div>
+                    <ng-container *ngIf="salesToShow.includes(s.salesId)">
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-title">
+                                    Data e Hora: {{dashBoardService.formatDateTime(s.time)}}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row question" *ngIf="s.schedule != undefined">
+                            <div class="col">
+                                <span class="question-title">
+                                    Agendamento: {{ s.schedule.period }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-title">
+                                    Items
+                                </span>
+                            </div>
+                        </div>
+                        <ng-container *ngFor="let l of s.lines">
+                            <div class="row">
+                                <div class="col-2">
+                                    <span class="text-success">{{ l.qty }}X</span>
+                                </div>
+                                <div class="col">
+                                    <span class="font-weight-normal"> {{ l.product }} </span>
+                                </div>
+                                <div class="col-3">
+                                    <span class="font-weight-normal"> {{ storeService.formatPrice(l.amount)}} </span>
+                                </div>
+                            </div>
+                            <div class="row" *ngFor="let c of l.items">
+                                <div class="col text-muted">
+                                    {{c.category}}
+                                    <ul>
+                                        <li *ngFor="let i of c.items">
+                                            <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
+                                            {{i.item}}
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <div class="row question" *ngIf="s.instruction">
                             <div class="col-2">
-                                <span class="text-success">{{ l.qty }}X</span>
+                                <span class="question-title">
+                                    Obs.:
+                                </span>
                             </div>
                             <div class="col">
-                                <span class="font-weight-normal"> {{ l.product }} </span>
+                                {{ s. instruction }}
                             </div>
                         </div>
-                        <div class="row" *ngFor="let c of l.items">
-                            <div class="col text-muted">
-                                {{c.category}}
-                                <ul>
-                                    <li *ngFor="let i of c.items">
-                                        <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
-                                        {{i.item}}
-                                    </li>
-                                </ul>
+                        <div class="row question">
+                            <div class="col-3">
+                                <span class="question-title">
+                                    Taxas:
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row text-muted" *ngFor="let t of s.taxes">
+                            <div class="col">
+                                {{ t.name }}
+                            </div>
+                            <div class="col-3">
+                                {{ storeService.formatPrice(t.value)}}
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col">
+                                Total:
+                            </div>
+                            <div class="col-3">
+                                <span class="text-success font-weight-bold">
+                                    {{ storeService.formatPrice(s.totalAmount) }}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col-3">
+                                <span class="question-title">
+                                    Pagamento:
+                                </span>
+                            </div>
+                            <div class="col">
+                                <label *ngIf="s.paymMethod == 'credit'" class="text-center">
+                                    <i class="ri-bank-card-fill"></i>
+                                    <p class="paymmodename">Cartão</p>
+                                </label>
+                                <label *ngIf="s.paymMethod == 'money'" class="text-center">
+                                    <i class="ri-money-dollar-circle-line"></i>
+                                    <p class="paymmodename">Dinheiro</p>
+                                </label>
+                                <label *ngIf="s.paymMethod == 'transfer'" class="text-center">
+
+                                    <i class="ri-exchange-dollar-line"></i>
+                                    <p class="paymmodename">Transferência</p>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col">
+                                <span class="question-title">
+                                    Endereço:
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ dashBoardService.formatDeliveryAddressL1(s.cust)}}<br>
+                                {{ dashBoardService.formatDeliveryAddressL2(s.cust)}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col question">
+                                <span class="question-title">
+                                    Cliente:
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <a [routerLink]="['/', dashBoardService.currentStore, 'cust']" [fragment]="s.cust._id">
+                                    {{ s.cust.name}}
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col question">
+                                <span class="question-title">
+                                    Telefone:
+                                </span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                {{ s.cust.phone}}
+                            </div>
+                        </div>
+                        <div class="row question">
+                            <div class="col">
+                                <a class="btn btn-outline-secondary  d-flex" target="_blank" [href]="talkViaWhats(s)">
+                                    <div class="col-2">
+                                        <i class="ri-whatsapp-line"></i>
+                                    </div>
+                                    <div class="col">
+                                        Chamar no Whats
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </ng-container>
-                    <div class="row question" *ngIf="s.instruction">
-                        <div class="col-2">
-                            <span class="question-title">
-                                Obs.:
-                            </span>
-                        </div>
-                        <div class="col">
-                            {{ s. instruction }}
-                        </div>
-                    </div>
-                    <div class="row question">
-                        <div class="col-3">
-                            <span class="question-title">
-                                Taxas:
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row text-muted" *ngFor="let t of s.taxes">
-                        <div class="col">
-                            {{ t.name }}
-                        </div>
-                        <div class="col-3">
-                            {{ storeService.formatPrice(t.value)}}
-                        </div>
-                    </div>
-                    <div class="row question">
-                        <div class="col">
-                            Total:
-                        </div>
-                        <div class="col-3">
-                            <span class="text-success font-weight-bold">
-                                {{ storeService.formatPrice(s.totalAmount) }}
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row question">
-                        <div class="col-3">
-                            <span class="question-title">
-                                Pagamento:
-                            </span>
-                        </div>
-                        <div class="col">
-                            <label *ngIf="s.paymMethod == 'credit'" class="text-center">
-                                <i class="ri-bank-card-fill"></i>
-                                <p class="paymmodename">Cartão</p>
-                            </label>
-                            <label *ngIf="s.paymMethod == 'money'" class="text-center">
-                                <i class="ri-money-dollar-circle-line"></i>
-                                <p class="paymmodename">Dinheiro</p>
-                            </label>
-                            <label *ngIf="s.paymMethod == 'transfer'" class="text-center">
 
-                                <i class="ri-exchange-dollar-line"></i>
-                                <p class="paymmodename">Transferência</p>
-                            </label>
-                        </div>
-                    </div>
-                    <div class="row question">
-                        <div class="col">
-                            <span class="question-title">
-                                Endereço:
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            {{ dashBoardService.formatDeliveryAddressL1(s.cust)}}<br>
-                            {{ dashBoardService.formatDeliveryAddressL2(s.cust)}}
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col question">
-                            <span class="question-title">
-                                Cliente:
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            <a [routerLink]="['/', dashBoardService.currentStore, 'cust']" [fragment]="s.cust._id">
-                                {{ s.cust.name}}
-                            </a>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col question">
-                            <span class="question-title">
-                                Telefone:
-                            </span>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col">
-                            {{ s.cust.phone}}
-                        </div>
-                    </div>
-                    <div class="row question">
-                        <div class="col">
-                            <a class="btn btn-outline-secondary  d-flex" target="_blank" [href]="talkViaWhats(s)">
-                                <div class="col-2">
-                                    <i class="ri-whatsapp-line"></i>
-                                </div>
-                                <div class="col">
-                                    Chamar no Whats
-                                </div>
-                            </a>
-                        </div>
-                    </div>
-                </ng-container>
-
-            </div>
-        </li>
+                </div>
+            </li>
+        </ng-container>
     </ul>
 </div>

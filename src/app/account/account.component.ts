@@ -39,8 +39,7 @@ export class AccountComponent implements OnInit {
     this.canSubmit = false;
     this.dashBoardService.login(form.value.userEmail, form.value.userPwd)
       .subscribe((token: TokenType) => {
-        this.dashBoardService.userToken = token;
-        console.log(token);
+        this.dashBoardService.userToken = token;        
         this.router.navigate(['user/board'])
 
       }, (e: any) => {
