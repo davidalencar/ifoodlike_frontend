@@ -46,9 +46,13 @@ export class PickingComponent implements OnInit {
     Object.keys(linesGroupedByProduct).forEach(pg => {
       this.groupItems.compose = [...linesGroupedByProduct[pg].filter(p => p.items.length > 0), ...this.groupItems.compose];
 
-      const sp = linesGroupedByProduct[pg].filter(p =>  p.items.length < 1 ) .reduce((a, b) => { a.qty += b.qty; return a; })
+      const simpleList = linesGroupedByProduct[pg].filter(p => p.items.length < 1);
 
-      this.groupItems.simple.push(sp);
+      if (simpleList.length > 0) {
+        const sp = simpleList.reduce((a, b) => { a.qty += b.qty; return a; })
+        this.groupItems.simple.push(sp);
+      }
+      
     });
   }
 
