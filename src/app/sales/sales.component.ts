@@ -126,6 +126,7 @@ export class SalesComponent implements OnInit {
 
   onDeleteSelected() {
     this.dashBoardService.salesDeleted = this.getSelectedSales();
+    this.dashBoardService.salesDeleted =  this.dashBoardService.salesDeleted.filter(s => s.status == 'picked');
 
   }
 
