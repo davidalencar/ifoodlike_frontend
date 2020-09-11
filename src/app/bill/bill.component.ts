@@ -120,10 +120,9 @@ export class BillComponent implements OnInit {
       data += this.breakLine();
     }
     data += `_Itens_ \n${this.formatOrder()}`;
-    if (this.storeService.store.questions.address == true) {
-      data += this.breakLine();
-      data += `*Endereço:* \n${this.formatAddress()}`
-    }
+    
+    data += this.breakLine();
+    data += `*Endereço:* \n${this.formatAddress()}`
 
     if (this.storeService.order.instruction != undefined && this.storeService.order.instruction.trim().length > 0) {
       data += this.breakLine();
@@ -173,9 +172,7 @@ export class BillComponent implements OnInit {
 
   formatUserInfo() {
     var userInfo: string = `${this.storeService.order.userName.trim()}`
-    if (this.storeService.store.questions.phone == true) {
-      userInfo += ` - ${this.storeService.order.userPhone}`
-    }
+    userInfo += ` - ${this.storeService.order.userPhone}`
     return userInfo;
   }
 

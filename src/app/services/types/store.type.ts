@@ -9,10 +9,6 @@ export class StoreType {
     taxes:{name: string, value:number}[];
     categories:{name: string, enable: boolean, order: number}[];
     labels:{name: string, color: string}[];
-    questions: {
-        address: boolean;
-        phone: boolean;
-    };
     paym: {
         money: boolean;
         credit: boolean;
