@@ -80,7 +80,7 @@
                             </div>
                             <div class="col-8">
                                 <span>
-                                    Cliente: {{ s.cust.name}}
+                                    {{ s.cust.name}}
                                 </span>
                             </div>
                         </div>
@@ -112,6 +112,9 @@
                                 </div>
                                 <div class="col">
                                     <span class="font-weight-normal"> {{ l.product }} </span>
+                                </div>
+                                <div class="col-3">
+                                    {{ storeService.formatPrice(l.amount) }}
                                 </div>
                             </div>
                             <div class="row" *ngFor="let c of l.items">
@@ -164,7 +167,7 @@
                             </div>
                         </div>
                         <div class="row question">
-                            <div class="col-3">
+                            <div class="col">
                                 <span class="question-title">
                                     Pagamento:
                                 </span>
