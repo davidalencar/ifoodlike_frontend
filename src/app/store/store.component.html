@@ -27,7 +27,7 @@
                     </div>
                     <div class="row product ">
                         <div class="col">
-                            <input type="text" name="title" class="form-control" minLength="3" maxLength="60"
+                            <input type="text" name="title" class="form-control" minlength="3" maxLength="60"
                                 [(ngModel)]="store.title" required>
                         </div>
                     </div>
@@ -39,7 +39,7 @@
                     </div>
                     <div class="row product ">
                         <div class="col">
-                            <input type="text" name="complement" class="form-control" minLength="3" maxLength="255"
+                            <input type="text" name="complement" class="form-control" minlength="3" maxLength="255"
                                 [(ngModel)]="store.complement" required>
                         </div>
                     </div>
@@ -176,7 +176,7 @@
                         </div>
                         <div class="row product ">
                             <div class="col">
-                                <input type="text" name="bank" class="form-control" minLength="3" maxLength="30"
+                                <input type="text" name="bank" class="form-control" minlength="3" maxLength="30"
                                     placeholder="Itaú, Bradesco, Santander,etc..."
                                     [(ngModel)]="store.paym.transfer.bank" required>
                             </div>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="row product ">
                             <div class="col">
-                                <input type="text" name="account" class="form-control" minLength="3" maxLength="255"
+                                <input type="text" name="account" class="form-control" minlength="3" maxLength="255"
                                     placeholder="Ag.: 0001 Cc.: 000001-1" [(ngModel)]="store.paym.transfer.account"
                                     required>
                             </div>
@@ -202,7 +202,7 @@
                         </div>
                         <div class="row product ">
                             <div class="col">
-                                <input type="text" name="document" class="form-control" minLength="3" maxLength="255"
+                                <input type="text" name="document" class="form-control" minlength="3" maxLength="255"
                                     placeholder="CPF ou CNPJ" [(ngModel)]="store.paym.transfer.document" required>
                             </div>
                         </div>

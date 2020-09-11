@@ -13,7 +13,7 @@ import { ProductsComponent } from './products/products.component'
 import { StoreComponent } from './store/store.component'
 import { PickingComponent } from './picking/picking.component';
 import { SubItemComponent } from './sub-item/sub-item.component';
-
+import { ChangepwdComponent } from './changepwd/changepwd.component'
 
 import { StoreLoadedGuard } from './guards/storeLoaded.guard'
 import { AuthGuard } from './guards/auth.guard'
@@ -33,7 +33,9 @@ const routes: Routes = [
   { path: ':id/product', component: ProductsComponent, canActivate: [AuthGuard]},
   { path: ':id/store', component: StoreComponent, canActivate: [AuthGuard]},
   { path: ':id/picking', component: PickingComponent, canActivate: [AuthGuard]},
-  { path: ':id/subitem', component: SubItemComponent, canActivate: [AuthGuard]}
+  { path: ':id/subitem', component: SubItemComponent, canActivate: [AuthGuard]},
+  { path: 'user/pwd', component: ChangepwdComponent, canActivate: [AuthGuard]},
+
   
   
 ];

@@ -1,0 +1,43 @@
+<app-nav-back title="Mudar senha" [route]="['/', 'user',  'board']"></app-nav-back>
+
+
+<form #form="ngForm" (ngSubmit)="onSave()">
+    <div class="container">
+        <ul class="list-group">
+            <li class="list-group-item bg-light">
+                <div class="row">
+                    <div class="col-8">
+                        <span class="question-text">Nova senha</span>
+                    </div>
+                </div>
+                <div class="row product ">
+                    <div class="col">
+                        <input type="password" name="pwdNew"  #pwdNew="ngModel" ngModel class="form-control" minlength="3" maxlength="80" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-8">
+                        <span class="question-text">Confirmar senha</span>
+                    </div>
+                </div>
+                <div class="row product ">
+                    <div class="col">
+                        <input type="password" name="pwdNewConf"  #pwdNewConf="ngModel" ngModel class="form-control" minlength="3" maxlength="80" required>
+                        
+                    </div>
+                </div>
+                <div class="row product " *ngIf="pwdNew.value != pwdNewConf.value">
+                    <div class="invalid-msg text-center">
+                        Senha não combina!
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+        <div class="container justify-content-center">
+            <button type="submit" class="btn btn-success btn-lg btn-confirm" [disabled]="!form.valid  || pwdNew.value != pwdNewConf.value"> Salvar </button>
+        </div>
+    </nav>
+</form>

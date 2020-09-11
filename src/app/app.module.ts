@@ -22,7 +22,8 @@ import { ProductComponent } from './product/product.component';
 import { StoreComponent } from './store/store.component';
 import { PickingComponent } from './picking/picking.component';
 import { ProductsComponent } from './products/products.component';
-import { SubItemComponent } from './sub-item/sub-item.component'
+import { SubItemComponent } from './sub-item/sub-item.component';
+import { ChangepwdComponent } from './changepwd/changepwd.component'
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { SubItemComponent } from './sub-item/sub-item.component'
     StoreComponent,
     PickingComponent,
     ProductsComponent,
-    SubItemComponent
+    SubItemComponent,
+    ChangepwdComponent
   ],
   imports: [
     BrowserModule,

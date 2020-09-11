@@ -6,12 +6,16 @@
             </span>
         </a>
         <div class="command-group">
-
-            <a class="command topnavBar-Text" [routerLink]="['/', storename, 'store']">
-
-                <i class="ri-more-2-line"></i>
-            </a>
-
+            <div class="nav-item dropleft">
+                <a class="nav-link command" data-toggle="dropdown" aria-haspopup="true"
+                    aria-expanded="false">
+                    <i class="topnavBar-Text ri-more-2-line"></i>
+                </a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" [routerLink]="['/','user','pwd']" >Alterar Senha</a>
+                    <!-- <a class="dropdown-item" >Sair</a> -->
+                </div>
+            </div>
         </div>
     </nav>
     <div class="container">

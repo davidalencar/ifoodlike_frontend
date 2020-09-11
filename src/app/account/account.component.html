@@ -25,7 +25,7 @@
         <ng-container *ngIf="currentView=='signup'">
             <form class="signin" (ngSubmit)="signup(form)" #form="ngForm">
                 <div class="form-group">
-                    <input type="text" class="form-control" name="userName" required ngModel minLength="3"
+                    <input type="text" class="form-control" name="userName" required ngModel minlength="3"
                         maxLength="60" placeholder="Seu nome">
                 </div>
                 <div class="form-group">

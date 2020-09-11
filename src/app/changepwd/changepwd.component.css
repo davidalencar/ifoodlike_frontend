@@ -1,0 +1,19 @@
+.row.product {
+    margin-top: 10px;
+}
+
+.invalid-msg {
+    width: 100%;
+    margin-top: 0.25rem;
+    margin-bottom: 1rem;;
+    font-size: 80%;
+    color: #dc3545;
+  }
+
+  .question-text {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: .5px;
+    font-family: poppins, sans-serif;
+}
