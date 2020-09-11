@@ -104,47 +104,45 @@
                     </div>
                 </div>
                 <div class="row question">
-
-                    <div class="col-1 ">
-                        <input type="checkbox" class="form-check-input" [(ngModel)]="s.selected">
+                    <div class="col-1">
+                        <input type="checkbox"  [(ngModel)]="s.selected">
                     </div>
-                    <div class="col">
-
-                        <a class="d-flex" (click)="showSales(s.salesId)">
-                            <div class="col-3 col-check">
-                                {{storeService.formatSalesId(s.salesId)}}
-                            </div>
-                            <div class="col" *ngIf="s.schedule == undefined">
-                                <span> {{dashBoardService.formatDate(s.time)}} </span>
-                            </div>
-                            <div class="col" *ngIf="s.schedule != undefined">
-                                
-                                <span> {{dashBoardService.formatDate(s.schedule.date)}} </span>
-                                <span class="question-title"> Agendamento: {{ s.schedule.period }} </span>
-                            </div>
-                            <div class="col-3">
-                                <label *ngIf="s.status == 'received'" class="text-center">
-                                    Recebido
-                                </label>
-                                <label *ngIf="s.status == 'picked'" class="text-center">
-                                    Separado
-                                </label>
-                            </div>
+                    <div class="col">                        
+                        <a (click)="showSales(s.salesId)">
+                            <span> {{storeService.formatSalesId(s.salesId)}} </span>
+                            <span> {{ s.cust.name}} </span>
                         </a>
                     </div>
                 </div>
-                <ng-container *ngIf="salesToShow.includes(s.salesId)">
-                    <div class="row question" *ngIf="s.schedule != undefined">
-                        <div class="col">
-                            <span class="question-title">
-                                Agendamento: {{ s.schedule.period }}
-                            </span>
-                        </div>
+                <div class="row question">
+                    <div class="col-1"></div>
+                    <div class="col" *ngIf="s.schedule == undefined">
+                        <span>{{dashBoardService.formatDateTime(s.time)}} </span>
                     </div>
+                    <div class="col" *ngIf="s.schedule != undefined">
+                        <span>{{dashBoardService.formatDateDDMM(s.schedule.date)}}  entre {{ s.schedule.period }} </span>                        
+                    </div>
+                    <div class="col">
+                        <label *ngIf="s.status == 'received'" class="text-center">
+                            Recebido
+                        </label>
+                        <label *ngIf="s.status == 'picked'" class="text-center">
+                            Sepeparado
+                        </label>
+                    </div>
+                </div>
+                <ng-container *ngIf="salesToShow.includes(s.salesId)">                   
                     <div class="row question">
                         <div class="col">
                             <span class="question-title">
                                 Data e Hora: {{dashBoardService.formatDateTime(s.time)}}
+                            </span>
+                        </div>
+                    </div>
+                    <div class="row question" *ngIf="s.schedule != undefined">
+                        <div class="col">
+                            <span class="question-title">
+                                Agendamento: {{ s.schedule.period }}
                             </span>
                         </div>
                     </div>

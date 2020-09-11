@@ -199,8 +199,12 @@ export class DashBoardService {
         return moment(date).format('DD/MM/YYYY')
     }
 
+    formatDateDDMM(date: Date) {
+        return moment(date).format('DD/MM')
+    }
+
     formatDateTime(date: Date) {
-        return moment(date).format('DD/MM/YYYY HH:mm')
+        return moment(date).format('DD/MM HH:mm')
     }
 
     formatDeliveryAddressL1(cust: CustomerType) {
