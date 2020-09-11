@@ -22,33 +22,6 @@ export class PickingComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  listItemsByVend(vendName: string) {
-    return [...this.groupItems.compose.filter(p => p.productId != undefined && p.productId.vend == vendName), ...this.groupItems.simple.filter(p => p.productId != undefined && p.productId.vend == vendName)];
-  }
-
-  mapItemsCostbyVend(list: any[]) {
-    return list.map(p => (p.productId != undefined) ? { vend: p.productId.vend, amount: p.productId.cost * p.qty } : { vend: '', amount: 0 })
-  }
-
-  sumItemsCost() {
-    const vendAmount = [... this.mapItemsCostbyVend(this.groupItems.compose), ... this.mapItemsCostbyVend(this.groupItems.simple)]
-    var vendCost: { vend: string, amount: number }[] = [];
-    vendAmount.forEach(v => {
-      const vendIndex = vendCost.findIndex(va => va.vend == v.vend)
-      if (vendIndex > -1) {
-        vendCost[vendIndex].amount += v.amount;
-      } else {
-        vendCost.push(v)
-      }
-
-    })
-    return vendCost;
-  }
-
-  totalItemsCost() {
-    return this.sumItemsCost().map(i => i.amount).reduce((i1, i2) => i1 + i2, 0)
-  }
-
   sumSalesPickingList() {
     return this.dashBoardService.salesPickingList.map(s => s.totalAmount).reduce((s1, s2) => s1 + s2, 0)
   }
@@ -71,15 +44,11 @@ export class PickingComponent implements OnInit {
     const linesGroupedByProduct = _.groupBy(lines, 'product');
 
     Object.keys(linesGroupedByProduct).forEach(pg => {
+      this.groupItems.compose = [...linesGroupedByProduct[pg].filter(p => p.items.length > 0), ...this.groupItems.compose];
 
-      if (linesGroupedByProduct[pg][0].items.length > 0) {
-        this.groupItems.compose = [...linesGroupedByProduct[pg], ...this.groupItems.compose]
-      }
-      else {
-        const p = linesGroupedByProduct[pg].reduce((a, b) => { a.qty += b.qty; return a; })
+      const sp = linesGroupedByProduct[pg].filter(p =>  p.items.length < 1 ) .reduce((a, b) => { a.qty += b.qty; return a; })
 
-        this.groupItems.simple.push(p);
-      }
+      this.groupItems.simple.push(sp);
     });
   }
 
