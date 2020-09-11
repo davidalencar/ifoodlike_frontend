@@ -17,25 +17,12 @@
         <div class="row">
             <div class="col">
                 <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
-                    [routerLink]="['/', storename, 'sales']">
+                [routerLink]="['/', storename, 'store']">
                     <div class="col-2">
-                        <i class="ri-bill-line"></i>
+                        <i  class="ri-settings-4-fill"></i>
                     </div>
                     <div class="col-10 text-left">
-                        <span class="">Pedidos</span>
-                    </div>
-                </button>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col">
-                <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
-                    [routerLink]="['/', storename, 'cust']">
-                    <div class="col-2">
-                        <i class="ri-user-search-line"></i>
-                    </div>
-                    <div class="col-10 text-left">
-                        <span class="">Clientes</span>
+                        <span class="">Loja</span>
                     </div>
                 </button>
             </div>
@@ -55,12 +42,38 @@
         </div>
         <div class="row">
             <div class="col">
+                <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                    [routerLink]="['/', storename, 'sales']" disabled="dashBoardService.userToken.userPlan !=  'pro'">
+                    <div class="col-2">
+                        <i class="ri-bill-line"></i>
+                    </div>
+                    <div class="col-10 text-left">
+                        <span class="">Pedidos</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <button type="button" class="btn btn-outline-secondary d-flex actionMenu"
+                    [routerLink]="['/', storename, 'cust']" disabled="dashBoardService.userToken.userPlan !=  'pro'">
+                    <div class="col-2">
+                        <i class="ri-user-search-line"></i>
+                    </div>
+                    <div class="col-10 text-left">
+                        <span class="">Clientes</span>
+                    </div>
+                </button>
+            </div>
+        </div>        
+        <div class="row">
+            <div class="col">
                 <a class="btn btn-outline-secondary d-flex actionMenu" [href]="storename" target="_blank">
                     <div class="col-2">
                         <i class="ri-eye-line"></i>
                     </div>
                     <div class="col-10 text-left">
-                        <span class="">Abrir</span>
+                        <span class="">Ver loja</span>
                     </div>
                 </a>
             </div>
