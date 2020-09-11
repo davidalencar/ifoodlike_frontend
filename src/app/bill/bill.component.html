@@ -229,13 +229,15 @@
                                 <span class="badge badge-danger">Obrigatório</span>
                             </div>
                         </div>
-                        
+
                         <div class="row product " *ngFor="let h of scheduleOrder().hours">
                             <div class="col">
-                                <span> {{ storeService.formatHour(h.from) }} - {{ storeService.formatHour(h.to) }}</span>
+                                <span> {{ storeService.formatHour(h.from) }} -
+                                    {{ storeService.formatHour(h.to) }}</span>
                             </div>
                             <div class="col-2">
-                                <input  class="form-check-input checkbox-lg" type="radio" name="scheduleTime" (change)="onSelectPeriod(h)">
+                                <input class="form-check-input checkbox-lg" type="radio" name="scheduleTime"
+                                    (change)="onSelectPeriod(h)">
                             </div>
                         </div>
 
@@ -267,7 +269,7 @@
                         </div>
                     </div>
                 </div>
-            </li>
+            </li>            
         </ul>
 
 
@@ -280,7 +282,7 @@
                 <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <button *ngIf="commandNow == 'share'" class="btn btn-success btn-lg btn-confirm d-flex"
+                <!-- <button *ngIf="commandNow == 'share'" class="btn btn-success btn-lg btn-confirm d-flex"
                     (click)="sendViaWhats()">
                     <div class="col-2">
                         <i class="ri-whatsapp-line"></i>
@@ -288,13 +290,15 @@
                     <div class="col">
                         Compartihar {{ formatSalesId() }}
                     </div>
-                </button>
+                </button> -->
+                <p  class="badge badge-warning" *ngIf="form.valid && storeService.canSubmitOrder()"> Envie seu pedido por WhatsApp para concluir. </p>
                 <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
                     [disabled]="!form.valid || !storeService.canSubmitOrder()">
                     <div class="d-flex justify-content-center">
-                        <span>Fechar Pedido</span>
+                        <i class="ri-whatsapp-line whats-btn-confirm"></i>
+                        <span>Enviar WhatsApp</span>
                     </div>
-                        
+
                 </button>
             </div>
         </nav>
