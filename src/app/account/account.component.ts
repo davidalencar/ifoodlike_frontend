@@ -25,7 +25,13 @@ export class AccountComponent implements OnInit {
     private router: Router,
     private titleService: Title,
     private dashBoardService: DashBoardService) {
-    this.titleService.setTitle('BS.Lista - bslista.com')
+    this.titleService.setTitle('BS.Lista - bslista.com');
+    const token = this.dashBoardService.getToken();
+
+    if(token.access_token != '') {
+      this.router.navigate(['user/board']);
+    }
+
   }
 
   ngOnInit(): void {
@@ -39,7 +45,7 @@ export class AccountComponent implements OnInit {
     this.canSubmit = false;
     this.dashBoardService.login(form.value.userEmail, form.value.userPwd)
       .subscribe((token: TokenType) => {
-        this.dashBoardService.userToken = token;        
+        this.dashBoardService.setToken(token);               
         this.router.navigate(['user/board'])
 
       }, (e: any) => {

@@ -29,6 +29,18 @@ export class DashBoardService {
 
     constructor(private http: HttpClient) { }
 
+    setToken(token: TokenType) {
+        this.userToken  = token;
+        localStorage.setItem('userToken', JSON.stringify(token));
+    }
+
+    getToken() :TokenType {
+        if (this.userToken.access_token == '') {
+            this.userToken = JSON.parse(localStorage.getItem('userToken'));
+        }
+        return this.userToken;
+    }
+
 
     login(email: string, password: string) {
         return this.http.post<TokenType>(`${environment.loja_api}accounts`, {
