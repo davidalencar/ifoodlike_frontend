@@ -28,7 +28,7 @@ export class AccountComponent implements OnInit {
     this.titleService.setTitle('BS.Lista - bslista.com');
     const token = this.dashBoardService.getToken();
 
-    if(token.access_token != '') {
+    if(token != null && token != undefined && token.access_token != '') {
       this.router.navigate(['user/board']);
     }
 
