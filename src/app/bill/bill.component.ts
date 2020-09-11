@@ -105,7 +105,7 @@ export class BillComponent implements OnInit {
     const mnt = this.storeService.getNextTime().date;
     const dateFormat = mnt.format('DD/MM');
     const weekDayName = this.storeService.weekDay(mnt.day()).toLocaleLowerCase();
-    sc+= `\nPara *${dateFormat}* (${weekDayName}) entre ${this.storeService.order.schedule.period}`
+    sc += `\nPara *${dateFormat}* (${weekDayName}) entre ${this.storeService.order.schedule.period}`
 
     return sc;
   }
@@ -116,7 +116,7 @@ export class BillComponent implements OnInit {
     data += this.formatHeader()
     data += this.breakLine();
     if (this.storeService.storeIsCloed()) {
-      data+= this.formatSchedule();
+      data += this.formatSchedule();
       data += this.breakLine();
     }
     data += `_Itens_ \n${this.formatOrder()}`;
@@ -187,7 +187,7 @@ export class BillComponent implements OnInit {
     var order: string = '';
 
     this.storeService.basketProducts().forEach(p => {
-      order += `    \n *${p.qty}X*  ${(p.unit == undefined) ? '' : '_' + p.unit + '_'}  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
+      order += `    \n *${p.qty}X*  ${(p.unit == undefined || p.unit == '') ? '' : '_' + p.unit + '_'}  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
 
       this.storeService.orderProductItemsCategory(p.items).forEach(category => {
         order += `\n  _${category.name}_`
@@ -211,7 +211,7 @@ export class BillComponent implements OnInit {
   formatFooter() {
     var footer: string = '';
     footer += `Pedido em ${moment().format('DD/MM/YYYY HH:mm')}`;
-    footer += ` via minha.bslista.com/${this.storeService.store.name}`;
+    footer += ` via bslista.com/${this.storeService.store.name}`;
 
     return footer;
   }

@@ -13,3 +13,14 @@
     right: 10px;
     position: absolute;
 }
+
+.topnavBar {
+    background-color: #343a40!important;
+}
+.topnavBar-Text {
+    color: rgb(255, 255, 255);
+    font-weight: 500;
+    min-width: max-content;
+    display: inline-block;
+    font-weight: bold;
+}
