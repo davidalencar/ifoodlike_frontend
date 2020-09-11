@@ -1,18 +1,15 @@
 <nav class="navbar topnavBar justify-content-end">
     <ul class="navbar-nav">
         <li class="nav-item">
-            <a class="nav-link menu-name" [routerLink]="['/']" >entrar</a>
-          </li>
-    </ul>    
+            <a class="nav-link menu-name" [routerLink]="['/']">entrar</a>
+        </li>
+    </ul>
 </nav>
 <div class="jumbotron jumbotron-fluid bg-white">
     <div class="container">
-        <div class="d-flex">
-            <h1 class="display-4">{{storeService.store.title}}</h1>
-            <img [src]="storeService.store.logo" class="logo-img">
-           
-        </div>
-        <p  class="lead">{{ storeService.store.complement }}</p>
+        <img [src]="storeService.store.logo" class="logo-img">
+        <h1 class="display-4">{{storeService.store.title}}</h1>
+        <p class="lead">{{ storeService.store.complement }}</p>
     </div>
 </div>
 <div class="container status" *ngIf="storeService.storeIsCloed()">

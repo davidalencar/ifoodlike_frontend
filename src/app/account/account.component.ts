@@ -40,7 +40,7 @@ export class AccountComponent implements OnInit {
     this.dashBoardService.login(form.value.userEmail, form.value.userPwd)
       .subscribe((token: TokenType) => {
         this.dashBoardService.userToken = token;
-
+        console.log(token);
         this.router.navigate(['user/board'])
 
       }, (e: any) => {
@@ -60,7 +60,7 @@ export class AccountComponent implements OnInit {
       form.value.storeName)
       .subscribe(
         (data) => {
-          if(data.status == 'OK'){
+          if (data.status == 'OK') {
             this.newStore = 'bslista.com/' + form.value.storeName;
             this.currentView = 'welcome';
           } else {
