@@ -19,7 +19,7 @@ import { isObject } from 'lodash';
 @Injectable()
 export class DashBoardService {
 
-    userToken: TokenType = { access_token: '', userName: '', stores: [] }
+    userToken: TokenType = { access_token: '', userName: '', userPlan: '', stores: [] }
     labels: { name: string, color: string }[] = [];
     sales: SalesType[] = [];
     salesDeleted: SalesType[] = [];
