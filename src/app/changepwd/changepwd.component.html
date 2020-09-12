@@ -1,7 +1,7 @@
 <app-nav-back title="Mudar senha" [route]="['/', 'user',  'board']"></app-nav-back>
 
 
-<form #form="ngForm" (ngSubmit)="onSave()">
+<form #form="ngForm" (ngSubmit)="onSave(pwdNewConf.value)">
     <div class="container">
         <ul class="list-group">
             <li class="list-group-item bg-light">
@@ -29,6 +29,11 @@
                 <div class="row product " *ngIf="pwdNew.value != pwdNewConf.value">
                     <div class="invalid-msg text-center">
                         Senha não combina!
+                    </div>
+                </div>
+                <div class="row product ">
+                    <div class="invalid-msg text-center">
+                        {{ errorMsg }}
                     </div>
                 </div>
             </li>

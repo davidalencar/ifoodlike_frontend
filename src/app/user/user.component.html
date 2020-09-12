@@ -13,7 +13,7 @@
                 </a>
                 <div class="dropdown-menu">
                     <a class="dropdown-item" [routerLink]="['/','user','pwd']" >Alterar Senha</a>
-                    <!-- <a class="dropdown-item" >Sair</a> -->
+                    <a class="dropdown-item" (click)="logOut()">Sair</a>
                 </div>
             </div>
         </div>

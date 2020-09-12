@@ -29,6 +29,18 @@ export class DashBoardService {
 
     constructor(private http: HttpClient) { }
 
+    userChangePwd(newPwd){
+        let  url =`${environment.loja_api}users/${this.userToken.stores[0]}/pwd`
+        return this.http.post<{ status: string, user: UserType }>(url, { newPwd }, {
+            headers: { 'Authorization': this.userToken.access_token }
+        })
+    }
+
+    logout(){
+        this.userToken  = { access_token: '', userName: '', userPlan: '', stores: [] };
+        localStorage.removeItem('userToken');
+    }
+
     setToken(token: TokenType) {
         this.userToken  = token;
         localStorage.setItem('userToken', JSON.stringify(token));

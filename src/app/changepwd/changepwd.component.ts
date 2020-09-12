@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DashBoardService } from '../services/dashboard.service';
+import { UserType } from '../services/types/user.type';
 
 @Component({
   selector: 'app-changepwd',
@@ -10,12 +12,23 @@ import { Router } from '@angular/router';
 })
 export class ChangepwdComponent implements OnInit {
 
-  constructor(private router: Router,) { }
+  constructor(private router: Router, public dashBoardService:  DashBoardService) { }
+
+  errorMsg: string  = '';
 
   ngOnInit(): void {
   }
 
-  onSave(){
-    this.router.navigate(['user/board'])
+  onSave(newPwd:  string){
+    this.dashBoardService.userChangePwd(newPwd)
+      .subscribe((data:  {status: string, user: UserType}) => {
+
+        if(data.status == 'OK'){
+          this.errorMsg = 'senha alterada com sucesso'
+          this.router.navigate(['user/board'])
+        }
+
+        this.errorMsg = data.status;
+      })
   }
 }
