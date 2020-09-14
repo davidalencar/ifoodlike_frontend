@@ -1,9 +1,9 @@
 import * as _ from 'lodash';
 import * as moment from 'moment';
-import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment'
+import * as XLSX from 'xlsx';
 
 import { UserType } from './types/user.type'
 import { TokenType } from './types/token.type'
@@ -11,7 +11,6 @@ import { SalesType } from './types/sales.type';
 import { ProductType } from './types/product.type';
 import { StoreType } from './types/store.type';
 import { CustomerType } from './types/customer.type';
-import { RegisterInterface } from './interfaces/register.interface';
 import { isObject } from 'lodash';
 
 
@@ -29,24 +28,99 @@ export class DashBoardService {
 
     constructor(private http: HttpClient) { }
 
-    userChangePwd(newPwd){
-        let  url =`${environment.loja_api}users/${this.userToken.stores[0]}/pwd`
+    convertSalesToExcelData(list: SalesType[]): string[][] {
+        var data = [['Pedido', 'Status', 'Data', 'Hora', 'Pagamento', 'Total', 
+                    'Instruções', 'Produto', 'Categoria', 'Preço', 'Qtde', 'Valor', 
+                    'Cliente', 'Telefone', 'Cidade', 'UF', 'Bairro', 'Endereço', 'Num', 
+                    'Complemento', 'CEP']];
+       
+
+        for (let index = 0; index < list.length; index++) {
+            const sale = list[index];
+
+            for (let index = 0; index < sale.lines.length; index++) {
+                const line = sale.lines[index];
+                var dataLine: string[] =  [];
+
+                dataLine.push(sale.salesId);
+                switch (sale.status) {
+                    case 'received':  dataLine.push('Recebido'); break;
+                    case 'picked':  dataLine.push('Entregue'); break;
+                    
+                }                
+
+                if(sale.schedule != undefined)  {
+                                        
+                    dataLine.push(this.formatDate(sale.schedule.date));
+                    dataLine.push(sale.schedule.period);
+                    
+                } else {
+                    dataLine.push(this.formatDate(sale.time));
+                    dataLine.push(this.formatTime(sale.time));
+                    
+                }
+
+                switch (sale.paymMethod) {
+                    case 'credit':  dataLine.push('cartão'); break;
+                    case 'money':  dataLine.push('dinheiro'); break;
+                    case 'transfer':  dataLine.push('transferência'); break;
+                }
+                
+                dataLine.push(sale.totalAmount.toString());
+                dataLine.push(sale.instruction);
+                dataLine.push(line.productId.name);
+                dataLine.push(line.productId.category);
+                dataLine.push(line.productId.price.toString());
+                dataLine.push(line.qty.toString());
+                dataLine.push(line.amount.toString());
+                dataLine.push(sale.cust.name);
+                dataLine.push(sale.cust.phone);
+                dataLine.push(sale.cust.address.city);
+                dataLine.push(sale.cust.address.state);                
+                dataLine.push(sale.cust.address.district);
+                dataLine.push(sale.cust.address.street);
+                dataLine.push(sale.cust.address.number);
+                dataLine.push(sale.cust.address.complement);
+                dataLine.push(sale.cust.address.zipCode);
+                data.push(dataLine);                
+            }
+            
+        }
+
+        return data;
+    }
+
+    exportToExcel(list: SalesType[]) {
+
+        const data = this.convertSalesToExcelData(list);
+        const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(data);
+
+
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+
+
+        XLSX.writeFile(wb, 'Pedidos-bslista.xlsx');
+    }
+
+    userChangePwd(newPwd) {
+        let url = `${environment.loja_api}users/${this.userToken.stores[0]}/pwd`
         return this.http.post<{ status: string, user: UserType }>(url, { newPwd }, {
             headers: { 'Authorization': this.userToken.access_token }
         })
     }
 
-    logout(){
-        this.userToken  = { access_token: '', userName: '', userPlan: '', stores: [] };
+    logout() {
+        this.userToken = { access_token: '', userName: '', userPlan: '', stores: [] };
         localStorage.removeItem('userToken');
     }
 
     setToken(token: TokenType) {
-        this.userToken  = token;
+        this.userToken = token;
         localStorage.setItem('userToken', JSON.stringify(token));
     }
 
-    getToken() :TokenType {
+    getToken(): TokenType {
         if (this.userToken.access_token == '') {
             this.userToken = JSON.parse(localStorage.getItem('userToken'));
         }
@@ -76,11 +150,11 @@ export class DashBoardService {
         })
     }
 
-    getStoreSalesData(storeName: string,  status: string = 'received') {
+    getStoreSalesData(storeName: string, status: string = 'received') {
         this.currentStore = storeName;
         const url = `${environment.loja_api}sales/${storeName}/${status}`;
 
-        return this.http.get<{ sales: SalesType[], labels:{name: string, color: string}[]  }>(url, {
+        return this.http.get<{ sales: SalesType[], labels: { name: string, color: string }[] }>(url, {
             headers: { 'Authorization': this.userToken.access_token }
         })
     }
@@ -89,7 +163,7 @@ export class DashBoardService {
         this.currentStore = storeName;
         const url = `${environment.loja_api}custs/${storeName}`;
 
-        return this.http.get<{ custs: CustomerType[], labels:{name: string, color: string}[] }>(url, {
+        return this.http.get<{ custs: CustomerType[], labels: { name: string, color: string }[] }>(url, {
             headers: { 'Authorization': this.userToken.access_token }
         })
     }
@@ -120,7 +194,7 @@ export class DashBoardService {
             headers: { 'Authorization': this.userToken.access_token }
         })
     }
-  
+
     putStoreProductsData(list: ProductType[], storeName: string) {
 
         const url = `${environment.loja_api}products/control/${storeName}`;
@@ -152,9 +226,9 @@ export class DashBoardService {
         }, e => console.log(e))
     }
 
-  
+
     postStoreProduct() {
-        const url = `${environment.loja_api}products/${this.currentStore}`;          
+        const url = `${environment.loja_api}products/${this.currentStore}`;
 
         return this.http.post<ProductType>(url, this.editProduct, {
             headers: { 'Authorization': this.userToken.access_token }
@@ -162,7 +236,7 @@ export class DashBoardService {
     }
 
     putStoreProduct() {
-        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;          
+        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;
 
         return this.http.put<ProductType>(url, this.editProduct, {
             headers: { 'Authorization': this.userToken.access_token }
@@ -170,9 +244,9 @@ export class DashBoardService {
     }
 
     deleteStoreProduct() {
-        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;       
+        const url = `${environment.loja_api}products/${this.currentStore}/${this.editProduct._id}`;
 
-        return this.http.delete<{status: string}>(url,{
+        return this.http.delete<{ status: string }>(url, {
             headers: { 'Authorization': this.userToken.access_token }
         });
     }
@@ -231,6 +305,10 @@ export class DashBoardService {
         return moment(date).format('DD/MM HH:mm')
     }
 
+    formatTime(date: Date) {
+        return moment(date).format('HH:mm')
+    }
+
     formatDeliveryAddressL1(cust: CustomerType) {
         const ad = cust.address;
         return `${ad.street}, ${ad.number}${(ad.complement) ? ' - ' + ad.complement : ''}`
@@ -257,23 +335,23 @@ export class DashBoardService {
     deepEqual(object1, object2) {
         const keys1 = Object.keys(object1);
         const keys2 = Object.keys(object2);
-    
+
         if (keys1.length !== keys2.length) {
-          return false;
-        }
-    
-        for (const key of keys1) {
-          const val1 = object1[key];
-          const val2 = object2[key];
-          const areObjects = isObject(val1) && isObject(val2);
-          if (
-            areObjects && !this.deepEqual(val1, val2) ||
-            !areObjects && val1 !== val2
-          ) {
             return false;
-          }
         }
-    
+
+        for (const key of keys1) {
+            const val1 = object1[key];
+            const val2 = object2[key];
+            const areObjects = isObject(val1) && isObject(val2);
+            if (
+                areObjects && !this.deepEqual(val1, val2) ||
+                !areObjects && val1 !== val2
+            ) {
+                return false;
+            }
+        }
+
         return true;
-      }
+    }
 }

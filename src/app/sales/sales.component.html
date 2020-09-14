@@ -2,7 +2,7 @@
 
 
 <div class="container">
-   
+
     <ul class="list-group" *ngIf="dashBoardService.salesDeleted.length >  0">
         <li class="list-group-item bg-danger">
             <div class="container">
@@ -17,10 +17,11 @@
         <li class="list-group-item" *ngFor="let s of dashBoardService.salesDeleted">
             <div class="container">
                 <div class="row">
-                    <div class="col">
-
+                    <div class="col-3">
                         {{storeService.formatSalesId(s.salesId)}}
-
+                    </div>
+                    <div class="col">
+                        {{ s.cust.name}}
                     </div>
                     <div class="col-1">
                         <a (click)="unDeleteSales(s.salesId)">
@@ -69,14 +70,18 @@
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" (click)="onRefresh()">Recebidos</a>
-                        <a class="dropdown-item" (click)="onGetHistory()" >Histórico</a>
+                        <a class="dropdown-item" (click)="onGetHistory()">Histórico</a>
                     </div>
                 </div>
-                <a class="nav-link " (click)="generatePickingList()" *ngIf="viewNow == 'recived'"> <span>Entregar</span> <i
-                        class="ri-truck-line"></i></a>
+                <a class="nav-link d-flex" (click)="generatePickingList()" *ngIf="viewNow == 'recived'">
+                    <i class="command ri-truck-line"></i>
+                    <span>Entregar</span>
+                </a>
 
                 <div class="d-flex command-group">
                     <a class="command" (click)="onDeleteSelected()"><i class="ri-delete-bin-line"></i></a>
+                    <div class=""> - </div>
+                    <a class="command" (click)="onExportSelected()"><i class="ri-file-excel-2-fill"></i></a>
                     <a class="command" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
                 </div>
             </nav>
@@ -125,7 +130,7 @@
                         <div class="col" *ngIf="s.schedule != undefined">
                             <span>{{dashBoardService.formatDateDDMM(s.schedule.date)}} entre {{ s.schedule.period }}
                             </span>
-                        </div>                      
+                        </div>
                     </div>
                     <ng-container *ngIf="salesToShow.includes(s.salesId)">
                         <div class="row question">

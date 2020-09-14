@@ -159,6 +159,10 @@ export class SalesComponent implements OnInit {
     this.dashBoardService.salesDeleted = this.getSelectedSales();
   }
 
+  onExportSelected() {    
+    this.dashBoardService.exportToExcel(this.getSelectedSales());
+  }
+
 
   unDeleteSales(salesId: string) {
     this.dashBoardService.salesDeleted = this.dashBoardService.salesDeleted.filter(s => s.salesId != salesId);
