@@ -10,7 +10,7 @@ export class AuthGuard implements CanActivate {
     constructor(private dashBoardService: DashBoardService) { }
 
     canActivate() {
-        if (this.dashBoardService.userToken.access_token == '') {
+        if (this.dashBoardService.getToken().access_token == '') {
             window.location.href = '/';
             return false;
         }

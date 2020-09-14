@@ -19,7 +19,11 @@ export class SubItemComponent implements OnInit {
   constructor(public storeService: StoreService,
     public dashBoardService: DashBoardService,
     private router: Router) {
-    this.product = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+    if (this.dashBoardService.editProduct == undefined) {
+      router.navigate([this.dashBoardService.getToken().stores[0], 'products'])
+    } else {
+      this.product = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+    }
   }
 
   ngOnInit(): void {
@@ -47,7 +51,7 @@ export class SubItemComponent implements OnInit {
   }
 
   onCategoryCreate(name: string, type: string) {
-    if(name.trim().length == 0) return;
+    if (name.trim().length == 0) return;
 
     const category: ItemCategoryType = {
       name,
@@ -62,10 +66,10 @@ export class SubItemComponent implements OnInit {
 
   onItemCreate(category, name: string, price: number, qty: number, maxQty: number) {
 
-    if(name.trim().length == 0) return;
+    if (name.trim().length == 0) return;
 
     var cat = this.product.items.find(c => c.name == category);
-    cat.products.push({      
+    cat.products.push({
       name,
       price,
       qty: (qty > 0) ? qty : 0,
@@ -79,7 +83,7 @@ export class SubItemComponent implements OnInit {
     this.dashBoardService.editProduct = this.product;
 
     const refreshProduct = (saved: ProductType) => {
-      this.commandNow = 'confirm';        
+      this.commandNow = 'confirm';
       this.dashBoardService.editProduct = saved;
       this.product = JSON.parse(JSON.stringify(saved));
     }

@@ -19,7 +19,11 @@ export class ProductsComponent implements OnInit {
   constructor(public storeService: StoreService,
     public dashBoardService: DashBoardService,
     private router: Router) {
-    this.productCompare = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+      if (this.dashBoardService.editProduct == undefined) {
+        router.navigate([this.dashBoardService.getToken().stores[0], 'products'])
+      } else {
+        this.productCompare = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+      }
   }
 
   ngOnInit(): void {
