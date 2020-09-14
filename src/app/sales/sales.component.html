@@ -46,7 +46,7 @@
         <li class="list-group-item list-group-item-coomant bg-light  ">
             <nav class="navbar navbar-light bg-light justify-content-start">
                 <div class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle text-reset" data-toggle="dropdown" aria-haspopup="true"
+                    <a class="dropdown-toggle text-reset" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
                         <i class="ri-checkbox-blank-line"></i>
                     </a>
@@ -73,14 +73,15 @@
                         <a class="dropdown-item" (click)="onGetHistory()">Histórico</a>
                     </div>
                 </div>
-                <a class="nav-link d-flex" (click)="generatePickingList()" *ngIf="viewNow == 'recived'">
+                <a class="d-flex" (click)="generatePickingList()" *ngIf="viewNow == 'recived'">
+
                     <i class="command ri-truck-line"></i>
                     <span>Entregar</span>
                 </a>
 
                 <div class="d-flex command-group">
                     <a class="command" (click)="onDeleteSelected()"><i class="ri-delete-bin-line"></i></a>
-                    <div class=""> - </div>
+
                     <a class="command" (click)="onExportSelected()"><i class="ri-file-excel-2-fill"></i></a>
                     <a class="command" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
                 </div>
