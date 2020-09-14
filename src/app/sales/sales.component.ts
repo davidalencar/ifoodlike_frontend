@@ -51,7 +51,7 @@ export class SalesComponent implements OnInit {
   }
 
   curView() {
-    if (this.viewNow == 'recived') return  'Recebidos';
+    if (this.viewNow == 'recived') return 'Recebidos';
 
     return 'Entregues';
   }
@@ -157,8 +157,6 @@ export class SalesComponent implements OnInit {
 
   onDeleteSelected() {
     this.dashBoardService.salesDeleted = this.getSelectedSales();
-    this.dashBoardService.salesDeleted = this.dashBoardService.salesDeleted.filter(s => s.status == 'picked');
-
   }
 
 
@@ -168,6 +166,7 @@ export class SalesComponent implements OnInit {
 
   sendDelete() {
     this.dashBoardService.deleteStoreSalesData();
+    this.onRefresh();
   }
 
   labelStyle(name) {

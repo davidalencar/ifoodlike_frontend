@@ -3,7 +3,7 @@
 
 <div class="container">
    
-    <!-- <ul class="list-group">
+    <ul class="list-group" *ngIf="dashBoardService.salesDeleted.length >  0">
         <li class="list-group-item bg-danger">
             <div class="container">
                 <div class="row">
@@ -39,7 +39,7 @@
                 </div>
             </div>
         </li>
-    </ul> -->
+    </ul>
 
     <ul class="list-group">
         <li class="list-group-item list-group-item-coomant bg-light  ">
@@ -76,6 +76,7 @@
                         class="ri-truck-line"></i></a>
 
                 <div class="d-flex command-group">
+                    <a class="command" (click)="onDeleteSelected()"><i class="ri-delete-bin-line"></i></a>
                     <a class="command" (click)="onRefresh()"><i class="ri-refresh-line"></i></a>
                 </div>
             </nav>
