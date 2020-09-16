@@ -36,14 +36,14 @@ export class OrderComponent implements OnInit {
   }
 
 
-  talkViaWhats(s: SalesType) {
+  talkViaWhats() {
     const apiURI = 'https://api.whatsapp.com/send?'
     const argPhone = `phone=55${this.storeService.store.phone}`
-    const argsOrder = `&text=${window.encodeURIComponent(this.formatMsgToWhats(s))}`
+    const argsOrder = `&text=${window.encodeURIComponent(this.formatMsgToWhats())}`
     return `${apiURI}${argPhone}${argsOrder}`
   }
 
-  formatMsgToWhats(s: SalesType) {
+  formatMsgToWhats() {
     return `Oi, sou ${this.lastOrder.customer.name} e quero falar sobre o pedido ${this.salesId}`;
   }
 }
