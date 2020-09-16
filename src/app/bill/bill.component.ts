@@ -47,6 +47,7 @@ export class BillComponent implements OnInit {
 
   setDataToCookie() {
     const expires = 60;
+    
 
     if (this.storeService.order.userName != undefined) {
       this.cookieService.set('user-name', this.storeService.order.userName, expires);

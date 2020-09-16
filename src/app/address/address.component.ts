@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AddressService } from '../services/address.service';
 import { AddressType } from '../services/types/address.type';
 import { StoreService } from '../services/store.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-address',
@@ -15,7 +16,7 @@ export class AddressComponent implements OnInit {
   
   zipCodeQueryError = ''
 
-  constructor(public addressService: AddressService, public storeService: StoreService) { }
+  constructor(public addressService: AddressService, public storeService: StoreService, private router:Router) { }
 
   ngOnInit(): void {
   }
@@ -32,6 +33,7 @@ export class AddressComponent implements OnInit {
           }
 
           this.storeService.order.address = data;
+          
         }
       );
     }
@@ -42,6 +44,11 @@ export class AddressComponent implements OnInit {
 
     var ads =  this.storeService.order.address;
     return `${ads.bairro}, ${ads.localidade}/${ads.uf}`
+  }
+
+  onSaveAddress() {
+    this.addressService.fillGeoData(this.storeService.order.address);
+    this.router.navigate(['/', this.storeService.store.name, 'bill'])
   }
 
 }

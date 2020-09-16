@@ -11,6 +11,8 @@ export class CustomerType implements RegisterInterface {
         city: string;
         state: string;
         complement: string;
+        lat?: number;
+        lon?: number;
     };
     phone: string;
     name: string;

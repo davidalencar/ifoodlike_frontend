@@ -9,6 +9,7 @@ export class AddressType{
     gia: string;
     erro?: boolean;
     numero?: string;
-
+    lat?: number;
+    lon?: number;
     
   }

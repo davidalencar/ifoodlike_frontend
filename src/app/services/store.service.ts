@@ -328,6 +328,7 @@ export class StoreService {
     }
 
     createOrder() {
+        
         var data = {
             customer: {
                 name: this.order.userName,
@@ -339,7 +340,9 @@ export class StoreService {
                     district: this.order.address.bairro,
                     city: this.order.address.localidade,
                     state: this.order.address.uf,
-                    complement: this.order.address.complemento
+                    complement: this.order.address.complemento,
+                    lat: this.order.address.lat,
+                    lon: this.order.address.lon
                 },
                 stores: [
                     {
