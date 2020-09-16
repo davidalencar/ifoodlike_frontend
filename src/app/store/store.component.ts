@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { StoreService } from '../services/store.service';
 import { map } from 'rxjs/operators';
 import { StoreType } from '../services/types/store.type';
+import { Title } from '@angular/platform-browser';
 
 
 @Component({
@@ -24,7 +25,7 @@ export class StoreComponent implements OnInit {
   sectionsToShow: string[] = [];
 
 
-  constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService) {
+  constructor(private route: ActivatedRoute, public storeService: StoreService, public dashBoardService: DashBoardService, private titleService: Title) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
       this.storeName = id;
@@ -33,6 +34,7 @@ export class StoreComponent implements OnInit {
           this.store = data.store;
           this.store.labels = this.store.labels.filter(l => l.name != 'novo cliente');
           this.storeCompare = JSON.parse(JSON.stringify(data.store));
+          this.titleService.setTitle(`${this.store.name} - Configuração`);
         })
 
     });

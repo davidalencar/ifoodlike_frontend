@@ -5,6 +5,7 @@ import { DashBoardService } from '../services/dashboard.service';
 import { Observable } from 'rxjs';
 import { ProductType } from '../services/types/product.type';
 import { map } from 'rxjs/operators';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-product',
@@ -27,6 +28,7 @@ export class ProductComponent implements OnInit {
   constructor(private route: ActivatedRoute, 
     public storeService: StoreService, 
     public dashBoardService: DashBoardService, 
+    private titleService: Title,
     private router: Router) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
@@ -39,7 +41,7 @@ export class ProductComponent implements OnInit {
           }, (e: any) =>{
             console.log(e);
           })
-      
+          this.titleService.setTitle(`${this.storeName} - Produtos`);
     });    
   }
 

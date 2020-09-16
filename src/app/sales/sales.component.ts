@@ -9,6 +9,7 @@ import { DashBoardService } from '../services/dashboard.service';
 import { StoreService } from '../services/store.service';
 import { SalesType } from '../services/types/sales.type'
 import { CustomerType } from '../services/types/customer.type';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sales',
@@ -31,6 +32,7 @@ export class SalesComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     public storeService: StoreService,
     public dashBoardService: DashBoardService,
+    private titleService: Title,
     private router: Router) {
     this.onRefresh();
   }
@@ -46,6 +48,7 @@ export class SalesComponent implements OnInit {
       this.dashBoardService.salesPickingList = [];
 
       callback(id);
+      this.titleService.setTitle(`${this.storeName} - Pedidos`);
 
     });
   }

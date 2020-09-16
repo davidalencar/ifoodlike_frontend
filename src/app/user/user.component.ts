@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { DashBoardService } from '../services/dashboard.service';
 
@@ -12,7 +13,10 @@ import { DashBoardService } from '../services/dashboard.service';
 export class UserComponent implements OnInit {
 
   constructor(private router: Router,
-    public dashBoardService: DashBoardService) { }
+    public dashBoardService: DashBoardService,
+    private titleService: Title) { 
+      this.titleService.setTitle(this.dashBoardService.getToken().stores[0]);
+    }
   
 
   ngOnInit(): void {

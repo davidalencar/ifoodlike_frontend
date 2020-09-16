@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 
 import { map } from 'rxjs/operators';
 import { CustomerType } from '../services/types/customer.type';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-customer',
@@ -21,36 +22,37 @@ export class CustomerComponent implements OnInit {
   noCust = false;
   custs: CustomerType[] = [];
   custToShow: string[] = [];
-  labels:{name: string, color: string}[] = [];
-  changedLabels: {custId: string, label: string}[] = [];
+  labels: { name: string, color: string }[] = [];
+  changedLabels: { custId: string, label: string }[] = [];
   routerId = '';
 
   constructor(private route: ActivatedRoute,
-    public storeService: StoreService, 
-    public dashBoardService: DashBoardService, 
+    public storeService: StoreService,
+    public dashBoardService: DashBoardService,
+    private titleService: Title,
     private router: Router) {
     const id: Observable<string> = route.params.pipe(map(p => p.id));
     id.subscribe((id: string) => {
       this.storeName = id;
-      this.dashBoardService.getStoreCustData(id)      
-          .subscribe(data => {
-            
-            this.custs = data.custs;
-            this.labels = data.labels;
-            this.noCust = this.custs.length == 0;
-          }, (e: any) =>{
-            console.log(e);
-          })
-      
+      this.dashBoardService.getStoreCustData(id)
+        .subscribe(data => {
+
+          this.custs = data.custs;
+          this.labels = data.labels;
+          this.noCust = this.custs.length == 0;
+        }, (e: any) => {
+          console.log(e);
+        })
+      this.titleService.setTitle(`${this.storeName} - Clientes`);
     });
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const tree = router.parseUrl(router.url);
         if (tree.fragment) {
-          this.routerId = tree.fragment;         
+          this.routerId = tree.fragment;
         }
       }
-    });    
+    });
   }
 
   ngOnInit(): void {
@@ -60,8 +62,8 @@ export class CustomerComponent implements OnInit {
     if (this.routerId.length > 0) {
       const element = document.getElementById(this.routerId);
 
-      if (element) { 
-        element.scrollIntoView({behavior: "smooth", block: "center", inline: "nearest"});         
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
       }
 
     }
@@ -69,12 +71,12 @@ export class CustomerComponent implements OnInit {
 
   labelStyle(name) {
     const l = this.labels.find(l => l.name == name);
-    
+
     return (l == undefined) ? '' : 'color: ' + l.color;
   }
 
   custLabelStyle(cust: CustomerType) {
-    
+
     return this.labelStyle(this.showLabel(cust));
   }
 
@@ -111,7 +113,7 @@ export class CustomerComponent implements OnInit {
       c.changed = true;
     }
   }
-  
+
   saveCustomer() {
     this.commandNow = 'spinner';
     this.dashBoardService.putStoreCustomerData(this.custs, this.storeName)
@@ -123,4 +125,4 @@ export class CustomerComponent implements OnInit {
       })
   }
 
- }
+}

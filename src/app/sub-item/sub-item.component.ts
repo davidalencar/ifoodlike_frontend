@@ -4,6 +4,7 @@ import { DashBoardService } from '../services/dashboard.service';
 import { StoreService } from '../services/store.service';
 import { ProductType } from '../services/types/product.type';
 import { ItemCategoryType } from '../services/types/item.category.type';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-sub-item',
@@ -18,12 +19,15 @@ export class SubItemComponent implements OnInit {
 
   constructor(public storeService: StoreService,
     public dashBoardService: DashBoardService,
-    private router: Router) {
+    private titleService: Title,
+    private router: Router) {    
     if (this.dashBoardService.editProduct == undefined) {
       router.navigate([this.dashBoardService.getToken().stores[0], 'products'])
     } else {
       this.product = JSON.parse(JSON.stringify(this.dashBoardService.editProduct));
+      this.titleService.setTitle(`${this.dashBoardService.getToken().stores[0]} - Produto - Subitens`);
     }
+
   }
 
   ngOnInit(): void {
