@@ -1,0 +1,167 @@
+<app-nav-back [title]="'Pedido: ' + salesId" [route]="['/', lastOrder.order.store]"></app-nav-back>
+<div class="container">
+    <ul class="list-group">
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row product">
+                    <div class="col">
+                        <span class="question-text">Seu pedido</span>
+                    </div>
+                </div>
+                <div class="row product">
+                    <div class="col-2">
+                        <i class="ri-checkbox-circle-line"></i>
+                        <!-- <i class="ri-checkbox-blank-circle-line"></i> -->
+                    </div>
+                    <div class="col">
+                        <span>Pedido realizado</span>
+                        <div>
+                            <span
+                                class="text-muted question-text">{{ dashBoardService.formatDateTime(lastOrder.order.time)}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="row product">
+                    <div class="col-2">
+                        <i class="ri-checkbox-blank-circle-line"></i>
+                    </div>
+                    <div class="col">
+                        Pedido separado
+                    </div>
+                </div>
+                <div class="row product">
+                    <div class="col-2">
+                        <i class="ri-checkbox-blank-circle-line"></i>
+                    </div>
+                    <div class="col">
+                        Pedido entregue
+                    </div>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row product">
+                    <div class="col">
+                        <span class="question-text">Receber em:</span>
+                    </div>
+                </div>
+                <div class="row product">
+                    <div class="col text-muted question-text">
+                        {{ dashBoardService.formatDeliveryAddressL1(lastOrder.customer)}}
+                        {{ dashBoardService.formatDeliveryAddressL2(lastOrder.customer)}}
+                    </div>
+                </div>
+                <ng-container *ngIf="lastOrder.order.schedule != undefined">
+                    <div class="row product">
+                        <div class="col">
+                            <span class="question-text">Agendado para:</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <span class="text-muted question-text">{{dashBoardService.formatDateDDMM(lastOrder.order.schedule.date)}} entre {{ lastOrder.order.schedule.period }}
+                            </span>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row product">
+                    <div class="col">
+                        <span class="question-text">Pagamento na entrega:</span>
+                    </div>
+                    <div class="col-3 text-muted question-text">
+                        <label *ngIf="lastOrder.order.paymMethod == 'credit'" class="text-center">
+                            <i class="ri-bank-card-fill"></i>
+                            <p class="paymmodename">Cartão</p>
+                        </label>
+                        <label *ngIf="lastOrder.order.paymMethod == 'money'" class="text-center">
+                            <i class="ri-money-dollar-circle-line"></i>
+                            <p class="paymmodename">Dinheiro</p>
+                        </label>
+                        <label *ngIf="lastOrder.order.paymMethod == 'transfer'" class="text-center">
+
+                            <i class="ri-exchange-dollar-line"></i>
+                            <p class="paymmodename">Transferência</p>
+                        </label>
+                    </div>
+                </div>
+            </div>
+        </li>    
+        <li class="list-group-item question-text">
+            <div class="container">
+                <div class="row ">
+                    <div class="col">
+                        <span class="question-text">
+                            Itens                            
+                        </span>
+                    </div>
+                </div>
+                <div class="row product"></div>
+                <ng-container *ngFor="let l of lastOrder.order.lines">
+                    <div class="row">
+                        <div class="col-2">
+                            <span>{{ l.qty }}X</span>
+                        </div>
+                        <div class="col">
+                            <span class="font-weight-normal"> {{ l.product }} </span>
+                        </div>
+                        <div class="col-3">
+                            <span class="font-weight-normal"> {{ storeService.formatPrice(l.amount)}} </span>
+                        </div>
+                    </div>
+                    <div class="row" *ngFor="let c of l.items">
+                        <div class="col text-muted">
+                            {{c.category}}
+                            <ul>
+                                <li *ngFor="let i of c.items">
+                                    <span *ngIf="i.qty > 1">{{ i.qty }}X </span>
+                                    {{i.item}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </ng-container>
+                <div class="row product">
+                    <div class="col-3">
+                        <span class="question-title">
+                            Taxas:
+                        </span>
+                    </div>
+                </div>
+                <div class="row text-muted" *ngFor="let t of lastOrder.order.taxes">
+                    <div class="col">
+                        {{ t.name }}
+                    </div>
+                    <div class="col-3">
+                        {{ storeService.formatPrice(t.value)}}
+                    </div>
+                </div>
+                <div class="row product">
+                    <div class="col">
+                        Total:
+                    </div>
+                    <div class="col-3">
+                        <span class="font-weight-bold">
+                            {{ storeService.formatPrice(lastOrder.order.totalAmount) }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
+<br>
+<br>
+<br>
+
+<nav class="navbar fixed-bottom navbar-expand-lg  navbar-light bg-light">
+    <div class="container justify-content-center">
+        <button class="btn btn-outline-secondary">
+            <div class="d-flex justify-content-center">
+                <i class="ri-whatsapp-line whats-btn"></i>
+                <span>Falar com a loja</span>
+            </div>
+
+        </button>
+    </div>
+</nav>

@@ -14,6 +14,7 @@ import { OrderType } from './types/order.type';
 import { SalesResponseType } from './types/sales.response.type';
 import { SalesType } from './types/sales.type'
 import { stringify } from '@angular/compiler/src/util';
+import { CustomerType } from './types/customer.type';
 
 @Injectable()
 export class StoreService {
@@ -327,10 +328,21 @@ export class StoreService {
         return this.http.post<SalesResponseType>(url, this.createOrder())
     }
 
-    createOrder() {
+    setLastOrder() {
+        var curOrder = this.createOrder();
+        curOrder.order.salesId = this.salesId;
+        localStorage.setItem('setLastOrder', JSON.stringify(curOrder));
+    }
+
+    getLastOrder() {
+        const salesOrder: {customer: CustomerType, order: SalesType} = JSON.parse(localStorage.getItem('setLastOrder'));
+        return salesOrder;
+    }
+
+    createOrder(){
         
         var data = {
-            customer: {
+            customer: {                
                 name: this.order.userName,
                 phone: this.order.userPhone,
                 address: {
@@ -351,6 +363,8 @@ export class StoreService {
                 ]
             },
             order: {
+                salesId: '',
+                time: Date.now(),
                 store: this.store.name,
                 schedule: undefined,
                 paymMethod: this.order.paymMethod,

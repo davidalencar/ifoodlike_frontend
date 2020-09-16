@@ -23,7 +23,8 @@ import { StoreComponent } from './store/store.component';
 import { PickingComponent } from './picking/picking.component';
 import { ProductsComponent } from './products/products.component';
 import { SubItemComponent } from './sub-item/sub-item.component';
-import { ChangepwdComponent } from './changepwd/changepwd.component'
+import { ChangepwdComponent } from './changepwd/changepwd.component';
+import { OrderComponent } from './order/order.component'
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { ChangepwdComponent } from './changepwd/changepwd.component'
     PickingComponent,
     ProductsComponent,
     SubItemComponent,
-    ChangepwdComponent
+    ChangepwdComponent,
+    OrderComponent
   ],
   imports: [
     BrowserModule,

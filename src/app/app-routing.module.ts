@@ -14,6 +14,7 @@ import { StoreComponent } from './store/store.component'
 import { PickingComponent } from './picking/picking.component';
 import { SubItemComponent } from './sub-item/sub-item.component';
 import { ChangepwdComponent } from './changepwd/changepwd.component'
+import { OrderComponent } from './order/order.component'
 
 import { StoreLoadedGuard } from './guards/storeLoaded.guard'
 import { AuthGuard } from './guards/auth.guard'
@@ -26,6 +27,8 @@ const routes: Routes = [
   { path: ':id/bill', component: BillComponent, canActivate: [StoreLoadedGuard]},
   { path: ':id/customer', component: CustomerComponent, canActivate: [StoreLoadedGuard]},
   { path: ':id/address', component: AddressComponent, canActivate: [StoreLoadedGuard]},
+  { path: 'order/:salesId', component: OrderComponent},
+
   { path: 'user/board', component: UserComponent, canActivate: [AuthGuard]},
   { path: ':id/sales', component: SalesComponent, canActivate: [AuthGuard]},
   { path: ':id/cust', component: CustomerComponent, canActivate: [AuthGuard]},

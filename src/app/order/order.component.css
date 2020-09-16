@@ -1,0 +1,15 @@
+.row.product {
+    margin-top: 10px;
+}
+
+.question-text {
+    font-size: 12px;
+    line-height: 1;
+    font-weight: 600;
+    letter-spacing: .5px;
+    font-family: poppins, sans-serif;
+}
+
+.whats-btn {
+    margin-right: 10px;
+}

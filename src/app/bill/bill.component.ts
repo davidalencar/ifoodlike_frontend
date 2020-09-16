@@ -83,18 +83,21 @@ export class BillComponent implements OnInit {
     this.storeService.sendOrder()
       .subscribe((data: SalesResponseType) => {
         this.storeService.salesId = data.salesId;
+        this.storeService.setLastOrder();
         //this.commandNow = 'share';
         this.sendViaWhats()
       })
 
   }
 
+  
+
   sendViaWhats() {
     const apiURI = 'https://api.whatsapp.com/send?'
     const argPhone = (this.storeService.store.phone) ? `phone=55${this.storeService.store.phone}` : '';
     const argsOrder = `&text=${window.encodeURIComponent(this.formatData())}`;
     window.open(`${apiURI}${argPhone}${argsOrder}`)
-    window.location.href = `/${this.storeService.store.name}`;
+    window.location.href = `/order/${this.storeService.salesId}`;
   }
 
   breakLine() {
