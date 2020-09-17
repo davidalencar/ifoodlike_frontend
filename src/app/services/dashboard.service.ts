@@ -29,7 +29,7 @@ export class DashBoardService {
     constructor(private http: HttpClient) { }
 
     convertSalesToExcelData(list: SalesType[]): string[][] {
-        var data = [['Pedido', 'Status', 'Data', 'Hora', 'Pagamento', 'Total', 
+        var data = [['Etiqueta', 'Pedido', 'Status', 'Data', 'Hora', 'Pagamento', 'Total', 
                     'Instruções', 'Produto', 'Categoria', 'Preço', 'Qtde', 'Valor', 
                     'Cliente', 'Telefone', 'Cidade', 'UF', 'Bairro', 'Endereço', 'Num', 
                     'Complemento', 'CEP']];
@@ -42,6 +42,7 @@ export class DashBoardService {
                 const line = sale.lines[index];
                 var dataLine: string[] =  [];
 
+                dataLine.push(sale.cust.stores.find(s=>s.name == sale.store).label);
                 dataLine.push(sale.salesId);
                 switch (sale.status) {
                     case 'received':  dataLine.push('Recebido'); break;
