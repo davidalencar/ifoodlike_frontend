@@ -105,3 +105,13 @@
     float: right!important;    
     margin-right: 10px;
 }
+
+.last-order-btn {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.last-order-text {
+    font-weight: 600;
+    font-size: 80%;
+}

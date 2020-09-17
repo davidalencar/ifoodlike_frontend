@@ -12,6 +12,14 @@
         <p class="lead">{{ storeService.store.complement }}</p>
     </div>
 </div>
+<div class="container d-flex justify-content-end" *ngIf="storeService.getLastOrder() != null">
+    <a class="last-order-btn text-reset" [routerLink]="['/','order', storeService.getLastOrder().order.salesId]">
+        <div class="ri-bill-line d-flex justify-content-center"></div>
+        <div class="last-order-text">
+            Último Pedido:{{ storeService.formatSalesId(storeService.getLastOrder().order.salesId) }}
+        </div>
+    </a>
+</div>
 <div class="container status" *ngIf="storeService.storeIsCloed()">
     <div class="d-flex">
         <a (click)="showTime = !showTime">
@@ -75,10 +83,8 @@
 <br>
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light " *ngIf="storeService.storeCanReciveOrder()">
-    <div class="container justify-content-end ">
-        <button class="btn btn-lg btn-success btn-confirm" [routerLink]="[nextRouterLink()] "
-            [disabled]="!storeService.hasProductsOnBasket()">
-            {{ nextRouterName() }}
-        </button>
-    </div>
+    <button class="btn btn-lg btn-success btn-confirm" [routerLink]="[nextRouterLink()] "
+        [disabled]="!storeService.hasProductsOnBasket()">
+        {{ nextRouterName() }}
+    </button>
 </nav>
