@@ -78,3 +78,7 @@ div.invalid-msg {
 .singup {
   margin-top: 0.25rem;
 }
+
+.logo {
+  border-radius: 100%;
+}

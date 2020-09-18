@@ -158,7 +158,7 @@ export class DashBoardService {
         return this.http.get<{ sales: SalesType[], labels: { name: string, color: string }[] }>(url, {
             headers: { 'Authorization': this.userToken.access_token }
         })
-    }
+    }    
 
     getStoreCustData(storeName: string) {
         this.currentStore = storeName;
