@@ -44,6 +44,6 @@ export class OrderComponent implements OnInit {
   }
 
   formatMsgToWhats() {
-    return `Oi, sou ${this.lastOrder.customer.name} e quero falar sobre o pedido ${this.salesId}`;
+    return `Oi, sou ${this.lastOrder.customer.name} e quero falar sobre o pedido ${this.salesId}\n\n---\n${this.storeService.getOrderWhatsAppText()}`;
   }
 }

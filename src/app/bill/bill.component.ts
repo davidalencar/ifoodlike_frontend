@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { StoreService } from '../services/store.service';
 import { ProductType } from '../services/types/product.type';
+
+
 import { CookieService } from 'ngx-cookie-service';
 
 import * as moment from 'moment';
@@ -47,7 +49,7 @@ export class BillComponent implements OnInit {
 
   setDataToCookie() {
     const expires = 60;
-    
+
 
     if (this.storeService.order.userName != undefined) {
       this.cookieService.set('user-name', this.storeService.order.userName, expires);
@@ -84,138 +86,20 @@ export class BillComponent implements OnInit {
       .subscribe((data: SalesResponseType) => {
         this.storeService.salesId = data.salesId;
         this.storeService.setLastOrder();
-        //this.commandNow = 'share';
         this.sendViaWhats()
       })
 
   }
 
-  
-
   sendViaWhats() {
     const apiURI = 'https://api.whatsapp.com/send?'
     const argPhone = (this.storeService.store.phone) ? `phone=55${this.storeService.store.phone}` : '';
-    const argsOrder = `&text=${window.encodeURIComponent(this.formatData())}`;
+    const argsOrder = `&text=${window.encodeURIComponent(this.storeService.getOrderWhatsAppText())}`;
     window.open(`${apiURI}${argPhone}${argsOrder}`)
     window.location.href = `/order/${this.storeService.salesId}`;
   }
 
-  breakLine() {
-    return '\n---\n'
-  }
 
-  formatSchedule() {
-    var sc = '*AGENDAMENTO*'
-    const mnt = this.storeService.getNextTime().date;
-    const dateFormat = mnt.format('DD/MM');
-    const weekDayName = this.storeService.weekDay(mnt.day()).toLocaleLowerCase();
-    sc += `\nPara *${dateFormat}* (${weekDayName}) entre ${this.storeService.order.schedule.period}`
-
-    return sc;
-  }
-
-  formatData() {
-    var data: string = '';
-
-    data += this.formatHeader()
-    data += this.breakLine();
-    if (this.storeService.storeIsCloed()) {
-      data += this.formatSchedule();
-      data += this.breakLine();
-    }
-    data += `_Itens_ \n${this.formatOrder()}`;
-    
-    data += this.breakLine();
-    data += `*Endereço:* \n${this.formatAddress()}`
-
-    if (this.storeService.order.instruction != undefined && this.storeService.order.instruction.trim().length > 0) {
-      data += this.breakLine();
-      data += `*Instruções:* \n${this.formatOrderInstructions()}`
-
-    }
-
-
-    data += this.breakLine();
-    data += this.formatFooter()
-
-    return data;
-  }
-
-  formatPaym() {
-    var paym: string = ''
-
-    switch (this.storeService.order.paymMethod) {
-      case 'transfer':
-        paym += '_Transferência_\n'
-        paym += `_Banco: ${this.storeService.store.paym.transfer.bank}_\n`
-        paym += `_Conta: ${this.storeService.store.paym.transfer.account}_\n`
-        paym += `_Documento: ${this.storeService.store.paym.transfer.document}_`
-        break;
-      case 'money':
-        paym += '_Dinheiro_'
-        break;
-      case 'credit':
-        paym += '_Cartão de crédito_'
-        break;
-    }
-
-    return paym;
-  }
-
-  formatSalesId() {
-    var orderFormated = String(this.storeService.salesId);
-    return `#${orderFormated.padStart(4, '0')}`
-  }
-
-  formatHeader() {
-    var header = `*${this.formatSalesId()}*`;
-    header += `\n _${this.formatUserInfo()}_`;
-
-    return header;
-  }
-
-  formatUserInfo() {
-    var userInfo: string = `${this.storeService.order.userName.trim()}`
-    userInfo += ` - ${this.storeService.order.userPhone}`
-    return userInfo;
-  }
-
-  formatAddress() {
-    return `${this.storeService.formatAddressLine1()}\n${this.storeService.formatAddressLine2()}`
-  }
-
-  formatOrder() {
-    var order: string = '';
-
-    this.storeService.basketProducts().forEach(p => {
-      order += `    \n *${p.qty}X*  ${(p.unit == undefined || p.unit == '') ? '' : '_' + p.unit + '_'}  *${p.name}*  _(${this.storeService.formatPrice(p.price * p.qty)})_`
-
-      this.storeService.orderProductItemsCategory(p.items).forEach(category => {
-        order += `\n  _${category.name}_`
-        this.storeService.getItemsInProductItemCategory(category).forEach(item => {
-          order += `    \n     + _${(item.qty > 1) ? item.qty + '  ' : ''}${item.name}${(item.price > 0) ? '  (' + this.storeService.formatPrice(item.price * item.qty * p.qty) + ')' : ''}_`
-        })
-      })
-    })
-    order += '\n'
-    this.storeService.store.taxes.forEach(t => order += `    \n _(${t.name} ${this.storeService.formatPrice(t.value)})_`)
-    order += `\n\n*Total ${this.storeService.formatPrice(this.storeService.basketTotalAmountWithTaxes())}*`
-    order += `\n_Pagamento:_ ${this.formatPaym()}`;
-
-    return order;
-  }
-
-  formatOrderInstructions() {
-    return `\n${this.storeService.order.instruction.trim()}`
-  }
-
-  formatFooter() {
-    var footer: string = '';
-    footer += `Pedido em ${moment().format('DD/MM/YYYY HH:mm')}`;
-    footer += ` via bslista.com/${this.storeService.store.name}`;
-
-    return footer;
-  }
 
   scheduleOrder() {
     return this.storeService.getNextTime().workDay;

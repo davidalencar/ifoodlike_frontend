@@ -83,8 +83,10 @@
 <br>
 <br>
 <nav class="navbar fixed-bottom navbar-expand-lg navbar-light bg-light " *ngIf="storeService.storeCanReciveOrder()">
-    <button class="btn btn-lg btn-success btn-confirm" [routerLink]="[nextRouterLink()] "
-        [disabled]="!storeService.hasProductsOnBasket()">
-        {{ nextRouterName() }}
-    </button>
+    <div class="container">
+        <button class="btn btn-lg btn-success btn-confirm" [routerLink]="[nextRouterLink()] "
+            [disabled]="!storeService.hasProductsOnBasket()">
+            {{ nextRouterName() }}
+        </button>
+    </div>
 </nav>

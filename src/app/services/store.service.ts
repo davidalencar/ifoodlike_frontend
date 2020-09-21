@@ -12,9 +12,10 @@ import { ItemType } from './types/item.type';
 import { ItemCategoryType } from './types/item.category.type';
 import { OrderType } from './types/order.type';
 import { SalesResponseType } from './types/sales.response.type';
-import { SalesType } from './types/sales.type'
-import { stringify } from '@angular/compiler/src/util';
+import { SalesType } from './types/sales.type';
 import { CustomerType } from './types/customer.type';
+import { FormatWhatsApp } from '../services/format.whatsapp' 
+
 
 @Injectable()
 export class StoreService {
@@ -337,6 +338,10 @@ export class StoreService {
     getLastOrder() {
         const salesOrder: {customer: CustomerType, order: SalesType} = JSON.parse(localStorage.getItem('setLastOrder'));
         return salesOrder;
+    }
+
+    getOrderWhatsAppText() {
+        return new FormatWhatsApp(this.getLastOrder()).formatSalesOrder();
     }
 
     createOrder(){

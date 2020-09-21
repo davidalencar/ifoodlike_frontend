@@ -245,34 +245,7 @@
                 </div>
                 <div class="lastrow"></div>
             </li>
-            <li class="list-group-item bill" *ngIf="commandNow == 'share'">
-                <div class="container">
-                    <div class="row">
-                        <div class="col text-center">
-                            <span class="question-text ">Pedido recebido =)</span>
-                            <p class="text-muted font-weight-bold">
-                                {{ formatSalesId() }}
-                            </p>
-                        </div>
-                    </div>
-                    <div class="row" *ngIf="storeService.order.paymMethod == 'transfer'">
-                        <div class="col">
-                            <span class="question-text ">Dados para trnsferência</span>
-                            <p class="text-muted">
-                                <span class="question-text ">Banco:</span>
-                                {{ storeService.store.paym.transfer.bank }} <br>
-                                <span class="question-text ">Conta:</span>
-                                {{ storeService.store.paym.transfer.account }} <br>
-                                <span class="question-text ">Documento:</span>
-                                {{ storeService.store.paym.transfer.document }}
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </li>            
         </ul>
-
-
         <br>
         <br>
         <br>
@@ -282,16 +255,8 @@
                 <div *ngIf="commandNow == 'spinner'" class="spinner-border" role="status">
                     <span class="sr-only">Loading...</span>
                 </div>
-                <!-- <button *ngIf="commandNow == 'share'" class="btn btn-success btn-lg btn-confirm d-flex"
-                    (click)="sendViaWhats()">
-                    <div class="col-2">
-                        <i class="ri-whatsapp-line"></i>
-                    </div>
-                    <div class="col">
-                        Compartihar {{ formatSalesId() }}
-                    </div>
-                </button> -->
-                <p  class="badge badge-warning" *ngIf="form.valid && storeService.canSubmitOrder()"> Envie seu pedido por WhatsApp para concluir. </p>
+                <p class="badge badge-warning" *ngIf="form.valid && storeService.canSubmitOrder()"> Envie seu pedido por
+                    WhatsApp para concluir. </p>
                 <button *ngIf="commandNow == 'confirm'" type="submit" class="btn btn-success btn-lg btn-confirm"
                     [disabled]="!form.valid || !storeService.canSubmitOrder()">
                     <div class="d-flex justify-content-center">
