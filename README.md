@@ -1,27 +1,52 @@
 # Loja
+Esse projeto é o frontend da nossa loja.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
+## Construído com:
+- [express](https://github.com/expressjs/express)
+- [Angular CLI](https://github.com/angular/angular-cli) version 10.0.3.
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
-## Code scaffolding
+## Primeiros passos
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### #Instale o client do Angular
 
-## Build
+Execute o seguinte comando:
+```
+sudo npm install -g @angular/cli
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+#### #Execute o BackEnd no seu ambiente
 
-## Running unit tests
+É preciso configurar e executar o projeto [loja_api](https://github.com/elly-group/loja_api).
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Use o comando:
+```
+make dev
+```
 
-## Running end-to-end tests
+#### #Execute o FrondEnd no seu ambiente
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+Usando o comano:
+```
+make dev
+```
 
-## Further help
+A home do projeto estará disponível em `http://localhost:4200/`
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## Usando o aplicativo
+
+#### #Dica
+ - Navegue no modo privado: O sistema tem um controle de cockies bem ruim que atrapalha muito os testes.
+
+#### #Criar uma loja
+
+Na home `http://localhost:4200/` clique em *Novo por aqui? Crie sua lista* e preencha o formulário com e-mail, nome da loja e telefone. O app deve mostrar uma msg informando que sua loja está sendo criada.
+
+#### #Acessar configuração da loja
+Acesso a home `http://localhost:4200/` novamente e faça o login com o e-mail informado e a senha *_gIUK31HNOyO3_*.
+
+Você terá acesso ao painel de controle da loja
+
+#### #Acessar loja
+`http://localhost:4200/` + NOME DA SUA LOJA
