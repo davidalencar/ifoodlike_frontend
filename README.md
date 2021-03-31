@@ -48,5 +48,11 @@ Acesso a home `http://localhost:4200/` novamente e faça o login com o e-mail in
 
 Você terá acesso ao painel de controle da loja
 
+#### #Controle de plano do usr
+O sistema tem um controle rudimentar de plano e para ter acessa a todas as funcionalidades é preciso alterar o plano do usr para *_'pro'_*
+
+Encontre o registro no banco de dados e atribua a propriedade *_'plan'_* com o valor *_'pro'_*
+
 #### #Acessar loja
 `http://localhost:4200/` + NOME DA SUA LOJA
+
