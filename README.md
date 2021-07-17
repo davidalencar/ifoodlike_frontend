@@ -49,7 +49,7 @@ A home do projeto estará disponível em `http://localhost:4200/`
 Na home `http://localhost:4200/` clique em *Novo por aqui? Crie sua lista* e preencha o formulário com e-mail, nome da loja e telefone. O app deve mostrar uma msg informando que sua loja está sendo criada.
 
 #### #Acessar configuração da loja
-Acesso a home `http://localhost:4200/` novamente e faça o login com o e-mail informado e a senha *_gIUK31HNOyO3_*.
+Acesso a home `http://localhost:4200/` novamente e faça o login com o e-mail informado e a senha *{SENHA}*.
 
 Você terá acesso ao painel de controle da loja
 
