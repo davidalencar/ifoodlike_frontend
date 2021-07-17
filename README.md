@@ -1,5 +1,10 @@
-# Loja
-Esse projeto é o frontend da nossa loja.
+# IFood Like
+
+Esse é meu primeiro projeto FrontEnd feito do começo ao fim que implementa vários recursos de um sistema de pedidos como IFood.
+Nesse aplicativo eu consigo adicionar itens ao meu pedido, configurar itens com subitens e subitens de vários tipo como: opcionais, quantitativos, que mudam ou não valor do pedido, etc...
+Foi bastante divertido entender os problemas que devem ser resolvidos aqui no frontend.
+
+Eu também criei um projeto em [nodejs](https://github.com/davidalencar/ifoodlike_backend) apenas para suportar esse front.
 
 ## Construído com:
 - [express](https://github.com/expressjs/express)
