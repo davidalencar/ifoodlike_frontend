@@ -6,6 +6,13 @@ Foi bastante divertido entender os problemas que devem ser resolvidos aqui no fr
 
 Eu também criei um projeto em [nodejs](https://github.com/davidalencar/ifoodlike_backend) apenas para suportar esse front.
 
+## Teste online
+Faça um pedido teste na hamburgueria que configurei para mostrar as funcionalidade da loja.
+
+Clique em [http://bslista.com/hamburgueria](http://bslista.com/hamburgueria)
+
+
+
 ## Telas - Visão do cliente
 
 #### Cardápio
